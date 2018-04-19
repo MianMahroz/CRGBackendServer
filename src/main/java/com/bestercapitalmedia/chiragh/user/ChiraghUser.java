@@ -12,9 +12,9 @@ import javax.persistence.Id;
 
 import javax.xml.bind.annotation.*;
 
-import com.bestercapitalmedia.chirag.systemactivitylogs.SystemActivityLog;
 import com.bestercapitalmedia.chiragh.city.City;
 import com.bestercapitalmedia.chiragh.propertybidprocess.Propertybidprocess;
+import com.bestercapitalmedia.chiragh.systemactivitylogs.SystemActivityLog;
 
 import javax.persistence.*;
 

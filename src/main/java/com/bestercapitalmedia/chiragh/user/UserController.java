@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bestercapitalmedia.chirag.mail.MailService;
-import com.bestercapitalmedia.chirag.systemactivitylogs.SystemActivityLog;
-import com.bestercapitalmedia.chirag.systemactivitylogs.SystemActivityLogController;
-import com.bestercapitalmedia.chirag.utill.ChiragUtill;
+import com.bestercapitalmedia.chiragh.mail.MailService;
+import com.bestercapitalmedia.chiragh.systemactivitylogs.SystemActivityLog;
+import com.bestercapitalmedia.chiragh.systemactivitylogs.SystemActivityLogController;
+import com.bestercapitalmedia.chiragh.utill.ChiragUtill;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

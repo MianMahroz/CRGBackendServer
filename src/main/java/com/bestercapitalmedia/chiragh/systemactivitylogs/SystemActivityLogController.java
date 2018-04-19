@@ -1,4 +1,4 @@
-package com.bestercapitalmedia.chirag.systemactivitylogs;
+package com.bestercapitalmedia.chiragh.systemactivitylogs;
 
 import java.util.Optional;
 

@@ -1,4 +1,4 @@
-package com.bestercapitalmedia.chirag.mail;
+package com.bestercapitalmedia.chiragh.mail;
 
 
 

@@ -1,4 +1,4 @@
-package com.bestercapitalmedia.chirag.utill;
+package com.bestercapitalmedia.chiragh.utill;
 
 import java.io.Serializable;
 
@@ -8,7 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.providers.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.bestercapitalmedia.chirag.systemactivitylogs.SystemActivityLog;
+import com.bestercapitalmedia.chiragh.systemactivitylogs.SystemActivityLog;
 import com.bestercapitalmedia.chiragh.user.ChiraghUser;
 import com.bestercapitalmedia.chiragh.user.UserRepository;
 
