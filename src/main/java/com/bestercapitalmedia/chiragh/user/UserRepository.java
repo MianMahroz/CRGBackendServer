@@ -11,5 +11,7 @@ public interface UserRepository extends CrudRepository<ChiraghUser, Integer> {
 	@Query(value = "select * from Chiragh_User where user_Email=?1  ", nativeQuery = true)
 	public ChiraghUser findByEmail(String email);
 	
+	@Query(value = "select * from Chiragh_User where user_Name=?1  ", nativeQuery = true)
+	public ChiraghUser findByUserName(String userName);
 	
 }

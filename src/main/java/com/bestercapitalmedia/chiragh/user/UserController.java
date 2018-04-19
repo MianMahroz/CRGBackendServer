@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bestercapitalmedia.chiragh.mail.MailService;
 import com.bestercapitalmedia.chiragh.systemactivitylogs.SystemActivityLog;
@@ -71,82 +72,227 @@ public class UserController {
 		String msg = "";
 		try {
 			JSONObject jsonObj = new JSONObject(data);
+			if (jsonObj.has("userName") && jsonObj.has("userEmail") && jsonObj.has("userPassword")
+					&& jsonObj.has("firstName") && jsonObj.has("middleName") && jsonObj.has("lastName")
+					&& jsonObj.has("mobileNo") && jsonObj.has("streetAddress") && jsonObj.has("buildingAddress")
+					&& jsonObj.has("emailVerificationCode") && jsonObj.has("mobileOtpCode")) {
 
-			if (jsonObj.has("userName"))
-				user.setUserName(jsonObj.getString("userName"));
-			if (jsonObj.has("userEmail"))
-				user.setUserEmail(jsonObj.getString("userEmail"));
-			if (jsonObj.has("userPassword")) {
-				String password = DigestUtils.md5DigestAsHex(jsonObj.getString("userPassword").getBytes());
-				user.setUserPassword(password);
+				if (jsonObj.has("userName")) {
+					user.setUserName(jsonObj.getString("userName"));
+					ChiraghUser v_user = userRepository.findByUserName(jsonObj.getString("userName"));
+					if (v_user != null)
+						return "UserName Already Exist!";
+				}
+				if (jsonObj.has("userEmail")) {
+					user.setUserEmail(jsonObj.getString("userEmail"));
+					ChiraghUser v_user = userRepository.findByEmail(jsonObj.getString("userEmail"));
+					if (v_user != null)
+						return "Email Already Exist";
+				}
+				if (jsonObj.has("userPassword")) {
+					String password = jsonObj.getString("userPassword");
+					if (password.equals("") || password == null)
+						return "PLease Enter Password!";
+					String encrptedPassword = chiraghUtil.getencodedUserPassword(password);
+					user.setUserPassword(encrptedPassword);
+				}
+				if (jsonObj.has("firstName")) {
+					String firstName = jsonObj.getString("firstName");
+					if (firstName.equals("") || firstName == null)
+						return "Please Enter First Name!";
+					else
+						user.setFirstName(jsonObj.getString("firstName"));
+				}
+				if (jsonObj.has("middleName")) {
+					String middleName = jsonObj.getString("middleName");
+					if (middleName.equals("") || middleName == null)
+						return "Please Enter Middle Name !";
+					else
+						user.setMiddleName(jsonObj.getString("middleName"));
+				}
+				if (jsonObj.has("lastName")) {
+					String lastName = jsonObj.getString("lastName");
+					if (lastName.equals("") || lastName == null)
+						return "Please Enter Last Name!";
+					else
+						user.setLastName(jsonObj.getString("lastName"));
+				}
+				if (jsonObj.has("mobileNo")) {
+					String mobileNo = jsonObj.getString("mobileNo");
+					if (mobileNo.equals("") || mobileNo == null)
+						return "Please Enter Mobile No !";
+					else
+						user.setMobileNo(jsonObj.getString("mobileNo"));
+				}
+				if (jsonObj.has("streetAddress")) {
+					String streetAddress = jsonObj.getString("streetAddress");
+					if (streetAddress.equals("") || streetAddress == null)
+						return "Please Enter Street Address!";
+					else
+						user.setStreetAddress(jsonObj.getString("streetAddress"));
+				}
+				if (jsonObj.has("buildingAddress")) {
+					String buildingAddress = jsonObj.getString("buildingAddress");
+					if (buildingAddress.equals("") || buildingAddress == null)
+						return "Please Enter Building Address!";
+					else
+						user.setBuildingAddress(jsonObj.getString("buildingAddress"));
+				}
+				if (jsonObj.has("emailVerificationCode")) {
+					String emailVerificationCode = jsonObj.getString("emailVerificationCode");
+					if (emailVerificationCode.equals("") || emailVerificationCode == null)
+						return "Please Enter Email Verification Code!";
+					else
+						user.setEmailVerificationCode(jsonObj.getString("emailVerificationCode"));
+				}
+				if (jsonObj.has("mobileOtpCode")) {
+					String mobileOtpCode = jsonObj.getString("mobileOtpCode");
+					if (mobileOtpCode.equals("") || mobileOtpCode == null)
+						return "Please Enter Mobile Otp Code!";
+					else
+						user.setMobileOtpCode(jsonObj.getString("mobileOtpCode"));
+				}
+
+				rtnObject = objectMapper.writeValueAsString(user);
+				userRepository.save(user);
+				msg = "success";
+			} // end of outer if
+			else {
+				msg = "Sended Object is Invalid";
 			}
-			if (jsonObj.has("firstName"))
-				user.setFirstName(jsonObj.getString("firstName"));
-			if (jsonObj.has("middleName"))
-				user.setMiddleName(jsonObj.getString("middleName"));
-			if (jsonObj.has("lastName"))
-				user.setLastName(jsonObj.getString("lastName"));
-			if (jsonObj.has("mobileNo"))
-				user.setMobileNo(jsonObj.getString("mobileNo"));
-			if (jsonObj.has("streetAddress"))
-				user.setStreetAddress(jsonObj.getString("streetAddress"));
-			if (jsonObj.has("buildingAddress"))
-				user.setBuildingAddress(jsonObj.getString("buildingAddress"));
-			if (jsonObj.has("emailVerificationCode"))
-				user.setEmailVerificationCode(jsonObj.getString("emailVerificationCode"));
-			if (jsonObj.has("mobileOtpCode"))
-				user.setMobileOtpCode(jsonObj.getString("mobileOtpCode"));
-			rtnObject = objectMapper.writeValueAsString(user);
-			userRepository.save(user);
-			msg = "success";
 		} catch (Exception ee) {
-			ee.printStackTrace();
-			msg = "Error";
+			msg = "Error" + ee.getMessage();
 		} // end of catch
-		log.info("Output: " + rtnObject);
-		log.info("--------------------------------------------------------");
 
-		return rtnObject;
+		if (msg.equals("success")) {
+			log.info("Output: " + rtnObject);
+			log.info("--------------------------------------------------------");
+			return rtnObject;
+		} else {
+			log.info("Output: " + msg);
+			log.info("--------------------------------------------------------");
+			return msg;
+		}
+
 	}// end of create
 
 	@RequestMapping(value = "/put/{id}", method = RequestMethod.PUT)
-	public ChiraghUser update(@PathVariable(value = "id") long id, @RequestBody String data) {
+	public String update(@RequestBody String data) {
 		log.info("Put: /api/Users/put");
-		ChiraghUser user = new ChiraghUser();
+		log.info("Input: " + data);
+
+		ChiraghUser user = new ChiraghUser();       
 		ObjectMapper objectMapper = new ObjectMapper();
 		String rtnObject = "";
+		String msg = "";
+
 		try {
 			JSONObject jsonObj = new JSONObject(data);
+			if (jsonObj.has("userId") && jsonObj.has("userName") && jsonObj.has("userEmail")
+					&& jsonObj.has("userPassword") && jsonObj.has("firstName") && jsonObj.has("middleName")
+					&& jsonObj.has("lastName") && jsonObj.has("mobileNo") && jsonObj.has("streetAddress")
+					&& jsonObj.has("buildingAddress") && jsonObj.has("emailVerificationCode")
+					&& jsonObj.has("mobileOtpCode")) {
 
-			if (jsonObj.has("userName"))
-				user.setUserName(jsonObj.getString("userName"));
-			if (jsonObj.has("userEmail"))
-				user.setUserEmail(jsonObj.getString("userEmail"));
-			if (jsonObj.has("userPassword"))
-				user.setUserPassword(jsonObj.getString("userPassword"));
-			if (jsonObj.has("firstName"))
-				user.setFirstName(jsonObj.getString("firstName"));
-			if (jsonObj.has("middleName"))
-				user.setMiddleName(jsonObj.getString("middleName"));
-			if (jsonObj.has("lastName"))
-				user.setLastName(jsonObj.getString("lastName"));
-			if (jsonObj.has("mobileNo"))
-				user.setMobileNo(jsonObj.getString("mobileNo"));
-			if (jsonObj.has("streetAddress"))
-				user.setStreetAddress(jsonObj.getString("streetAddress"));
-			if (jsonObj.has("buildingAddress"))
-				user.setBuildingAddress(jsonObj.getString("buildingAddress"));
-			if (jsonObj.has("emailVerificationCode"))
-				user.setEmailVerificationCode(jsonObj.getString("emailVerificationCode"));
-			if (jsonObj.has("mobileOtpCode"))
-				user.setMobileOtpCode(jsonObj.getString("mobileOtpCode"));
-			rtnObject = objectMapper.writeValueAsString(user);
+				if (jsonObj.has("userId")) {
+					try {
+						user.setUserId(Integer.parseInt(jsonObj.getString("userId")));
+					} catch (Exception ee) {
+						return "Invalid User Id!";
+					}
+				}
+
+				if (jsonObj.has("userName")) {
+					user.setUserName(jsonObj.getString("userName"));
+				}
+				if (jsonObj.has("userEmail")) {
+					user.setUserEmail(jsonObj.getString("userEmail"));
+				}
+				if (jsonObj.has("userPassword")) {
+					String password = jsonObj.getString("userPassword");
+					if (password.equals("") || password == null)
+						return "PLease Enter Password!";
+					String encrptedPassword = chiraghUtil.getencodedUserPassword(password);
+					user.setUserPassword(encrptedPassword);
+				}
+				if (jsonObj.has("firstName")) {
+					String firstName = jsonObj.getString("firstName");
+					if (firstName.equals("") || firstName == null)
+						return "Please Enter First Name!";
+					else
+						user.setFirstName(jsonObj.getString("firstName"));
+				}
+				if (jsonObj.has("middleName")) {
+					String middleName = jsonObj.getString("middleName");
+					if (middleName.equals("") || middleName == null)
+						return "Please Enter Middle Name !";
+					else
+						user.setMiddleName(jsonObj.getString("middleName"));
+				}
+				if (jsonObj.has("lastName")) {
+					String lastName = jsonObj.getString("lastName");
+					if (lastName.equals("") || lastName == null)
+						return "Please Enter Last Name!";
+					else
+						user.setLastName(jsonObj.getString("lastName"));
+				}
+				if (jsonObj.has("mobileNo")) {
+					String mobileNo = jsonObj.getString("mobileNo");
+					if (mobileNo.equals("") || mobileNo == null)
+						return "Please Enter Mobile No !";
+					else
+						user.setMobileNo(jsonObj.getString("mobileNo"));
+				}
+				if (jsonObj.has("streetAddress")) {
+					String streetAddress = jsonObj.getString("streetAddress");
+					if (streetAddress.equals("") || streetAddress == null)
+						return "Please Enter Street Address!";
+					else
+						user.setStreetAddress(jsonObj.getString("streetAddress"));
+				}
+				if (jsonObj.has("buildingAddress")) {
+					String buildingAddress = jsonObj.getString("buildingAddress");
+					if (buildingAddress.equals("") || buildingAddress == null)
+						return "Please Enter Building Address!";
+					else
+						user.setBuildingAddress(jsonObj.getString("buildingAddress"));
+				}
+				if (jsonObj.has("emailVerificationCode")) {
+					String emailVerificationCode = jsonObj.getString("emailVerificationCode");
+					if (emailVerificationCode.equals("") || emailVerificationCode == null)
+						return "Please Enter Email Verification Code!";
+					else
+						user.setEmailVerificationCode(jsonObj.getString("emailVerificationCode"));
+				}
+				if (jsonObj.has("mobileOtpCode")) {
+					String mobileOtpCode = jsonObj.getString("mobileOtpCode");
+					if (mobileOtpCode.equals("") || mobileOtpCode == null)
+						return "Please Enter Mobile Otp Code!";
+					else
+						user.setMobileOtpCode(jsonObj.getString("mobileOtpCode"));
+				}
+
+				rtnObject = objectMapper.writeValueAsString(user);
+				userRepository.save(user);
+				msg = "success";
+			} // end of outer if
+			else {
+				msg = "Sended Object is Invalid";
+			}
 		} catch (Exception ee) {
-			ee.printStackTrace();
+			msg = "Error" + ee.getMessage();
+		} // end of catch
+
+		if (msg.equals("success")) {
+			log.info("Output: " + rtnObject);
+			log.info("--------------------------------------------------------");
+			return rtnObject;
+		} else {
+			log.info("Output: " + msg);
+			log.info("--------------------------------------------------------");
+			return msg;
 		}
-		log.info("Output: " + rtnObject);
-		log.info("--------------------------------------------------------");
-		return userRepository.save(user);
+
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
@@ -171,7 +317,7 @@ public class UserController {
 		try {
 			JSONObject jsonObj = new JSONObject(data);
 			if (jsonObj.has("userPassword"))
-				inputPassword = DigestUtils.md5DigestAsHex(jsonObj.getString("userPassword").getBytes());
+				inputPassword = chiraghUtil.getencodedUserPassword(jsonObj.getString("userPassword"));
 			if (jsonObj.has("userName"))
 				userName = jsonObj.getString("userName");
 			chiraghUser = userRepository.findByUserNameNPassword(userName, inputPassword);
@@ -197,26 +343,43 @@ public class UserController {
 
 	@RequestMapping(value = "/reset-password", method = RequestMethod.POST)
 	public String resetPasswordEmailPost(@RequestBody String data) {
-
+		log.info("Post: /api/Users/reset-password");
+		log.info("Input: " + data);
+		String msg = "";
 		try {
 			JSONObject jsonObj = new JSONObject(data);
 			ChiraghUser u = userRepository.findByEmail(jsonObj.getString("userEmail"));
 			if (u == null) {
-				return "User is null";
+				msg = "User not found";
 			} else {
 				String resetToken = chiraghUtil.createResetPasswordToken(u, true);
-				
 				mailService.sendResetPassword(u.getUserEmail(), resetToken);
+				msg = "Email Sent";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			msg = "Something Went Wrong!!Check your Internet Connection...";
 		}
-		return "Email Sent";
+		log.info("Output: " + msg);
+		log.info("--------------------------------------------------------");
+		return msg;
 	}
-	
-	 @RequestMapping(value = "/reset-password-change", method = RequestMethod.POST)
-	    public String resetPasswordChangePost(@RequestBody String data) {
-		   return data;
-	    }
+
+	@RequestMapping(value = "/reset-password-change", method = RequestMethod.POST)
+	public String resetPasswordChangePost(@RequestBody String data) {
+		try {
+			JSONObject jsonObject = new JSONObject(data);
+
+			if (jsonObject.has("userName")) {
+				ChiraghUser user = userRepository.findByUserName(jsonObject.getString("userName"));
+
+			}
+
+		} catch (Exception ee) {
+			ee.printStackTrace();
+		}
+
+		return data;
+	}
 
 }// end of class
