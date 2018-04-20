@@ -16,11 +16,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bestercapitalmedia.chiragh.mail.MailService;
-import com.bestercapitalmedia.chiragh.systemactivitylogs.SystemActivityLog;
+
 import com.bestercapitalmedia.chiragh.systemactivitylogs.SystemActivityLogController;
 import com.bestercapitalmedia.chiragh.utill.ChiragUtill;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -42,7 +43,7 @@ public class UserController {
 	public String list() {
 		log.info("GET: /api/Users/getAll");
 		ObjectMapper objectMapper = new ObjectMapper();
-		Iterable<ChiraghUser> userList = userRepository.findAll();
+		Iterable<Chiraghuser> userList = userRepository.findAll();
 		String rtnObject = "";
 		try {
 			rtnObject = objectMapper.writeValueAsString(userList);
@@ -65,7 +66,7 @@ public class UserController {
 		log.info("Post: /api/Users/post");
 		log.info("Input: " + data);
 
-		ChiraghUser user = new ChiraghUser();
+		Chiraghuser user = new Chiraghuser();
 		ObjectMapper objectMapper = new ObjectMapper();
 		String rtnObject = "";
 
@@ -79,13 +80,13 @@ public class UserController {
 
 				if (jsonObj.has("userName")) {
 					user.setUserName(jsonObj.getString("userName"));
-					ChiraghUser v_user = userRepository.findByUserName(jsonObj.getString("userName"));
+					Chiraghuser v_user = userRepository.findByUserName(jsonObj.getString("userName"));
 					if (v_user != null)
 						return "UserName Already Exist!";
 				}
 				if (jsonObj.has("userEmail")) {
 					user.setUserEmail(jsonObj.getString("userEmail"));
-					ChiraghUser v_user = userRepository.findByEmail(jsonObj.getString("userEmail"));
+					Chiraghuser v_user = userRepository.findByEmail(jsonObj.getString("userEmail"));
 					if (v_user != null)
 						return "Email Already Exist";
 				}
@@ -93,8 +94,13 @@ public class UserController {
 					String password = jsonObj.getString("userPassword");
 					if (password.equals("") || password == null)
 						return "PLease Enter Password!";
-					String encrptedPassword = chiraghUtil.getencodedUserPassword(password);
-					user.setUserPassword(encrptedPassword);
+					String status = chiraghUtil.passwordValidation(user.getUserName(), password);
+					if (status.equals("valid")) {
+						String encrptedPassword = chiraghUtil.getencodedUserPassword(password);
+						user.setUserPassword(encrptedPassword);
+					} else {
+						return status;
+					}
 				}
 				if (jsonObj.has("firstName")) {
 					String firstName = jsonObj.getString("firstName");
@@ -106,7 +112,7 @@ public class UserController {
 				if (jsonObj.has("middleName")) {
 					String middleName = jsonObj.getString("middleName");
 					if (middleName.equals("") || middleName == null)
-						return "Please Enter Middle Name !";
+						user.setMiddleName("");
 					else
 						user.setMiddleName(jsonObj.getString("middleName"));
 				}
@@ -181,7 +187,7 @@ public class UserController {
 		log.info("Put: /api/Users/put");
 		log.info("Input: " + data);
 
-		ChiraghUser user = new ChiraghUser();       
+		Chiraghuser user = new Chiraghuser();
 		ObjectMapper objectMapper = new ObjectMapper();
 		String rtnObject = "";
 		String msg = "";
@@ -301,17 +307,17 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
-	public Optional<ChiraghUser> get(@PathVariable(value = "id") int id) {
+	public Optional<Chiraghuser> get(@PathVariable(value = "id") int id) {
 		return userRepository.findById(id);
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ChiraghUser login(@RequestBody String data) {
+	public String login(@RequestBody String data) {
 		log.info("Post: /api/Users/login");
 		log.info("Input: " + data);
 
 		ObjectMapper objectMapper = new ObjectMapper();
-		ChiraghUser chiraghUser = null;
+		Chiraghuser Chiraghuser = null;
 		String inputPassword = "", userName = "", msg = "", rtnObject = "";
 
 		try {
@@ -320,12 +326,12 @@ public class UserController {
 				inputPassword = chiraghUtil.getencodedUserPassword(jsonObj.getString("userPassword"));
 			if (jsonObj.has("userName"))
 				userName = jsonObj.getString("userName");
-			chiraghUser = userRepository.findByUserNameNPassword(userName, inputPassword);
+			Chiraghuser = userRepository.findByUserNameNPassword(userName, inputPassword);
 			// checking userName and Password
-			if (chiraghUser != null) {
-				if (inputPassword.equals(chiraghUser.getUserPassword())) {
-					msg = "found";
-					rtnObject = objectMapper.writeValueAsString(chiraghUser);
+			if (Chiraghuser != null) {
+				if (inputPassword.equals(Chiraghuser.getUserPassword())) {
+					msg = "success";
+					rtnObject = objectMapper.writeValueAsString(Chiraghuser);
 					log.info("Output: " + rtnObject);
 					log.info("--------------------------------------------------------");
 				} // end of inner if
@@ -335,10 +341,13 @@ public class UserController {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			return e.getMessage();
 		}
+		if (msg.equals("success"))
+			return rtnObject;
+		else
+			return msg;
 
-		return chiraghUser;
 	}// end of method
 
 	@RequestMapping(value = "/reset-password", method = RequestMethod.POST)
@@ -348,7 +357,7 @@ public class UserController {
 		String msg = "";
 		try {
 			JSONObject jsonObj = new JSONObject(data);
-			ChiraghUser u = userRepository.findByEmail(jsonObj.getString("userEmail"));
+			Chiraghuser u = userRepository.findByEmail(jsonObj.getString("userEmail"));
 			if (u == null) {
 				msg = "User not found";
 			} else {
@@ -367,19 +376,30 @@ public class UserController {
 
 	@RequestMapping(value = "/reset-password-change", method = RequestMethod.POST)
 	public String resetPasswordChangePost(@RequestBody String data) {
+
+		ObjectMapper objectMapper = new ObjectMapper();
+		String rtnObject = "";
 		try {
 			JSONObject jsonObject = new JSONObject(data);
-
-			if (jsonObject.has("userName")) {
-				ChiraghUser user = userRepository.findByUserName(jsonObject.getString("userName"));
-
-			}
-
+			if (jsonObject.has("token")) {
+				Chiraghuser user = userRepository.findByToken(jsonObject.getString("token"));
+				if (user != null) {
+					user.setUserPassword(chiraghUtil.getencodedUserPassword(jsonObject.getString("userPassword")));
+					user.setToken("1");
+					userRepository.save(user);
+					rtnObject = objectMapper.writeValueAsString(user);
+				} // end of inner if
+				else {
+					return "User Not Found!";
+				} // end of inner else
+			} // end of outer if
+			else {
+				return "Invalid Sended Object";
+			} // end of outer else
 		} catch (Exception ee) {
-			ee.printStackTrace();
+			return ee.getMessage();
 		}
-
-		return data;
+		return rtnObject;
 	}
 
 }// end of class

@@ -8,10 +8,12 @@ import java.lang.StringBuilder;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.Id;
+
 import javax.xml.bind.annotation.*;
 
 import com.bestercapitalmedia.chiragh.country.Country;
-import com.bestercapitalmedia.chiragh.user.ChiraghUser;
+import com.bestercapitalmedia.chiragh.user.Chiraghuser;
 
 import javax.persistence.*;
 
@@ -20,8 +22,10 @@ import javax.persistence.*;
 
 @Entity
 
-@Table(catalog = "dbchiraghupdated", name = "city")
-
+@Table(catalog = "chiraghdatabase", name = "city")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "City")
+@XmlRootElement(namespace = "TestEntities/com/bestercapitalmedia/chiragh")
 public class City implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -30,6 +34,7 @@ public class City implements Serializable {
 
 	@Column(name = "city_Id", nullable = false)
 	@Basic(fetch = FetchType.EAGER)
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@XmlElement
@@ -51,9 +56,10 @@ public class City implements Serializable {
 	Country country;
 	/**
 	 */
-//	@OneToMany(mappedBy = "chiraghUsers", fetch = FetchType.LAZY)
-//	@XmlElement(name = "", namespace = "")
-//	java.util.Set<ChiraghUser> chiraghUsers;
+	@OneToMany(mappedBy = "city", fetch = FetchType.LAZY)
+
+	@XmlElement(name = "", namespace = "")
+	java.util.Set<Chiraghuser> chiraghusers;
 
 	/**
 	 */
@@ -91,7 +97,20 @@ public class City implements Serializable {
 		return country;
 	}
 
-	
+	/**
+	 */
+	public void setChiraghusers(Set<Chiraghuser> chiraghusers) {
+		this.chiraghusers = chiraghusers;
+	}
+
+	/**
+	 */
+	public Set<Chiraghuser> getChiraghusers() {
+		if (chiraghusers == null) {
+			chiraghusers = new java.util.LinkedHashSet<Chiraghuser>();
+		}
+		return chiraghusers;
+	}
 
 	/**
 	 */

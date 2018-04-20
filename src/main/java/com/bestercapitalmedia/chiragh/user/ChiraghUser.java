@@ -5,16 +5,20 @@ import java.io.Serializable;
 
 import java.lang.StringBuilder;
 
+import java.util.Calendar;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.persistence.Id;
-
 import javax.xml.bind.annotation.*;
 
+import com.bestercapitalmedia.chiragh.buyer.details.Propertybuyerdetails;
+import com.bestercapitalmedia.chiragh.buyer.payments.Buyerpayments;
 import com.bestercapitalmedia.chiragh.city.City;
-import com.bestercapitalmedia.chiragh.propertybidprocess.Propertybidprocess;
-import com.bestercapitalmedia.chiragh.systemactivitylogs.SystemActivityLog;
+import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
+import com.bestercapitalmedia.chiragh.property.bidprocess.Propertybidprocess;
+import com.bestercapitalmedia.chiragh.seller.details.Propertysellerdetails;
+import com.bestercapitalmedia.chiragh.seller.payments.Sellerpayments;
+import com.bestercapitalmedia.chiragh.systemactivitylogs.Systemactivitylogs;
 
 import javax.persistence.*;
 
@@ -22,12 +26,11 @@ import javax.persistence.*;
  */
 
 @Entity
-
-@Table(catalog = "dbchiraghupdated", name = "chiragh_user")
+@Table(catalog = "chiraghdatabase", name = "chiraghuser")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh/domain", name = "ChiraghUser")
-@XmlRootElement(namespace = "TestEntities/com/bestercapitalmedia/chiragh/domain")
-public class ChiraghUser implements Serializable {
+@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "Chiraghuser")
+@XmlRootElement(namespace = "TestEntities/com/bestercapitalmedia/chiragh")
+public class Chiraghuser implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -128,6 +131,30 @@ public class ChiraghUser implements Serializable {
 
 	@XmlElement
 	String mobileOtpCode;
+	/**
+	 */
+
+	@Column(name = "password_Verification_Code", length = 225)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	String passwordVerificationCode;
+	/**
+	 */
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "otp_Code_Expiration")
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	Calendar otpCodeExpiration;
+	/**
+	 */
+
+	@Column(name = "profile_Pic_Upload", length = 50)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	String profilePicUpload;
 
 	/**
 	 */
@@ -137,22 +164,62 @@ public class ChiraghUser implements Serializable {
 	City city;
 	/**
 	 */
-	@OneToMany(mappedBy = "chiraghUser", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
 
 	@XmlElement(name = "", namespace = "")
-	java.util.Set<SystemActivityLog> systemActivityLogs;
+	java.util.Set<Systemactivitylogs> systemactivitylogses;
 	/**
 	 */
-	@OneToMany(mappedBy = "chiraghUser", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
 
 	@XmlElement(name = "", namespace = "")
 	java.util.Set<Propertybidprocess> propertybidprocesses;
+	/**
+	 */
+	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
 
-	@Column(name = "token", length = 225)
-	private String token;
+	@XmlElement(name = "", namespace = "")
+	java.util.Set<Propertybuyerdetails> propertybuyerdetailses;
+	/**
+	 */
+	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
+
+	@XmlElement(name = "", namespace = "")
+	java.util.Set<Buyerpayments> buyerpaymentses;
+	/**
+	 */
+	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
+
+	@XmlElement(name = "", namespace = "")
+	java.util.Set<Sellerpayments> sellerpaymentses;
+	/**
+	 */
+	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
+
+	@XmlElement(name = "", namespace = "")
+	java.util.Set<Propertysellerdetails> propertysellerdetailses;
+	/**
+	 */
+	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
+
+	@XmlElement(name = "", namespace = "")
+	java.util.Set<Chiraghproperty> chiraghproperties;
+    
+	@Column(name="token")
+	String token;
 	
 	
 	
+	
+	
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
 	/**
 	 */
 	public void setUserId(Integer userId) {
@@ -299,6 +366,42 @@ public class ChiraghUser implements Serializable {
 
 	/**
 	 */
+	public void setPasswordVerificationCode(String passwordVerificationCode) {
+		this.passwordVerificationCode = passwordVerificationCode;
+	}
+
+	/**
+	 */
+	public String getPasswordVerificationCode() {
+		return this.passwordVerificationCode;
+	}
+
+	/**
+	 */
+	public void setOtpCodeExpiration(Calendar otpCodeExpiration) {
+		this.otpCodeExpiration = otpCodeExpiration;
+	}
+
+	/**
+	 */
+	public Calendar getOtpCodeExpiration() {
+		return this.otpCodeExpiration;
+	}
+
+	/**
+	 */
+	public void setProfilePicUpload(String profilePicUpload) {
+		this.profilePicUpload = profilePicUpload;
+	}
+
+	/**
+	 */
+	public String getProfilePicUpload() {
+		return this.profilePicUpload;
+	}
+
+	/**
+	 */
 	public void setCity(City city) {
 		this.city = city;
 	}
@@ -309,48 +412,66 @@ public class ChiraghUser implements Serializable {
 		return city;
 	}
 
-	/**
-	 */
-	public void setSystemActivityLogs(Set<SystemActivityLog> systemActivityLogs) {
-		this.systemActivityLogs = systemActivityLogs;
+	public java.util.Set<Systemactivitylogs> getSystemactivitylogses() {
+		return systemactivitylogses;
 	}
 
-	/**
-	 */
-	public Set<SystemActivityLog> getSystemActivityLogs() {
-		if (systemActivityLogs == null) {
-			systemActivityLogs = new java.util.LinkedHashSet<SystemActivityLog>();
-		}
-		return systemActivityLogs;
+	public void setSystemactivitylogses(java.util.Set<Systemactivitylogs> systemactivitylogses) {
+		this.systemactivitylogses = systemactivitylogses;
 	}
 
-	/**
-	 */
-	public void setPropertybidprocesses(Set<Propertybidprocess> propertybidprocesses) {
-		this.propertybidprocesses = propertybidprocesses;
-	}
-
-	/**
-	 */
-	public Set<Propertybidprocess> getPropertybidprocesses() {
-		if (propertybidprocesses == null) {
-			propertybidprocesses = new java.util.LinkedHashSet<Propertybidprocess>();
-		}
+	public java.util.Set<Propertybidprocess> getPropertybidprocesses() {
 		return propertybidprocesses;
 	}
 
-	/**
-	 */
-	public ChiraghUser() {
+	public void setPropertybidprocesses(java.util.Set<Propertybidprocess> propertybidprocesses) {
+		this.propertybidprocesses = propertybidprocesses;
 	}
 
-	public String getToken() {
-		return token;
+	public java.util.Set<Propertybuyerdetails> getPropertybuyerdetailses() {
+		return propertybuyerdetailses;
 	}
 
-	public void setToken(String token) {
-		this.token = token;
+	public void setPropertybuyerdetailses(java.util.Set<Propertybuyerdetails> propertybuyerdetailses) {
+		this.propertybuyerdetailses = propertybuyerdetailses;
 	}
 
+	public java.util.Set<Buyerpayments> getBuyerpaymentses() {
+		return buyerpaymentses;
+	}
 
+	public void setBuyerpaymentses(java.util.Set<Buyerpayments> buyerpaymentses) {
+		this.buyerpaymentses = buyerpaymentses;
+	}
+
+	public java.util.Set<Sellerpayments> getSellerpaymentses() {
+		return sellerpaymentses;
+	}
+
+	public void setSellerpaymentses(java.util.Set<Sellerpayments> sellerpaymentses) {
+		this.sellerpaymentses = sellerpaymentses;
+	}
+
+	public java.util.Set<Propertysellerdetails> getPropertysellerdetailses() {
+		return propertysellerdetailses;
+	}
+
+	public void setPropertysellerdetailses(java.util.Set<Propertysellerdetails> propertysellerdetailses) {
+		this.propertysellerdetailses = propertysellerdetailses;
+	}
+
+	public java.util.Set<Chiraghproperty> getChiraghproperties() {
+		return chiraghproperties;
+	}
+
+	public void setChiraghproperties(java.util.Set<Chiraghproperty> chiraghproperties) {
+		this.chiraghproperties = chiraghproperties;
+	}
+
+	public Chiraghuser() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	
 }

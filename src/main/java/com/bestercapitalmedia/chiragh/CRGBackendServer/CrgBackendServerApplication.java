@@ -16,7 +16,6 @@ public class CrgBackendServerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CrgBackendServerApplication.class, args);
-	    ChiragUtill chiragUtill=new ChiragUtill();
-	    chiragUtill.getencodedUserPassword("123");
+	    
 	}
 }

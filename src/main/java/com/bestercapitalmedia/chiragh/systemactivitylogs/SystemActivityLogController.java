@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bestercapitalmedia.chiragh.country.Country;
 import com.bestercapitalmedia.chiragh.country.CountryRepository;
-import com.bestercapitalmedia.chiragh.user.ChiraghUser;
+
 
 @RestController
 @RequestMapping("/api/systemactivitylog/")
@@ -20,19 +20,19 @@ public class SystemActivityLogController {
 	private SystemActivityLogRepository systemActivityLogRepository;
 	
 	@RequestMapping(value="/getAll",method=RequestMethod.GET)
-	public Iterable<SystemActivityLog> list() { 
+	public Iterable<Systemactivitylogs> list() { 
 		return systemActivityLogRepository.findAll();
 	}
 
 	@RequestMapping(value="/post")
-	public SystemActivityLog create(SystemActivityLog users) {
+	public Systemactivitylogs create(Systemactivitylogs users) {
 		return systemActivityLogRepository.save(users);
 	}
 
 	
 
 	@RequestMapping(value = "/put/{id}", method = RequestMethod.PUT)
-	public SystemActivityLog update(@PathVariable(value = "id") long id, @RequestBody SystemActivityLog entity) {
+	public Systemactivitylogs update(@PathVariable(value = "id") long id, @RequestBody Systemactivitylogs entity) {
 		return systemActivityLogRepository.save(entity);
 	}
 
@@ -43,7 +43,7 @@ public class SystemActivityLogController {
 	}
 
 	@RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
-	public Optional<SystemActivityLog> get(@PathVariable(value = "id") int id) {
+	public Optional<Systemactivitylogs> get(@PathVariable(value = "id") int id) {
 		return systemActivityLogRepository.findById(id);
 	}
 }

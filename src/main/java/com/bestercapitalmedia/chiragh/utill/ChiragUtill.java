@@ -9,8 +9,7 @@ import org.springframework.security.providers.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
-import com.bestercapitalmedia.chiragh.systemactivitylogs.SystemActivityLog;
-import com.bestercapitalmedia.chiragh.user.ChiraghUser;
+import com.bestercapitalmedia.chiragh.user.Chiraghuser;
 import com.bestercapitalmedia.chiragh.user.UserRepository;
 
 @Service
@@ -21,7 +20,7 @@ public class ChiragUtill {
 	@Autowired
 	private UserRepository userRepository;
 
-	public String createActivationToken(ChiraghUser user, Boolean save) {
+	public String createActivationToken(Chiraghuser user, Boolean save) {
 		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 		String activationToken = encoder.encodePassword(user.getUserName(), applicationSecret);
 		if (save) {
@@ -41,18 +40,64 @@ public class ChiragUtill {
 		String resetToken = encoder.encodePassword(password, applicationSecret);
 		return resetToken;
 	}
+
 	public String getencodedUserPassword(String password) {
-		return 	DigestUtils.md5DigestAsHex(password.getBytes());
+		return DigestUtils.md5DigestAsHex(password.getBytes());
 	}
 
-	public String createResetPasswordToken(ChiraghUser user, Boolean save) {		
-		String resetToken="";
+	public String createResetPasswordToken(Chiraghuser user, Boolean save) {
+		String resetToken = "";
 		if (save) {
-			 resetToken=getencodedUserPasswordForReset(user.getUserEmail());
+			resetToken = getencodedUserPasswordForReset(user.getUserEmail());
 			user.setToken(resetToken);
 			userRepository.save(user);
 		}
 		return resetToken;
 	}
+
+	/*
+	 * Password should be less than 15 and more than 8 characters in length.
+	 * Password should contain at least one upper case and one lower case alphabet.
+	 * Password should contain at least one number. Password should contain at least
+	 * one special character.
+	 */
+	public String passwordValidation(String userName, String password) {
+		
+		if (password.length() > 15 || password.length() < 8)
+			return "Password should be less than 15 and more than 8 characters in length.";
+
+		if (password.indexOf(userName) > -1)
+			return "Password Should not be same as user name";
+
+		String upperCaseChars = "(.*[A-Z].*)";
+		if (!password.matches(upperCaseChars))
+			return "Password should contain atleast one upper case alphabet";
+
+		String lowerCaseChars = "(.*[a-z].*)";
+		if (!password.matches(lowerCaseChars))
+			return "Password should contain atleast one lower case alphabet";
+
+		String numbers = "(.*[0-9].*)";
+		if (!password.matches(numbers))
+			return "Password should contain atleast one number.";
+
+		String specialChars = "(.*[,~,!,@,#,$,%,^,&,*,(,),-,_,=,+,[,{,],},|,;,:,<,>,/,?].*$)";
+		if (!password.matches(specialChars))
+			return "Password should contain atleast one special character";
+
+		return "valid";
+
+	}// end of method
+	
+public String textInputValidation(String input) {
+		
+      String upperCaseChars = "(.*[A-Z].*)(.*[a-z].*)";
+		if (!input.matches(upperCaseChars))
+			return "Password should contain atleast one upper case alphabet";
+
+		
+		return "valid";
+
+	}// end of method
 
 }// end of class

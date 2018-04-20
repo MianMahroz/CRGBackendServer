@@ -11,14 +11,20 @@ import java.util.Calendar;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.Id;
+
 import javax.xml.bind.annotation.*;
 
-import com.bestercapitalmedia.chiragh.propertybidprocess.Propertybidprocess;
-import com.bestercapitalmedia.chiragh.propertybrokerage.Propertybrokerage;
-import com.bestercapitalmedia.chiragh.propertyimages.Propertyimages;
-import com.bestercapitalmedia.chiragh.propertymarketanalysis.Propertymarketanalysis;
-import com.bestercapitalmedia.chiragh.propertytype.Propertytype;
-import com.bestercapitalmedia.chiragh.propertyverification.Propertyverification;
+import com.bestercapitalmedia.chiragh.buyer.details.Propertybuyerdetails;
+import com.bestercapitalmedia.chiragh.property.auctionprocess.Propertyauctionprocess;
+import com.bestercapitalmedia.chiragh.property.bidprocess.Propertybidprocess;
+import com.bestercapitalmedia.chiragh.property.brokerage.Propertybrokerage;
+import com.bestercapitalmedia.chiragh.property.images.Propertyimages;
+import com.bestercapitalmedia.chiragh.property.marketanalysis.Propertymarketanalysis;
+import com.bestercapitalmedia.chiragh.property.type.Propertytype;
+import com.bestercapitalmedia.chiragh.seller.details.Propertysellerdetails;
+import com.bestercapitalmedia.chiragh.seller.payments.Sellerpayments;
+import com.bestercapitalmedia.chiragh.user.Chiraghuser;
 
 import javax.persistence.*;
 
@@ -26,26 +32,28 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(catalog = "dbchiraghupdated", name = "chiraghproperty")
+
+@Table(catalog = "chiraghdatabase", name = "chiraghproperty")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh/domain", name = "Chiraghproperty")
-@XmlRootElement(namespace = "TestEntities/com/bestercapitalmedia/chiragh/domain")
+@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "Chiraghproperty")
+@XmlRootElement(namespace = "TestEntities/com/bestercapitalmedia/chiragh")
 public class Chiraghproperty implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	
+	/**
+	 */
 
 	@Column(name = "property_Id", nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@XmlElement
 	Integer propertyId;
 	/**
 	 */
 
-	@Column(name = "property_Title", length = 225)
+	@Column(name = "property_Title", length = 50)
 	@Basic(fetch = FetchType.EAGER)
 
 	@XmlElement
@@ -53,7 +61,7 @@ public class Chiraghproperty implements Serializable {
 	/**
 	 */
 
-	@Column(name = "property_Description", length = 225)
+	@Column(name = "property_Description", length = 50)
 	@Basic(fetch = FetchType.EAGER)
 
 	@XmlElement
@@ -61,7 +69,7 @@ public class Chiraghproperty implements Serializable {
 	/**
 	 */
 
-	@Column(name = "location", length = 225)
+	@Column(name = "location", length = 50)
 	@Basic(fetch = FetchType.EAGER)
 
 	@XmlElement
@@ -77,7 +85,7 @@ public class Chiraghproperty implements Serializable {
 	/**
 	 */
 
-	@Column(name = "address", length = 225)
+	@Column(name = "address", length = 50)
 	@Basic(fetch = FetchType.EAGER)
 
 	@XmlElement
@@ -93,7 +101,7 @@ public class Chiraghproperty implements Serializable {
 	/**
 	 */
 
-	@Column(name = "area_Permit_No", length = 225)
+	@Column(name = "area_Permit_No", length = 50)
 	@Basic(fetch = FetchType.EAGER)
 
 	@XmlElement
@@ -101,7 +109,7 @@ public class Chiraghproperty implements Serializable {
 	/**
 	 */
 
-	@Column(name = "property_Reference_No", length = 225)
+	@Column(name = "property_Reference_No", length = 50)
 	@Basic(fetch = FetchType.EAGER)
 
 	@XmlElement
@@ -121,7 +129,7 @@ public class Chiraghproperty implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 
 	@XmlElement
-	Integer isMdApproved;
+	Boolean isMdApproved;
 	/**
 	 */
 
@@ -129,35 +137,19 @@ public class Chiraghproperty implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 
 	@XmlElement
-	Integer isPublished;
+	Boolean isPublished;
 	/**
 	 */
 
-	@Column(name = "payment_verification_Code", length = 225)
+	@Column(name = "payment_Verification_Code", length = 50)
 	@Basic(fetch = FetchType.EAGER)
 
 	@XmlElement
 	String paymentVerificationCode;
 	/**
 	 */
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "bid_Clock_Starts")
-	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	Calendar bidClockStarts;
-	/**
-	 */
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "bid_Clock_Ends")
-	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
-	Calendar bidClockEnds;
-	/**
-	 */
-
-	@Column(name = "no_of_Bedrooms")
+	@Column(name = "no_Of_Bedrooms")
 	@Basic(fetch = FetchType.EAGER)
 
 	@XmlElement
@@ -165,7 +157,7 @@ public class Chiraghproperty implements Serializable {
 	/**
 	 */
 
-	@Column(name = "no_of_Baths")
+	@Column(name = "no_Of_Baths")
 	@Basic(fetch = FetchType.EAGER)
 
 	@XmlElement
@@ -245,7 +237,7 @@ public class Chiraghproperty implements Serializable {
 	/**
 	 */
 
-	@Column(name = "outdoor_Type", length = 225)
+	@Column(name = "outdoor_Type", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
 	@XmlElement
@@ -257,15 +249,15 @@ public class Chiraghproperty implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 
 	@XmlElement
-	Integer isFurnished;
+	Boolean isFurnished;
 	/**
 	 */
 
-	@Column(name = "kitchen_Type", length = 225)
+	@Column(name = "kitchen_Type")
 	@Basic(fetch = FetchType.EAGER)
 
 	@XmlElement
-	String kitchenType;
+	Boolean kitchenType;
 	/**
 	 */
 
@@ -273,7 +265,7 @@ public class Chiraghproperty implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 
 	@XmlElement
-	Integer isMaidRoom;
+	Boolean isMaidRoom;
 	/**
 	 */
 
@@ -281,7 +273,7 @@ public class Chiraghproperty implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 
 	@XmlElement
-	Integer isSwimmingPool;
+	Boolean isSwimmingPool;
 	/**
 	 */
 
@@ -289,15 +281,271 @@ public class Chiraghproperty implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 
 	@XmlElement
-	Integer isGyma;
+	Boolean isGyma;
 	/**
 	 */
 
-	@Column(name = "no_of_parking")
+	@Column(name = "is_Heli_Pad")
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	Boolean isHeliPad;
+	/**
+	 */
+
+	@Column(name = "no_Of_Parking")
 	@Basic(fetch = FetchType.EAGER)
 
 	@XmlElement
 	Integer noOfParking;
+	/**
+	 */
+
+	@Column(name = "no_Of_Floors")
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	Integer noOfFloors;
+	/**
+	 */
+
+	@Column(name = "payment_Method", length = 25)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	String paymentMethod;
+	/**
+	 */
+
+	@Column(name = "seller_Security_Deposit", length = 25)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	String sellerSecurityDeposit;
+	/**
+	 */
+
+	@Column(name = "seller_Commission_Deposit", length = 25)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	String sellerCommissionDeposit;
+	/**
+	 */
+
+	@Column(name = "scanned_Title_Deed", length = 25, nullable = false)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	String scannedTitleDeed;
+	/**
+	 */
+
+	@Column(name = "agree_Vat_Commission")
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	Boolean agreeVatCommission;
+	/**
+	 */
+
+	@Column(name = "map_Location", length = 50)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	String mapLocation;
+	/**
+	 */
+
+	@Column(name = "plot_No", length = 50)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	String plotNo;
+	/**
+	 */
+
+	@Column(name = "title_Deed_No", length = 50)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	String titleDeedNo;
+	/**
+	 */
+
+	@Column(name = "property_Status", length = 25)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	String propertyStatus;
+	/**
+	 */
+
+	@Column(name = "type_Area", length = 50)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	String typeArea;
+	/**
+	 */
+
+	@Column(name = "project_Name", length = 25)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	String projectName;
+	/**
+	 */
+
+	@Column(name = "owner_Association_No", length = 25)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	String ownerAssociationNo;
+	/**
+	 */
+
+	@Column(name = "present_Use", length = 25)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	String presentUse;
+	/**
+	 */
+
+	@Column(name = "community_No", length = 25)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	String communityNo;
+	/**
+	 */
+
+	@Column(name = "property_Age", length = 50)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	String propertyAge;
+	/**
+	 */
+
+	@Column(name = "no_Units")
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	Integer noUnits;
+	/**
+	 */
+
+	@Column(name = "no_Shops")
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	Integer noShops;
+	/**
+	 */
+
+	@Column(name = "no_Facilities", length = 25)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	String noFacilities;
+	/**
+	 */
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "lease_Start_Date", nullable = false)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	Calendar leaseStartDate;
+	/**
+	 */
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "lease_Expiry_Date", nullable = false)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	Calendar leaseExpiryDate;
+	/**
+	 */
+
+	@Column(name = "tenant_Name", length = 25)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	String tenantName;
+	/**
+	 */
+
+	@Column(name = "payement_Structure", length = 25)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	String payementStructure;
+	/**
+	 */
+
+	@Column(name = "tenancy_Contract_Upload", length = 25, nullable = false)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	String tenancyContractUpload;
+	/**
+	 */
+
+	@Column(name = "buyer_Security_Deposit", length = 25)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	String buyerSecurityDeposit;
+	/**
+	 */
+
+	@Column(name = "buyer_Commission_Deposit", length = 25)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	String buyerCommissionDeposit;
+	/**
+	 */
+
+	@Column(name = "third_Party_Verification")
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	Boolean thirdPartyVerification;
+	/**
+	 */
+
+	@Column(name = "is_Third_Party_Payment")
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	Boolean isThirdPartyPayment;
+	/**
+	 */
+
+	@Column(name = "verification_Hod_Approved")
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	Boolean verificationHodApproved;
+	/**
+	 */
+
+	@Column(name = "valuation_Report_Document", length = 25)
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	String valuationReportDocument;
+	/**
+	 */
+
+	@Column(name = "valuation_Hod_Approved")
+	@Basic(fetch = FetchType.EAGER)
+
+	@XmlElement
+	Boolean valuationHodApproved;
 
 	/**
 	 */
@@ -305,6 +553,12 @@ public class Chiraghproperty implements Serializable {
 	@JoinColumns({ @JoinColumn(name = "property_Type_Id", referencedColumnName = "property_Type_Id") })
 	@XmlTransient
 	Propertytype propertytype;
+	/**
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumns({ @JoinColumn(name = "user_Id", referencedColumnName = "user_Id", nullable = false) })
+	@XmlTransient
+	Chiraghuser chiraghuser;
 	/**
 	 */
 	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
@@ -316,9 +570,35 @@ public class Chiraghproperty implements Serializable {
 	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
 
 	@XmlElement(name = "", namespace = "")
-	java.util.Set<Propertybidprocess> propertybidprocesses;
-	
+	java.util.Set<Propertyauctionprocess> propertyauctionprocesses;
+	/**
+	 */
 	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
+
+	@XmlElement(name = "", namespace = "")
+	java.util.Set<Propertybidprocess> propertybidprocesses;
+	/**
+	 */
+	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
+
+	@XmlElement(name = "", namespace = "")
+	java.util.Set<Sellerpayments> sellerpaymentses;
+	/**
+	 */
+	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
+
+	@XmlElement(name = "", namespace = "")
+	java.util.Set<Propertybuyerdetails> propertybuyerdetailses;
+	/**
+	 */
+	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
+
+	@XmlElement(name = "", namespace = "")
+	java.util.Set<Propertysellerdetails> propertysellerdetailses;
+	/**
+	 */
+	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
+
 	@XmlElement(name = "", namespace = "")
 	java.util.Set<Propertyimages> propertyimageses;
 	/**
@@ -327,12 +607,6 @@ public class Chiraghproperty implements Serializable {
 
 	@XmlElement(name = "", namespace = "")
 	java.util.Set<Propertybrokerage> propertybrokerages;
-	/**
-	 */
-	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
-
-	@XmlElement(name = "", namespace = "")
-	java.util.Set<Propertyverification> propertyverifications;
 
 	/**
 	 */
@@ -456,25 +730,25 @@ public class Chiraghproperty implements Serializable {
 
 	/**
 	 */
-	public void setIsMdApproved(Integer isMdApproved) {
+	public void setIsMdApproved(Boolean isMdApproved) {
 		this.isMdApproved = isMdApproved;
 	}
 
 	/**
 	 */
-	public Integer getIsMdApproved() {
+	public Boolean getIsMdApproved() {
 		return this.isMdApproved;
 	}
 
 	/**
 	 */
-	public void setIsPublished(Integer isPublished) {
+	public void setIsPublished(Boolean isPublished) {
 		this.isPublished = isPublished;
 	}
 
 	/**
 	 */
-	public Integer getIsPublished() {
+	public Boolean getIsPublished() {
 		return this.isPublished;
 	}
 
@@ -488,30 +762,6 @@ public class Chiraghproperty implements Serializable {
 	 */
 	public String getPaymentVerificationCode() {
 		return this.paymentVerificationCode;
-	}
-
-	/**
-	 */
-	public void setBidClockStarts(Calendar bidClockStarts) {
-		this.bidClockStarts = bidClockStarts;
-	}
-
-	/**
-	 */
-	public Calendar getBidClockStarts() {
-		return this.bidClockStarts;
-	}
-
-	/**
-	 */
-	public void setBidClockEnds(Calendar bidClockEnds) {
-		this.bidClockEnds = bidClockEnds;
-	}
-
-	/**
-	 */
-	public Calendar getBidClockEnds() {
-		return this.bidClockEnds;
 	}
 
 	/**
@@ -660,62 +910,74 @@ public class Chiraghproperty implements Serializable {
 
 	/**
 	 */
-	public void setIsFurnished(Integer isFurnished) {
+	public void setIsFurnished(Boolean isFurnished) {
 		this.isFurnished = isFurnished;
 	}
 
 	/**
 	 */
-	public Integer getIsFurnished() {
+	public Boolean getIsFurnished() {
 		return this.isFurnished;
 	}
 
 	/**
 	 */
-	public void setKitchenType(String kitchenType) {
+	public void setKitchenType(Boolean kitchenType) {
 		this.kitchenType = kitchenType;
 	}
 
 	/**
 	 */
-	public String getKitchenType() {
+	public Boolean getKitchenType() {
 		return this.kitchenType;
 	}
 
 	/**
 	 */
-	public void setIsMaidRoom(Integer isMaidRoom) {
+	public void setIsMaidRoom(Boolean isMaidRoom) {
 		this.isMaidRoom = isMaidRoom;
 	}
 
 	/**
 	 */
-	public Integer getIsMaidRoom() {
+	public Boolean getIsMaidRoom() {
 		return this.isMaidRoom;
 	}
 
 	/**
 	 */
-	public void setIsSwimmingPool(Integer isSwimmingPool) {
+	public void setIsSwimmingPool(Boolean isSwimmingPool) {
 		this.isSwimmingPool = isSwimmingPool;
 	}
 
 	/**
 	 */
-	public Integer getIsSwimmingPool() {
+	public Boolean getIsSwimmingPool() {
 		return this.isSwimmingPool;
 	}
 
 	/**
 	 */
-	public void setIsGyma(Integer isGyma) {
+	public void setIsGyma(Boolean isGyma) {
 		this.isGyma = isGyma;
 	}
 
 	/**
 	 */
-	public Integer getIsGyma() {
+	public Boolean getIsGyma() {
 		return this.isGyma;
+	}
+
+	/**
+	 */
+	public void setIsHeliPad(Boolean isHeliPad) {
+		this.isHeliPad = isHeliPad;
+	}
+
+	/**
+	 */
+	public Boolean getIsHeliPad() {
+		return this.isHeliPad;
 	}
 
 	/**
@@ -732,6 +994,378 @@ public class Chiraghproperty implements Serializable {
 
 	/**
 	 */
+	public void setNoOfFloors(Integer noOfFloors) {
+		this.noOfFloors = noOfFloors;
+	}
+
+	/**
+	 */
+	public Integer getNoOfFloors() {
+		return this.noOfFloors;
+	}
+
+	/**
+	 */
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
+
+	/**
+	 */
+	public String getPaymentMethod() {
+		return this.paymentMethod;
+	}
+
+	/**
+	 */
+	public void setSellerSecurityDeposit(String sellerSecurityDeposit) {
+		this.sellerSecurityDeposit = sellerSecurityDeposit;
+	}
+
+	/**
+	 */
+	public String getSellerSecurityDeposit() {
+		return this.sellerSecurityDeposit;
+	}
+
+	/**
+	 */
+	public void setSellerCommissionDeposit(String sellerCommissionDeposit) {
+		this.sellerCommissionDeposit = sellerCommissionDeposit;
+	}
+
+	/**
+	 */
+	public String getSellerCommissionDeposit() {
+		return this.sellerCommissionDeposit;
+	}
+
+	/**
+	 */
+	public void setScannedTitleDeed(String scannedTitleDeed) {
+		this.scannedTitleDeed = scannedTitleDeed;
+	}
+
+	/**
+	 */
+	public String getScannedTitleDeed() {
+		return this.scannedTitleDeed;
+	}
+
+	/**
+	 */
+	public void setAgreeVatCommission(Boolean agreeVatCommission) {
+		this.agreeVatCommission = agreeVatCommission;
+	}
+
+	/**
+	 */
+	public Boolean getAgreeVatCommission() {
+		return this.agreeVatCommission;
+	}
+
+	/**
+	 */
+	public void setMapLocation(String mapLocation) {
+		this.mapLocation = mapLocation;
+	}
+
+	/**
+	 */
+	public String getMapLocation() {
+		return this.mapLocation;
+	}
+
+	/**
+	 */
+	public void setPlotNo(String plotNo) {
+		this.plotNo = plotNo;
+	}
+
+	/**
+	 */
+	public String getPlotNo() {
+		return this.plotNo;
+	}
+
+	/**
+	 */
+	public void setTitleDeedNo(String titleDeedNo) {
+		this.titleDeedNo = titleDeedNo;
+	}
+
+	/**
+	 */
+	public String getTitleDeedNo() {
+		return this.titleDeedNo;
+	}
+
+	/**
+	 */
+	public void setPropertyStatus(String propertyStatus) {
+		this.propertyStatus = propertyStatus;
+	}
+
+	/**
+	 */
+	public String getPropertyStatus() {
+		return this.propertyStatus;
+	}
+
+	/**
+	 */
+	public void setTypeArea(String typeArea) {
+		this.typeArea = typeArea;
+	}
+
+	/**
+	 */
+	public String getTypeArea() {
+		return this.typeArea;
+	}
+
+	/**
+	 */
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	/**
+	 */
+	public String getProjectName() {
+		return this.projectName;
+	}
+
+	/**
+	 */
+	public void setOwnerAssociationNo(String ownerAssociationNo) {
+		this.ownerAssociationNo = ownerAssociationNo;
+	}
+
+	/**
+	 */
+	public String getOwnerAssociationNo() {
+		return this.ownerAssociationNo;
+	}
+
+	/**
+	 */
+	public void setPresentUse(String presentUse) {
+		this.presentUse = presentUse;
+	}
+
+	/**
+	 */
+	public String getPresentUse() {
+		return this.presentUse;
+	}
+
+	/**
+	 */
+	public void setCommunityNo(String communityNo) {
+		this.communityNo = communityNo;
+	}
+
+	/**
+	 */
+	public String getCommunityNo() {
+		return this.communityNo;
+	}
+
+	/**
+	 */
+	public void setPropertyAge(String propertyAge) {
+		this.propertyAge = propertyAge;
+	}
+
+	/**
+	 */
+	public String getPropertyAge() {
+		return this.propertyAge;
+	}
+
+	/**
+	 */
+	public void setNoUnits(Integer noUnits) {
+		this.noUnits = noUnits;
+	}
+
+	/**
+	 */
+	public Integer getNoUnits() {
+		return this.noUnits;
+	}
+
+	/**
+	 */
+	public void setNoShops(Integer noShops) {
+		this.noShops = noShops;
+	}
+
+	/**
+	 */
+	public Integer getNoShops() {
+		return this.noShops;
+	}
+
+	/**
+	 */
+	public void setNoFacilities(String noFacilities) {
+		this.noFacilities = noFacilities;
+	}
+
+	/**
+	 */
+	public String getNoFacilities() {
+		return this.noFacilities;
+	}
+
+	/**
+	 */
+	public void setLeaseStartDate(Calendar leaseStartDate) {
+		this.leaseStartDate = leaseStartDate;
+	}
+
+	/**
+	 */
+	public Calendar getLeaseStartDate() {
+		return this.leaseStartDate;
+	}
+
+	/**
+	 */
+	public void setLeaseExpiryDate(Calendar leaseExpiryDate) {
+		this.leaseExpiryDate = leaseExpiryDate;
+	}
+
+	/**
+	 */
+	public Calendar getLeaseExpiryDate() {
+		return this.leaseExpiryDate;
+	}
+
+	/**
+	 */
+	public void setTenantName(String tenantName) {
+		this.tenantName = tenantName;
+	}
+
+	/**
+	 */
+	public String getTenantName() {
+		return this.tenantName;
+	}
+
+	/**
+	 */
+	public void setPayementStructure(String payementStructure) {
+		this.payementStructure = payementStructure;
+	}
+
+	/**
+	 */
+	public String getPayementStructure() {
+		return this.payementStructure;
+	}
+
+	/**
+	 */
+	public void setTenancyContractUpload(String tenancyContractUpload) {
+		this.tenancyContractUpload = tenancyContractUpload;
+	}
+
+	/**
+	 */
+	public String getTenancyContractUpload() {
+		return this.tenancyContractUpload;
+	}
+
+	/**
+	 */
+	public void setBuyerSecurityDeposit(String buyerSecurityDeposit) {
+		this.buyerSecurityDeposit = buyerSecurityDeposit;
+	}
+
+	/**
+	 */
+	public String getBuyerSecurityDeposit() {
+		return this.buyerSecurityDeposit;
+	}
+
+	/**
+	 */
+	public void setBuyerCommissionDeposit(String buyerCommissionDeposit) {
+		this.buyerCommissionDeposit = buyerCommissionDeposit;
+	}
+
+	/**
+	 */
+	public String getBuyerCommissionDeposit() {
+		return this.buyerCommissionDeposit;
+	}
+
+	/**
+	 */
+	public void setThirdPartyVerification(Boolean thirdPartyVerification) {
+		this.thirdPartyVerification = thirdPartyVerification;
+	}
+
+	/**
+	 */
+	public Boolean getThirdPartyVerification() {
+		return this.thirdPartyVerification;
+	}
+
+	/**
+	 */
+	public void setIsThirdPartyPayment(Boolean isThirdPartyPayment) {
+		this.isThirdPartyPayment = isThirdPartyPayment;
+	}
+
+	/**
+	 */
+	public Boolean getIsThirdPartyPayment() {
+		return this.isThirdPartyPayment;
+	}
+
+	/**
+	 */
+	public void setVerificationHodApproved(Boolean verificationHodApproved) {
+		this.verificationHodApproved = verificationHodApproved;
+	}
+
+	/**
+	 */
+	public Boolean getVerificationHodApproved() {
+		return this.verificationHodApproved;
+	}
+
+	/**
+	 */
+	public void setValuationReportDocument(String valuationReportDocument) {
+		this.valuationReportDocument = valuationReportDocument;
+	}
+
+	/**
+	 */
+	public String getValuationReportDocument() {
+		return this.valuationReportDocument;
+	}
+
+	/**
+	 */
+	public void setValuationHodApproved(Boolean valuationHodApproved) {
+		this.valuationHodApproved = valuationHodApproved;
+	}
+
+	/**
+	 */
+	public Boolean getValuationHodApproved() {
+		return this.valuationHodApproved;
+	}
+
+	/**
+	 */
 	public void setPropertytype(Propertytype propertytype) {
 		this.propertytype = propertytype;
 	}
@@ -744,84 +1378,80 @@ public class Chiraghproperty implements Serializable {
 
 	/**
 	 */
+	public void setChiraghuser(Chiraghuser chiraghuser) {
+		this.chiraghuser = chiraghuser;
+	}
+
+	/**
+	 */
+	public Chiraghuser getChiraghuser() {
+		return chiraghuser;
+	}
+
+	/**
+	 */
 	public void setPropertymarketanalysises(Set<Propertymarketanalysis> propertymarketanalysises) {
 		this.propertymarketanalysises = propertymarketanalysises;
 	}
 
-	/**
-	 */
-	public Set<Propertymarketanalysis> getPropertymarketanalysises() {
-		if (propertymarketanalysises == null) {
-			propertymarketanalysises = new java.util.LinkedHashSet<Propertymarketanalysis>();
-		}
-		return propertymarketanalysises;
+	public java.util.Set<Propertyauctionprocess> getPropertyauctionprocesses() {
+		return propertyauctionprocesses;
 	}
 
-	/**
-	 */
-	public void setPropertybidprocesses(Set<Propertybidprocess> propertybidprocesses) {
-		this.propertybidprocesses = propertybidprocesses;
+	public void setPropertyauctionprocesses(java.util.Set<Propertyauctionprocess> propertyauctionprocesses) {
+		this.propertyauctionprocesses = propertyauctionprocesses;
 	}
 
-	/**
-	 */
-	public Set<Propertybidprocess> getPropertybidprocesses() {
-		if (propertybidprocesses == null) {
-			propertybidprocesses = new java.util.LinkedHashSet<Propertybidprocess>();
-		}
+	public java.util.Set<Propertybidprocess> getPropertybidprocesses() {
 		return propertybidprocesses;
 	}
 
-	
-
-	/**
-	 */
-	public void setPropertyimageses(Set<Propertyimages> propertyimageses) {
-		this.propertyimageses = propertyimageses;
+	public void setPropertybidprocesses(java.util.Set<Propertybidprocess> propertybidprocesses) {
+		this.propertybidprocesses = propertybidprocesses;
 	}
 
-	/**
-	 */
-	public Set<Propertyimages> getPropertyimageses() {
-		if (propertyimageses == null) {
-			propertyimageses = new java.util.LinkedHashSet<Propertyimages>();
-		}
+	public java.util.Set<Sellerpayments> getSellerpaymentses() {
+		return sellerpaymentses;
+	}
+
+	public void setSellerpaymentses(java.util.Set<Sellerpayments> sellerpaymentses) {
+		this.sellerpaymentses = sellerpaymentses;
+	}
+
+	public java.util.Set<Propertybuyerdetails> getPropertybuyerdetailses() {
+		return propertybuyerdetailses;
+	}
+
+	public void setPropertybuyerdetailses(java.util.Set<Propertybuyerdetails> propertybuyerdetailses) {
+		this.propertybuyerdetailses = propertybuyerdetailses;
+	}
+
+	public java.util.Set<Propertysellerdetails> getPropertysellerdetailses() {
+		return propertysellerdetailses;
+	}
+
+	public void setPropertysellerdetailses(java.util.Set<Propertysellerdetails> propertysellerdetailses) {
+		this.propertysellerdetailses = propertysellerdetailses;
+	}
+
+	public java.util.Set<Propertyimages> getPropertyimageses() {
 		return propertyimageses;
 	}
 
-	/**
-	 */
-	public void setPropertybrokerages(Set<Propertybrokerage> propertybrokerages) {
-		this.propertybrokerages = propertybrokerages;
+	public void setPropertyimageses(java.util.Set<Propertyimages> propertyimageses) {
+		this.propertyimageses = propertyimageses;
 	}
 
-	/**
-	 */
-	public Set<Propertybrokerage> getPropertybrokerages() {
-		if (propertybrokerages == null) {
-			propertybrokerages = new java.util.LinkedHashSet<Propertybrokerage>();
-		}
+	public java.util.Set<Propertybrokerage> getPropertybrokerages() {
 		return propertybrokerages;
 	}
 
-	/**
-	 */
-	public void setPropertyverifications(Set<Propertyverification> propertyverifications) {
-		this.propertyverifications = propertyverifications;
+	public void setPropertybrokerages(java.util.Set<Propertybrokerage> propertybrokerages) {
+		this.propertybrokerages = propertybrokerages;
 	}
 
-	/**
-	 */
-	public Set<Propertyverification> getPropertyverifications() {
-		if (propertyverifications == null) {
-			propertyverifications = new java.util.LinkedHashSet<Propertyverification>();
-		}
-		return propertyverifications;
-	}
-
-	/**
-	 */
-	public Chiraghproperty() {
+	public java.util.Set<Propertymarketanalysis> getPropertymarketanalysises() {
+		return propertymarketanalysises;
 	}
 
 	
