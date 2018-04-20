@@ -1,6 +1,8 @@
 package com.bestercapitalmedia.chiragh.utill;
 
 import java.io.Serializable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -81,9 +83,9 @@ public class ChiragUtill {
 		if (!password.matches(numbers))
 			return "Password should contain atleast one number.";
 
-		String specialChars = "(.*[,~,!,@,#,$,%,^,&,*,(,),-,_,=,+,[,{,],},|,;,:,<,>,/,?].*$)";
-		if (!password.matches(specialChars))
-			return "Password should contain atleast one special character";
+//		String specialChars = "(.*[,~,!,@,#,$,%,^,&,*,(,),-,_,=,+,[,{,],},|,;,:,<,>,/,?].*$)";
+//		if (!password.matches(specialChars))
+//			return "Password should contain atleast one special character";
 
 		return "valid";
 
@@ -93,11 +95,18 @@ public String textInputValidation(String input) {
 		
       String upperCaseChars = "(.*[A-Z].*)(.*[a-z].*)";
 		if (!input.matches(upperCaseChars))
-			return "Password should contain atleast one upper case alphabet";
-
-		
+			return "Name should contain only alphabets";		
 		return "valid";
 
 	}// end of method
+public String validateEmailAddress(String emailAddress) {
 
+    Pattern regexPattern = Pattern.compile("^[(a-zA-Z-0-9-\\_\\+\\.)]+@[(a-z-A-z)]+\\.[(a-zA-z)]{2,3}$");
+    Matcher regMatcher   = regexPattern.matcher(emailAddress);
+    if(regMatcher.matches()) {
+        return "valid";
+    } else {
+        return "Invalid Email Address";
+    }
+}
 }// end of class

@@ -85,10 +85,24 @@ public class UserController {
 						return "UserName Already Exist!";
 				}
 				if (jsonObj.has("userEmail")) {
-					user.setUserEmail(jsonObj.getString("userEmail"));
-					Chiraghuser v_user = userRepository.findByEmail(jsonObj.getString("userEmail"));
-					if (v_user != null)
-						return "Email Already Exist";
+					String email=jsonObj.getString("userEmail");
+					if(email.equals("")||email==null) {
+						return "Email Address is Empty!";
+					}
+					else {
+						String status=chiraghUtil.validateEmailAddress(email);
+						if(status.equals("valid")) {
+							user.setUserEmail(jsonObj.getString("userEmail"));
+							Chiraghuser v_user = userRepository.findByEmail(jsonObj.getString("userEmail"));
+							if (v_user != null)
+								return "Email Already Exist";	
+						}
+						else {
+							return status;
+						}
+						
+					}
+					
 				}
 				if (jsonObj.has("userPassword")) {
 					String password = jsonObj.getString("userPassword");
@@ -104,24 +118,43 @@ public class UserController {
 				}
 				if (jsonObj.has("firstName")) {
 					String firstName = jsonObj.getString("firstName");
-					if (firstName.equals("") || firstName == null)
+					if (firstName.equals("") || firstName == null) {
 						return "Please Enter First Name!";
-					else
-						user.setFirstName(jsonObj.getString("firstName"));
+					} else {
+
+						String status = chiraghUtil.textInputValidation(jsonObj.getString("firstName"));
+						if (status.equals("valid"))
+							user.setFirstName(jsonObj.getString("firstName"));
+						else
+							return status;
+
+					}
 				}
 				if (jsonObj.has("middleName")) {
 					String middleName = jsonObj.getString("middleName");
-					if (middleName.equals("") || middleName == null)
+					if (middleName.equals("") || middleName == null) {
 						user.setMiddleName("");
-					else
-						user.setMiddleName(jsonObj.getString("middleName"));
+					} else {
+
+						String status = chiraghUtil.textInputValidation(jsonObj.getString("middleName"));
+						if (status.equals("valid"))
+							user.setMiddleName(jsonObj.getString("middleName"));
+						else
+							return status;
+					}
 				}
 				if (jsonObj.has("lastName")) {
 					String lastName = jsonObj.getString("lastName");
-					if (lastName.equals("") || lastName == null)
+					if (lastName.equals("") || lastName == null) {
 						return "Please Enter Last Name!";
-					else
-						user.setLastName(jsonObj.getString("lastName"));
+					} else {
+
+						String status = chiraghUtil.textInputValidation(jsonObj.getString("lastName"));
+						if (status.equals("valid"))
+							user.setLastName(jsonObj.getString("lastName"));
+						else
+							return status;
+					}
 				}
 				if (jsonObj.has("mobileNo")) {
 					String mobileNo = jsonObj.getString("mobileNo");
@@ -159,8 +192,8 @@ public class UserController {
 						user.setMobileOtpCode(jsonObj.getString("mobileOtpCode"));
 				}
 
-				rtnObject = objectMapper.writeValueAsString(user);
 				userRepository.save(user);
+				rtnObject = objectMapper.writeValueAsString(userRepository.findByUserName(user.getUserName()));
 				msg = "success";
 			} // end of outer if
 			else {
@@ -337,7 +370,7 @@ public class UserController {
 				} // end of inner if
 			} // end of outer if
 			else {
-				msg = "User Not found";
+				msg = "User or Password is Invalid";
 			}
 
 		} catch (Exception e) {
