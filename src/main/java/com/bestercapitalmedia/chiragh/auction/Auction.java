@@ -20,11 +20,7 @@ import javax.persistence.*;
  */
 
 @Entity
-
 @Table(catalog = "chiraghdatabase", name = "auction")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "Auction")
-@XmlRootElement(namespace = "TestEntities/com/bestercapitalmedia/chiragh")
 public class Auction implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -35,8 +31,8 @@ public class Auction implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@XmlElement
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	Integer auctionDurationId;
 	/**
 	 */
@@ -44,7 +40,6 @@ public class Auction implements Serializable {
 	@Column(name = "auction_Duration", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String auctionDuration;
 	/**
 	 */
@@ -52,7 +47,6 @@ public class Auction implements Serializable {
 	@Column(name = "auction_Cost", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String auctionCost;
 	/**
 	 */
@@ -60,22 +54,17 @@ public class Auction implements Serializable {
 	@Column(name = "is_Published", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String isPublished;
 	/**
 	 */
 
 	@Column(name = "security_Deposit", length = 25)
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	String securityDeposit;
 
 	/**
 	 */
 	@OneToMany(mappedBy = "auction", fetch = FetchType.LAZY)
-
-	@XmlElement(name = "", namespace = "")
 	java.util.Set<Propertyauctionprocess> propertyauctionprocesses;
 
 	/**
@@ -158,5 +147,4 @@ public class Auction implements Serializable {
 	public Auction() {
 	}
 
-	
 }

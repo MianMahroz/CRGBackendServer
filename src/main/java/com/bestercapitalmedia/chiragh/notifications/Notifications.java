@@ -15,11 +15,7 @@ import javax.persistence.*;
  */
 
 @Entity
-
 @Table(catalog = "chiraghdatabase", name = "notifications")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "Notifications")
-
 public class Notifications implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -31,64 +27,48 @@ public class Notifications implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@XmlElement
 	Integer notificationsId;
 	/**
 	 */
 
 	@Column(name = "notification_Message", columnDefinition = "TEXT")
 	@Basic(fetch = FetchType.EAGER)
-	@Lob
-
-	@XmlElement
 	String notificationMessage;
 	/**
 	 */
 
 	@Column(name = "message_From", length = 45)
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	String messageFrom;
 	/**
 	 */
 
 	@Column(name = "message_To", length = 45)
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	String messageTo;
 	/**
 	 */
 
 	@Column(name = "message_From_Id")
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	Integer messageFromId;
 	/**
 	 */
 
 	@Column(name = "message_To_Id")
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	Integer messageToId;
 	/**
 	 */
 
 	@Column(name = "message_User_Type", length = 10)
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	String messageUserType;
 	/**
 	 */
 
 	@Column(name = "message_Subject", length = 45)
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	String messageSubject;
 
 	/**

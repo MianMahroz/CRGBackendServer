@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.*;
 import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
 import com.bestercapitalmedia.chiragh.seller.paymentstype.Sellerpaymentstype;
 import com.bestercapitalmedia.chiragh.user.Chiraghuser;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
@@ -23,8 +24,7 @@ import javax.persistence.*;
 @Entity
 
 @Table(catalog = "chiraghdatabase", name = "sellerpayments")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "Sellerpayments")
+
 
 public class Sellerpayments implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -37,7 +37,7 @@ public class Sellerpayments implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@XmlElement
+	
 	Integer sellerPaymentsId;
 	/**
 	 */
@@ -45,7 +45,7 @@ public class Sellerpayments implements Serializable {
 	@Column(name = "payment_Type_Id")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	Integer paymentTypeId;
 	/**
 	 */
@@ -53,7 +53,7 @@ public class Sellerpayments implements Serializable {
 	@Column(name = "payment_Amount", length = 45)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String paymentAmount;
 	/**
 	 */
@@ -61,7 +61,7 @@ public class Sellerpayments implements Serializable {
 	@Column(name = "payment_Cc_Type", length = 45)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String paymentCcType;
 	/**
 	 */
@@ -69,27 +69,26 @@ public class Sellerpayments implements Serializable {
 	@Column(name = "payment_Cc_Message_Api", length = 45)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String paymentCcMessageApi;
 
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "user_Id", referencedColumnName = "user_Id") })
-	@XmlTransient
+	 @JsonBackReference
 	Chiraghuser chiraghuser;
 	/**
 	 */
 	@PrimaryKeyJoinColumn
 	@OneToOne(fetch = FetchType.LAZY)
-
-	@XmlElement(name = "", namespace = "")
+	@JsonBackReference
 	Sellerpaymentstype sellerpaymentstype;
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "property_Id", referencedColumnName = "property_Id") })
-	@XmlTransient
+	@JsonBackReference
 	Chiraghproperty chiraghproperty;
 
 	/**

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.xml.bind.annotation.*;
 
 import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
@@ -19,11 +20,7 @@ import javax.persistence.*;
  */
 
 @Entity
-
 @Table(catalog = "chiraghdatabase", name = "propertyimages")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "Propertyimages")
-
 public class Propertyimages implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -35,7 +32,7 @@ public class Propertyimages implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@XmlElement
+	
 	Integer propertyImageId;
 	/**
 	 */
@@ -43,7 +40,7 @@ public class Propertyimages implements Serializable {
 	@Column(name = "image_Name", length = 225)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String imageName;
 	/**
 	 */
@@ -51,14 +48,14 @@ public class Propertyimages implements Serializable {
 	@Column(name = "image_Url", length = 225)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String imageUrl;
 
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "property_Id", referencedColumnName = "property_Id") })
-	@XmlTransient
+	@JsonBackReference
 	Chiraghproperty chiraghproperty;
 
 	/**

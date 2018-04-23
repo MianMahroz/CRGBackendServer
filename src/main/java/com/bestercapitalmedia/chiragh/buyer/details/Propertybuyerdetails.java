@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.*;
 
 import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
 import com.bestercapitalmedia.chiragh.user.Chiraghuser;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
@@ -20,11 +21,7 @@ import javax.persistence.*;
  */
 
 @Entity
-
 @Table(catalog = "chiraghdatabase", name = "propertybuyerdetails")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "Propertybuyerdetails")
-
 public class Propertybuyerdetails implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +33,7 @@ public class Propertybuyerdetails implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@XmlElement
+	
 	Integer propertyBuyerId;
 	/**
 	 */
@@ -44,7 +41,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "first_Name", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String firstName;
 	/**
 	 */
@@ -52,7 +49,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "middle_Name", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String middleName;
 	/**
 	 */
@@ -60,7 +57,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "last_Name", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String lastName;
 	/**
 	 */
@@ -68,7 +65,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "emmirates_Id_No", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String emmiratesIdNo;
 	/**
 	 */
@@ -76,7 +73,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "passport_No", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String passportNo;
 	/**
 	 */
@@ -84,7 +81,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "telephone", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String telephone;
 	/**
 	 */
@@ -92,7 +89,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "mobile", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String mobile;
 	/**
 	 */
@@ -100,7 +97,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "address", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String address;
 	/**
 	 */
@@ -108,7 +105,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "nationality", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String nationality;
 	/**
 	 */
@@ -116,7 +113,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "emirates_Id_Document_Upload", length = 25, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String emiratesIdDocumentUpload;
 	/**
 	 */
@@ -124,7 +121,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "poa_Clear_Deed_Upload", length = 25, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String poaClearDeedUpload;
 	/**
 	 */
@@ -132,7 +129,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "id_Card_No", length = 25, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String idCardNo;
 	/**
 	 */
@@ -140,7 +137,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "id_Card_Expiration", length = 45, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String idCardExpiration;
 	/**
 	 */
@@ -148,7 +145,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "passport_Id_Document_Upload", length = 45)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String passportIdDocumentUpload;
 	/**
 	 */
@@ -156,7 +153,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "passport_Expiry_Date", length = 45)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String passportExpiryDate;
 	/**
 	 */
@@ -164,7 +161,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "email", length = 45)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String email;
 	/**
 	 */
@@ -172,7 +169,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "email_Verification_Code", length = 45)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String emailVerificationCode;
 	/**
 	 */
@@ -180,7 +177,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "pobox", length = 45)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String pobox;
 	/**
 	 */
@@ -188,7 +185,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "passport_Copy_Upload", length = 45)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String passportCopyUpload;
 	/**
 	 */
@@ -196,7 +193,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "id_Copy_Upload", length = 45, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String idCopyUpload;
 	/**
 	 */
@@ -204,7 +201,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "owner_Type", length = 10)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String ownerType;
 	/**
 	 */
@@ -212,7 +209,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "poa_Agreement_Expiry", length = 25, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String poaAgreementExpiry;
 	/**
 	 */
@@ -220,7 +217,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "poa_Property_Authority", length = 10, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String poaPropertyAuthority;
 	/**
 	 */
@@ -228,7 +225,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "title_Deed_Upload", length = 25, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String titleDeedUpload;
 	/**
 	 */
@@ -236,7 +233,7 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "scanned_Notorized_Copy", length = 25, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String scannedNotorizedCopy;
 	/**
 	 */
@@ -244,20 +241,20 @@ public class Propertybuyerdetails implements Serializable {
 	@Column(name = "is_Poa_Accepted")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	Boolean isPoaAccepted;
 
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "user_Id", referencedColumnName = "user_Id") })
-	@XmlTransient
+	@JsonBackReference
 	Chiraghuser chiraghuser;
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "property_Id", referencedColumnName = "property_Id") })
-	@XmlTransient
+	@JsonBackReference
 	Chiraghproperty chiraghproperty;
 
 	/**

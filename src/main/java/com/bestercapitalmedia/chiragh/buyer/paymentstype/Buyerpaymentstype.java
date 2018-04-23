@@ -20,11 +20,7 @@ import javax.persistence.*;
  */
 
 @Entity
-
 @Table(catalog = "chiraghdatabase", name = "buyerpaymentstype")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "Buyerpaymentstype")
-@XmlRootElement(namespace = "TestEntities/com/bestercapitalmedia/chiragh")
 public class Buyerpaymentstype implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +32,7 @@ public class Buyerpaymentstype implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@XmlElement
+	
 	Integer buyerPaymentsTypeId;
 	/**
 	 */
@@ -44,12 +40,12 @@ public class Buyerpaymentstype implements Serializable {
 	@Column(name = "payment_Title", length = 45)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String paymentTitle;
 
 	
 	@OneToMany(mappedBy = "buyerpaymentstype", fetch = FetchType.LAZY)
-	@XmlElement(name = "", namespace = "")
+	
 	java.util.Set<Buyerpayments> buyerpaymentses;
 	
 	

@@ -10,6 +10,7 @@ import java.util.Set;
 import javax.xml.bind.annotation.*;
 
 import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
@@ -17,11 +18,7 @@ import javax.persistence.*;
  */
 
 @Entity
-
 @Table(catalog = "chiraghdatabase", name = "propertybrokerage")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "Propertybrokerage")
-
 public class Propertybrokerage implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -33,23 +30,18 @@ public class Propertybrokerage implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@XmlElement
 	Integer propertyBrokerageId;
 	/**
 	 */
 
 	@Column(name = "price_Aggrement_Document", length = 225)
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	String priceAggrementDocument;
 	/**
 	 */
 
 	@Column(name = "legal_Document", length = 225)
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	String legalDocument;
 	/**
 	 */
@@ -57,7 +49,7 @@ public class Propertybrokerage implements Serializable {
 	@Column(name = "is_Approved")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	Integer isApproved;
 	/**
 	 */
@@ -65,7 +57,7 @@ public class Propertybrokerage implements Serializable {
 	@Column(name = "send_Verification_Code_Payment", length = 225)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String sendVerificationCodePayment;
 	/**
 	 */
@@ -73,14 +65,14 @@ public class Propertybrokerage implements Serializable {
 	@Column(name = "is_Payment_made_Before_Listing")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	Integer isPaymentMadeBeforeListing;
 
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "property_Id", referencedColumnName = "property_Id") })
-	@XmlTransient
+	@JsonBackReference
 	Chiraghproperty chiraghproperty;
 
 	/**

@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.*;
 
 import com.bestercapitalmedia.chiragh.admin.persissions.Adminpermissions;
 import com.bestercapitalmedia.chiragh.admin.users.Adminusers;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
@@ -22,9 +23,6 @@ import javax.persistence.*;
 @Entity
 
 @Table(catalog = "chiraghdatabase", name = "adminuserpermissions")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "Adminuserpermissions")
-
 public class Adminuserpermissions implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -36,20 +34,20 @@ public class Adminuserpermissions implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@XmlElement
+	
 	Integer adminUserPermissionsId;
 
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "admin_Users_Id", referencedColumnName = "admin_Users_Id") })
-	@XmlTransient
+	@JsonBackReference
 	Adminusers adminusers;
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "admin_Permissions_Id", referencedColumnName = "admin_Permissions_Id") })
-	@XmlTransient
+	@JsonBackReference
 	Adminpermissions adminpermissions;
 
 	/**

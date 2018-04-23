@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.xml.bind.annotation.*;
 
 import com.bestercapitalmedia.chiragh.seller.payments.Sellerpayments;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
@@ -20,8 +21,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(catalog = "chiraghdatabase", name = "sellerpaymentstype")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "Sellerpaymentstype")
+
 
 public class Sellerpaymentstype implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -34,7 +34,7 @@ public class Sellerpaymentstype implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@XmlElement
+	
 	Integer sellerPaymentsTypeId;
 	/**
 	 */
@@ -42,14 +42,14 @@ public class Sellerpaymentstype implements Serializable {
 	@Column(name = "payment_Title", length = 45)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String paymentTitle;
 
 	/**
 	 */
 	@OneToOne(mappedBy = "sellerpaymentstype", fetch = FetchType.LAZY)
 
-	@XmlElement(name = "", namespace = "")
+	@JsonBackReference
 	Sellerpayments sellerpayments;
 
 	/**

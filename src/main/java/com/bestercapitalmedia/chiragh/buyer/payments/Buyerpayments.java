@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.*;
 
 import com.bestercapitalmedia.chiragh.buyer.paymentstype.Buyerpaymentstype;
 import com.bestercapitalmedia.chiragh.user.Chiraghuser;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
@@ -20,8 +21,7 @@ import javax.persistence.*;
 @Entity
 
 @Table(catalog = "chiraghdatabase", name = "buyerpayments")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "Buyerpayments")
+
 
 public class Buyerpayments implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -34,28 +34,26 @@ public class Buyerpayments implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@XmlElement
+	
 	Integer buyerPaymentsId;
 	/**
 	 */
 
 	@Column(name = "property_Id")
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	Integer propertyId;
 
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "user_Id", referencedColumnName = "user_Id") })
-	@XmlTransient
+	@JsonBackReference
 	Chiraghuser chiraghuser;
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "payment_Type_Id", referencedColumnName = "buyer_Payments_Type_Id") })
-	@XmlTransient
+	@JsonBackReference
 	Buyerpaymentstype buyerpaymentstype;
 
 	/**

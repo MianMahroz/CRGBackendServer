@@ -20,11 +20,7 @@ import javax.persistence.*;
  */
 
 @Entity
-
 @Table(catalog = "dbchiraghupdated", name = "country")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh/domain", name = "Country")
-@XmlRootElement(namespace = "TestEntities/com/bestercapitalmedia/chiragh/domain")
 public class Country implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -43,14 +39,13 @@ public class Country implements Serializable {
 	@Column(name = "name", length = 225)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String name;
 
 	/**
 	 */
 	@OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
 
-	@XmlElement(name = "", namespace = "")
 	java.util.Set<City> cities;
 
 	/**

@@ -18,11 +18,7 @@ import javax.persistence.*;
  */
 
 @Entity
-
 @Table(catalog = "chiraghdatabase", name = "propertytype")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "Propertytype")
-@XmlRootElement(namespace = "TestEntities/com/bestercapitalmedia/chiragh")
 public class Propertytype implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -34,30 +30,26 @@ public class Propertytype implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@XmlElement
+	
 	Integer propertyTypeId;
 	/**
 	 */
 
 	@Column(name = "type_Title", length = 225)
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
+	
 	String typeTitle;
 	/**
 	 */
 
 	@Column(name = "type_Classification", length = 225)
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
+	
 	String typeClassification;
 
 	/**
 	 */
 	@OneToMany(mappedBy = "propertytype", fetch = FetchType.LAZY)
-
-	@XmlElement(name = "", namespace = "")
 	java.util.Set<Chiraghproperty> chiraghproperties;
 
 	/**

@@ -20,11 +20,7 @@ import javax.persistence.*;
  */
 
 @Entity
-
 @Table(catalog = "chiraghdatabase", name = "adminpermissions")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "Adminpermissions")
-@XmlRootElement(namespace = "TestEntities/com/bestercapitalmedia/chiragh")
 public class Adminpermissions implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -35,8 +31,8 @@ public class Adminpermissions implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@XmlElement
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	Integer adminPermissionsId;
 	/**
 	 */
@@ -44,7 +40,6 @@ public class Adminpermissions implements Serializable {
 	@Column(name = "permission_Title", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String permissionTitle;
 	/**
 	 */
@@ -52,22 +47,17 @@ public class Adminpermissions implements Serializable {
 	@Column(name = "description", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String description;
 	/**
 	 */
 
 	@Column(name = "controller_name", length = 25)
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	String controllerName;
 
 	/**
 	 */
 	@OneToMany(mappedBy = "adminpermissions", fetch = FetchType.LAZY)
-
-	@XmlElement(name = "", namespace = "")
 	java.util.Set<Adminuserpermissions> adminuserpermissionses;
 
 	/**
@@ -138,5 +128,4 @@ public class Adminpermissions implements Serializable {
 	public Adminpermissions() {
 	}
 
-	
 }

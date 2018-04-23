@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.*;
 
 import com.bestercapitalmedia.chiragh.country.Country;
 import com.bestercapitalmedia.chiragh.user.Chiraghuser;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
@@ -23,9 +24,7 @@ import javax.persistence.*;
 @Entity
 
 @Table(catalog = "chiraghdatabase", name = "city")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "City")
-@XmlRootElement(namespace = "TestEntities/com/bestercapitalmedia/chiragh")
+
 public class City implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -37,28 +36,23 @@ public class City implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@XmlElement
 	Integer cityId;
 	/**
 	 */
 
 	@Column(name = "name", length = 225)
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	String name;
 
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "country_Id", referencedColumnName = "country_Id") })
-	@XmlTransient
+	@JsonBackReference
 	Country country;
 	/**
 	 */
 	@OneToMany(mappedBy = "city", fetch = FetchType.LAZY)
-
-	@XmlElement(name = "", namespace = "")
 	java.util.Set<Chiraghuser> chiraghusers;
 
 	/**

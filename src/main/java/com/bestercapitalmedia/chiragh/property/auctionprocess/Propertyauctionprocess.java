@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.*;
 
 import com.bestercapitalmedia.chiragh.auction.Auction;
 import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
@@ -20,11 +21,7 @@ import javax.persistence.*;
  */
 
 @Entity
-
 @Table(catalog = "chiraghdatabase", name = "propertyauctionprocess")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "Propertyauctionprocess")
-
 public class Propertyauctionprocess implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +33,6 @@ public class Propertyauctionprocess implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@XmlElement
 	Integer propertyIdAuctionProcess;
 	/**
 	 */
@@ -44,7 +40,6 @@ public class Propertyauctionprocess implements Serializable {
 	@Column(name = "bid_Start_Date", nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	Calendar bidStartDate;
 	/**
 	 */
@@ -52,7 +47,6 @@ public class Propertyauctionprocess implements Serializable {
 	@Column(name = "bid_End_Date", nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	Calendar bidEndDate;
 	/**
 	 */
@@ -60,7 +54,6 @@ public class Propertyauctionprocess implements Serializable {
 	@Column(name = "final_Amount", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String finalAmount;
 	/**
 	 */
@@ -68,7 +61,6 @@ public class Propertyauctionprocess implements Serializable {
 	@Column(name = "is_Active")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	Boolean isActive;
 	/**
 	 */
@@ -76,20 +68,19 @@ public class Propertyauctionprocess implements Serializable {
 	@Column(name = "propertyauctionprocesscol", length = 45)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String propertyauctionprocesscol;
 
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "auction_Duration_Id", referencedColumnName = "auction_Duration_Id") })
-	@XmlTransient
+	@JsonBackReference
 	Auction auction;
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "property_Id", referencedColumnName = "property_Id") })
-	@XmlTransient
+	@JsonBackReference
 	Chiraghproperty chiraghproperty;
 
 	/**

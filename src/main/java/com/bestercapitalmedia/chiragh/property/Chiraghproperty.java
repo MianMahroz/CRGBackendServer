@@ -5,7 +5,6 @@ import java.io.Serializable;
 
 import java.lang.StringBuilder;
 
-import java.math.BigDecimal;
 
 import java.util.Calendar;
 import java.util.LinkedHashSet;
@@ -25,6 +24,7 @@ import com.bestercapitalmedia.chiragh.property.type.Propertytype;
 import com.bestercapitalmedia.chiragh.seller.details.Propertysellerdetails;
 import com.bestercapitalmedia.chiragh.seller.payments.Sellerpayments;
 import com.bestercapitalmedia.chiragh.user.Chiraghuser;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
@@ -34,21 +34,17 @@ import javax.persistence.*;
 @Entity
 
 @Table(catalog = "chiraghdatabase", name = "chiraghproperty")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "Chiraghproperty")
-@XmlRootElement(namespace = "TestEntities/com/bestercapitalmedia/chiragh")
+
 public class Chiraghproperty implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 */
 
-	@Column(name = "property_Id", nullable = false)
+	@Column(name = "property_Id")
 	@Basic(fetch = FetchType.EAGER)
-
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@XmlElement
 	Integer propertyId;
 	/**
 	 */
@@ -56,7 +52,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "property_Title", length = 50)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String propertyTitle;
 	/**
 	 */
@@ -81,14 +77,14 @@ public class Chiraghproperty implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 
 	@XmlElement
-	BigDecimal sizePerSqft;
+	float sizePerSqft;
 	/**
 	 */
 
 	@Column(name = "address", length = 50)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String address;
 	/**
 	 */
@@ -96,15 +92,15 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "asking_Price", precision = 12)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	BigDecimal askingPrice;
+	
+	float askingPrice;
 	/**
 	 */
 
 	@Column(name = "area_Permit_No", length = 50)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String areaPermitNo;
 	/**
 	 */
@@ -112,7 +108,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "property_Reference_No", length = 50)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String propertyReferenceNo;
 	/**
 	 */
@@ -120,31 +116,31 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "price_Per_Sqft", precision = 12)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	BigDecimal pricePerSqft;
+	
+	float pricePerSqft;
 	/**
 	 */
 
 	@Column(name = "is_Md_Approved")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	Boolean isMdApproved;
+	
+	int isMdApproved;
 	/**
 	 */
 
 	@Column(name = "is_Published")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	Boolean isPublished;
+	
+	int isPublished;
 	/**
 	 */
 
 	@Column(name = "payment_Verification_Code", length = 50)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String paymentVerificationCode;
 	/**
 	 */
@@ -152,7 +148,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "no_Of_Bedrooms")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	Integer noOfBedrooms;
 	/**
 	 */
@@ -160,7 +156,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "no_Of_Baths")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	Integer noOfBaths;
 	/**
 	 */
@@ -168,7 +164,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "is_Mortgage")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	Integer isMortgage;
 	/**
 	 */
@@ -176,15 +172,15 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "mortgage_Value", precision = 12)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	BigDecimal mortgageValue;
+	
+	float mortgageValue;
 	/**
 	 */
 
 	@Column(name = "mortage_Bank", length = 45)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String mortageBank;
 	/**
 	 */
@@ -192,7 +188,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "mortgage_Year")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	Integer mortgageYear;
 	/**
 	 */
@@ -200,7 +196,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "is_Rented")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	Integer isRented;
 	/**
 	 */
@@ -208,7 +204,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "rental_Ejari_No")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	Integer rentalEjariNo;
 	/**
 	 */
@@ -216,7 +212,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "rental_Annual_Rent")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	Integer rentalAnnualRent;
 	/**
 	 */
@@ -224,7 +220,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "rental_Payment_Checks")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	Integer rentalPaymentChecks;
 	/**
 	 */
@@ -232,7 +228,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "rental_Expiry_Date")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	Calendar rentalExpiryDate;
 	/**
 	 */
@@ -240,7 +236,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "outdoor_Type", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String outdoorType;
 	/**
 	 */
@@ -248,55 +244,55 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "is_Furnished")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	Boolean isFurnished;
+	
+	int isFurnished;
 	/**
 	 */
 
 	@Column(name = "kitchen_Type")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	Boolean kitchenType;
+	
+	int kitchenType;
 	/**
 	 */
 
 	@Column(name = "is_Maid_Room")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	Boolean isMaidRoom;
+	
+	int isMaidRoom;
 	/**
 	 */
 
 	@Column(name = "is_Swimming_Pool")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	Boolean isSwimmingPool;
+	
+	int isSwimmingPool;
 	/**
 	 */
 
 	@Column(name = "is_Gyma")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	Boolean isGyma;
+	
+	int isGyma;
 	/**
 	 */
 
 	@Column(name = "is_Heli_Pad")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	Boolean isHeliPad;
+	
+	int isHeliPad;
 	/**
 	 */
 
 	@Column(name = "no_Of_Parking")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	Integer noOfParking;
 	/**
 	 */
@@ -304,7 +300,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "no_Of_Floors")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	Integer noOfFloors;
 	/**
 	 */
@@ -312,7 +308,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "payment_Method", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String paymentMethod;
 	/**
 	 */
@@ -320,7 +316,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "seller_Security_Deposit", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String sellerSecurityDeposit;
 	/**
 	 */
@@ -328,7 +324,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "seller_Commission_Deposit", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String sellerCommissionDeposit;
 	/**
 	 */
@@ -336,7 +332,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "scanned_Title_Deed", length = 25, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String scannedTitleDeed;
 	/**
 	 */
@@ -344,15 +340,15 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "agree_Vat_Commission")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	Boolean agreeVatCommission;
+	
+	int agreeVatCommission;
 	/**
 	 */
 
 	@Column(name = "map_Location", length = 50)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String mapLocation;
 	/**
 	 */
@@ -360,7 +356,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "plot_No", length = 50)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String plotNo;
 	/**
 	 */
@@ -368,7 +364,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "title_Deed_No", length = 50)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String titleDeedNo;
 	/**
 	 */
@@ -376,7 +372,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "property_Status", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String propertyStatus;
 	/**
 	 */
@@ -384,7 +380,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "type_Area", length = 50)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String typeArea;
 	/**
 	 */
@@ -392,7 +388,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "project_Name", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String projectName;
 	/**
 	 */
@@ -400,7 +396,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "owner_Association_No", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String ownerAssociationNo;
 	/**
 	 */
@@ -408,7 +404,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "present_Use", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String presentUse;
 	/**
 	 */
@@ -416,7 +412,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "community_No", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String communityNo;
 	/**
 	 */
@@ -424,7 +420,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "property_Age", length = 50)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String propertyAge;
 	/**
 	 */
@@ -432,7 +428,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "no_Units")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	Integer noUnits;
 	/**
 	 */
@@ -440,7 +436,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "no_Shops")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	Integer noShops;
 	/**
 	 */
@@ -448,7 +444,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "no_Facilities", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String noFacilities;
 	/**
 	 */
@@ -456,7 +452,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "lease_Start_Date", nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	Calendar leaseStartDate;
 	/**
 	 */
@@ -464,7 +460,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "lease_Expiry_Date", nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	Calendar leaseExpiryDate;
 	/**
 	 */
@@ -472,7 +468,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "tenant_Name", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String tenantName;
 	/**
 	 */
@@ -480,7 +476,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "payement_Structure", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String payementStructure;
 	/**
 	 */
@@ -488,7 +484,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "tenancy_Contract_Upload", length = 25, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String tenancyContractUpload;
 	/**
 	 */
@@ -496,7 +492,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "buyer_Security_Deposit", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String buyerSecurityDeposit;
 	/**
 	 */
@@ -504,7 +500,7 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "buyer_Commission_Deposit", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String buyerCommissionDeposit;
 	/**
 	 */
@@ -512,31 +508,31 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "third_Party_Verification")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	Boolean thirdPartyVerification;
+	
+	int thirdPartyVerification;
 	/**
 	 */
 
 	@Column(name = "is_Third_Party_Payment")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	Boolean isThirdPartyPayment;
+	
+	int isThirdPartyPayment;
 	/**
 	 */
 
 	@Column(name = "verification_Hod_Approved")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	Boolean verificationHodApproved;
+	
+	int verificationHodApproved;
 	/**
 	 */
 
 	@Column(name = "valuation_Report_Document", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String valuationReportDocument;
 	/**
 	 */
@@ -544,68 +540,67 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "valuation_Hod_Approved")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	Boolean valuationHodApproved;
-
+	
+	int valuationHodApproved;
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "property_Type_Id", referencedColumnName = "property_Type_Id") })
-	@XmlTransient
+	@JsonBackReference
 	Propertytype propertytype;
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "user_Id", referencedColumnName = "user_Id", nullable = false) })
-	@XmlTransient
+    @JsonBackReference
 	Chiraghuser chiraghuser;
 	/**
 	 */
 	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
 
-	@XmlElement(name = "", namespace = "")
+	
 	java.util.Set<Propertymarketanalysis> propertymarketanalysises;
 	/**
 	 */
 	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
 
-	@XmlElement(name = "", namespace = "")
+	
 	java.util.Set<Propertyauctionprocess> propertyauctionprocesses;
 	/**
 	 */
 	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
 
-	@XmlElement(name = "", namespace = "")
+	
 	java.util.Set<Propertybidprocess> propertybidprocesses;
 	/**
 	 */
 	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
 
-	@XmlElement(name = "", namespace = "")
+	
 	java.util.Set<Sellerpayments> sellerpaymentses;
 	/**
 	 */
 	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
 
-	@XmlElement(name = "", namespace = "")
+	
 	java.util.Set<Propertybuyerdetails> propertybuyerdetailses;
 	/**
 	 */
 	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
 
-	@XmlElement(name = "", namespace = "")
+	
 	java.util.Set<Propertysellerdetails> propertysellerdetailses;
 	/**
 	 */
 	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
 
-	@XmlElement(name = "", namespace = "")
+	
 	java.util.Set<Propertyimages> propertyimageses;
 	/**
 	 */
 	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
 
-	@XmlElement(name = "", namespace = "")
+	
 	java.util.Set<Propertybrokerage> propertybrokerages;
 
 	/**
@@ -658,13 +653,13 @@ public class Chiraghproperty implements Serializable {
 
 	/**
 	 */
-	public void setSizePerSqft(BigDecimal sizePerSqft) {
+	public void setSizePerSqft(float sizePerSqft) {
 		this.sizePerSqft = sizePerSqft;
 	}
 
 	/**
 	 */
-	public BigDecimal getSizePerSqft() {
+	public float getSizePerSqft() {
 		return this.sizePerSqft;
 	}
 
@@ -682,13 +677,13 @@ public class Chiraghproperty implements Serializable {
 
 	/**
 	 */
-	public void setAskingPrice(BigDecimal askingPrice) {
+	public void setAskingPrice(float askingPrice) {
 		this.askingPrice = askingPrice;
 	}
 
 	/**
 	 */
-	public BigDecimal getAskingPrice() {
+	public float getAskingPrice() {
 		return this.askingPrice;
 	}
 
@@ -718,37 +713,37 @@ public class Chiraghproperty implements Serializable {
 
 	/**
 	 */
-	public void setPricePerSqft(BigDecimal pricePerSqft) {
+	public void setPricePerSqft(float pricePerSqft) {
 		this.pricePerSqft = pricePerSqft;
 	}
 
 	/**
 	 */
-	public BigDecimal getPricePerSqft() {
+	public float getPricePerSqft() {
 		return this.pricePerSqft;
 	}
 
 	/**
 	 */
-	public void setIsMdApproved(Boolean isMdApproved) {
+	public void setIsMdApproved(int isMdApproved) {
 		this.isMdApproved = isMdApproved;
 	}
 
 	/**
 	 */
-	public Boolean getIsMdApproved() {
+	public int getIsMdApproved() {
 		return this.isMdApproved;
 	}
 
 	/**
 	 */
-	public void setIsPublished(Boolean isPublished) {
+	public void setIsPublished(int isPublished) {
 		this.isPublished = isPublished;
 	}
 
 	/**
 	 */
-	public Boolean getIsPublished() {
+	public int getIsPublished() {
 		return this.isPublished;
 	}
 
@@ -802,13 +797,13 @@ public class Chiraghproperty implements Serializable {
 
 	/**
 	 */
-	public void setMortgageValue(BigDecimal mortgageValue) {
+	public void setMortgageValue(float mortgageValue) {
 		this.mortgageValue = mortgageValue;
 	}
 
 	/**
 	 */
-	public BigDecimal getMortgageValue() {
+	public float getMortgageValue() {
 		return this.mortgageValue;
 	}
 
@@ -910,73 +905,73 @@ public class Chiraghproperty implements Serializable {
 
 	/**
 	 */
-	public void setIsFurnished(Boolean isFurnished) {
+	public void setIsFurnished(int isFurnished) {
 		this.isFurnished = isFurnished;
 	}
 
 	/**
 	 */
-	public Boolean getIsFurnished() {
+	public int getIsFurnished() {
 		return this.isFurnished;
 	}
 
 	/**
 	 */
-	public void setKitchenType(Boolean kitchenType) {
+	public void setKitchenType(int kitchenType) {
 		this.kitchenType = kitchenType;
 	}
 
 	/**
 	 */
-	public Boolean getKitchenType() {
+	public int getKitchenType() {
 		return this.kitchenType;
 	}
 
 	/**
 	 */
-	public void setIsMaidRoom(Boolean isMaidRoom) {
+	public void setIsMaidRoom(int isMaidRoom) {
 		this.isMaidRoom = isMaidRoom;
 	}
 
 	/**
 	 */
-	public Boolean getIsMaidRoom() {
+	public int getIsMaidRoom() {
 		return this.isMaidRoom;
 	}
 
 	/**
 	 */
-	public void setIsSwimmingPool(Boolean isSwimmingPool) {
+	public void setIsSwimmingPool(int isSwimmingPool) {
 		this.isSwimmingPool = isSwimmingPool;
 	}
 
 	/**
 	 */
-	public Boolean getIsSwimmingPool() {
+	public int getIsSwimmingPool() {
 		return this.isSwimmingPool;
 	}
 
 	/**
 	 */
-	public void setIsGyma(Boolean isGyma) {
+	public void setIsGyma(int isGyma) {
 		this.isGyma = isGyma;
 	}
 
 	/**
 	 */
-	public Boolean getIsGyma() {
+	public int getIsGyma() {
 		return this.isGyma;
 	}
 
 	/**
 	 */
-	public void setIsHeliPad(Boolean isHeliPad) {
+	public void setIsHeliPad(int isHeliPad) {
 		this.isHeliPad = isHeliPad;
 	}
 
 	/**
 	 */
-	public Boolean getIsHeliPad() {
+	public int getIsHeliPad() {
 		return this.isHeliPad;
 	}
 
@@ -1054,13 +1049,13 @@ public class Chiraghproperty implements Serializable {
 
 	/**
 	 */
-	public void setAgreeVatCommission(Boolean agreeVatCommission) {
+	public void setAgreeVatCommission(int agreeVatCommission) {
 		this.agreeVatCommission = agreeVatCommission;
 	}
 
 	/**
 	 */
-	public Boolean getAgreeVatCommission() {
+	public int getAgreeVatCommission() {
 		return this.agreeVatCommission;
 	}
 
@@ -1306,37 +1301,37 @@ public class Chiraghproperty implements Serializable {
 
 	/**
 	 */
-	public void setThirdPartyVerification(Boolean thirdPartyVerification) {
+	public void setThirdPartyVerification(int thirdPartyVerification) {
 		this.thirdPartyVerification = thirdPartyVerification;
 	}
 
 	/**
 	 */
-	public Boolean getThirdPartyVerification() {
+	public int getThirdPartyVerification() {
 		return this.thirdPartyVerification;
 	}
 
 	/**
 	 */
-	public void setIsThirdPartyPayment(Boolean isThirdPartyPayment) {
+	public void setIsThirdPartyPayment(int isThirdPartyPayment) {
 		this.isThirdPartyPayment = isThirdPartyPayment;
 	}
 
 	/**
 	 */
-	public Boolean getIsThirdPartyPayment() {
+	public int getIsThirdPartyPayment() {
 		return this.isThirdPartyPayment;
 	}
 
 	/**
 	 */
-	public void setVerificationHodApproved(Boolean verificationHodApproved) {
+	public void setVerificationHodApproved(int verificationHodApproved) {
 		this.verificationHodApproved = verificationHodApproved;
 	}
 
 	/**
 	 */
-	public Boolean getVerificationHodApproved() {
+	public int getVerificationHodApproved() {
 		return this.verificationHodApproved;
 	}
 
@@ -1354,13 +1349,13 @@ public class Chiraghproperty implements Serializable {
 
 	/**
 	 */
-	public void setValuationHodApproved(Boolean valuationHodApproved) {
+	public void setValuationHodApproved(int valuationHodApproved) {
 		this.valuationHodApproved = valuationHodApproved;
 	}
 
 	/**
 	 */
-	public Boolean getValuationHodApproved() {
+	public int getValuationHodApproved() {
 		return this.valuationHodApproved;
 	}
 
@@ -1453,6 +1448,9 @@ public class Chiraghproperty implements Serializable {
 	public java.util.Set<Propertymarketanalysis> getPropertymarketanalysises() {
 		return propertymarketanalysises;
 	}
+
+
+	
 
 	
 }

@@ -22,9 +22,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(catalog = "chiraghdatabase", name = "adminusers")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "Adminusers")
-@XmlRootElement(namespace = "TestEntities/com/bestercapitalmedia/chiragh")
 public class Adminusers implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -33,10 +30,8 @@ public class Adminusers implements Serializable {
 
 	@Column(name = "admin_Users_Id", nullable = false)
 	@Basic(fetch = FetchType.EAGER)
-
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@XmlElement
 	Integer adminUsersId;
 	/**
 	 */
@@ -44,7 +39,6 @@ public class Adminusers implements Serializable {
 	@Column(name = "username", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String username;
 	/**
 	 */
@@ -52,20 +46,16 @@ public class Adminusers implements Serializable {
 	@Column(name = "password", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String password;
 
 	/**
 	 */
 	@OneToMany(mappedBy = "adminusers", fetch = FetchType.LAZY)
-
-	@XmlElement(name = "", namespace = "")
 	java.util.Set<Adminuserpermissions> adminuserpermissionses;
 	/**
 	 */
 	@OneToMany(mappedBy = "adminusers", fetch = FetchType.LAZY)
-
-	@XmlElement(name = "", namespace = "")
 	java.util.Set<com.bestercapitalmedia.chiragh.admin.activitylogs.Adminactivitylogs> adminactivitylogses;
 
 	/**

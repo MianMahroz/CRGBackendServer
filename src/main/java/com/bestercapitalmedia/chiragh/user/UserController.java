@@ -1,6 +1,7 @@
 package com.bestercapitalmedia.chiragh.user;
 
 import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
 
 import org.json.JSONObject;
@@ -43,7 +44,7 @@ public class UserController {
 	public String list() {
 		log.info("GET: /api/Users/getAll");
 		ObjectMapper objectMapper = new ObjectMapper();
-		Iterable<Chiraghuser> userList = userRepository.findAll();
+		List<Chiraghuser> userList = userRepository.findAllUser();
 		String rtnObject = "";
 		try {
 			rtnObject = objectMapper.writeValueAsString(userList);
@@ -71,6 +72,7 @@ public class UserController {
 		String rtnObject = "";
 
 		String msg = "";
+
 		try {
 			JSONObject jsonObj = new JSONObject(data);
 			if (jsonObj.has("userName") && jsonObj.has("userEmail") && jsonObj.has("userPassword")
@@ -79,37 +81,42 @@ public class UserController {
 					&& jsonObj.has("emailVerificationCode") && jsonObj.has("mobileOtpCode")) {
 
 				if (jsonObj.has("userName")) {
+					String userName=jsonObj.getString("userName");
+					if(userName.equals("")||userName==null){
+						return "User Name is Empty!";
+					}
+					else{
+					       	
+					}
 					user.setUserName(jsonObj.getString("userName"));
 					Chiraghuser v_user = userRepository.findByUserName(jsonObj.getString("userName"));
 					if (v_user != null)
 						return "UserName Already Exist!";
 				}
 				if (jsonObj.has("userEmail")) {
-					String email=jsonObj.getString("userEmail");
-					if(email.equals("")||email==null) {
+					String email = jsonObj.getString("userEmail");
+					if (email.equals("") || email == null) {
 						return "Email Address is Empty!";
-					}
-					else {
-						String status=chiraghUtil.validateEmailAddress(email);
-						if(status.equals("valid")) {
+					} else {
+						String status = chiraghUtil.validateEmailAddress(email);
+						if (status.equals("valid")) {
 							user.setUserEmail(jsonObj.getString("userEmail"));
 							Chiraghuser v_user = userRepository.findByEmail(jsonObj.getString("userEmail"));
 							if (v_user != null)
-								return "Email Already Exist";	
-						}
-						else {
+								return "Email Already Exist";
+						} else {
 							return status;
 						}
-						
+
 					}
-					
+
 				}
 				if (jsonObj.has("userPassword")) {
 					String password = jsonObj.getString("userPassword");
 					if (password.equals("") || password == null)
 						return "PLease Enter Password!";
 					String status = chiraghUtil.passwordValidation(user.getUserName(), password);
-					if (status.equals("valid")) {
+					if (status.equals("medium")||status.equals("strong")) {
 						String encrptedPassword = chiraghUtil.getencodedUserPassword(password);
 						user.setUserPassword(encrptedPassword);
 					} else {
@@ -121,7 +128,6 @@ public class UserController {
 					if (firstName.equals("") || firstName == null) {
 						return "Please Enter First Name!";
 					} else {
-
 						String status = chiraghUtil.textInputValidation(jsonObj.getString("firstName"));
 						if (status.equals("valid"))
 							user.setFirstName(jsonObj.getString("firstName"));
@@ -192,7 +198,7 @@ public class UserController {
 						user.setMobileOtpCode(jsonObj.getString("mobileOtpCode"));
 				}
 
-				userRepository.save(user);
+//				userRepository.save(user);
 				rtnObject = objectMapper.writeValueAsString(userRepository.findByUserName(user.getUserName()));
 				msg = "success";
 			} // end of outer if

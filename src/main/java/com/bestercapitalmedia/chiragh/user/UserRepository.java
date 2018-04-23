@@ -1,5 +1,7 @@
 package com.bestercapitalmedia.chiragh.user;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -16,5 +18,7 @@ public interface UserRepository extends CrudRepository<Chiraghuser, Integer> {
 
 	@Query(value = "select * from Chiraghuser where token=?1  ", nativeQuery = true)
 	public Chiraghuser findByToken(String token);
-		
+
+	@Query(value = "select * from Chiraghuser   ", nativeQuery = true)
+	public List<Chiraghuser> findAllUser();
 }

@@ -19,6 +19,7 @@ import com.bestercapitalmedia.chiragh.property.bidprocess.Propertybidprocess;
 import com.bestercapitalmedia.chiragh.seller.details.Propertysellerdetails;
 import com.bestercapitalmedia.chiragh.seller.payments.Sellerpayments;
 import com.bestercapitalmedia.chiragh.systemactivitylogs.Systemactivitylogs;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
@@ -27,11 +28,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(catalog = "chiraghdatabase", name = "chiraghuser")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "Chiraghuser")
-@XmlRootElement(namespace = "TestEntities/com/bestercapitalmedia/chiragh")
 public class Chiraghuser implements Serializable {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
 	/**
 	 */
@@ -41,168 +39,126 @@ public class Chiraghuser implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@XmlElement
+	
 	Integer userId;
 	/**
 	 */
 
 	@Column(name = "user_Name", length = 225)
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	String userName;
 	/**
 	 */
 
 	@Column(name = "user_Email", length = 225)
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	String userEmail;
 	/**
 	 */
 
 	@Column(name = "user_Password", length = 225)
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	String userPassword;
 	/**
 	 */
 
 	@Column(name = "first_Name", length = 225)
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	String firstName;
 	/**
 	 */
 
 	@Column(name = "middle_Name", length = 225)
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	String middleName;
 	/**
 	 */
 
 	@Column(name = "last_Name", length = 225)
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	String lastName;
 	/**
 	 */
 
 	@Column(name = "mobile_No", length = 225)
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	String mobileNo;
 	/**
 	 */
 
 	@Column(name = "street_Address", length = 225)
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	String streetAddress;
 	/**
 	 */
 
 	@Column(name = "building_Address", length = 225)
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	String buildingAddress;
 	/**
 	 */
 
 	@Column(name = "email_Verification_Code", length = 225)
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	String emailVerificationCode;
 	/**
 	 */
 
 	@Column(name = "mobile_OTP_Code", length = 225)
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	String mobileOtpCode;
 	/**
 	 */
 
 	@Column(name = "password_Verification_Code", length = 225)
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	String passwordVerificationCode;
 	/**
 	 */
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "otp_Code_Expiration")
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	Calendar otpCodeExpiration;
 	/**
 	 */
 
 	@Column(name = "profile_Pic_Upload", length = 50)
 	@Basic(fetch = FetchType.EAGER)
-
-	@XmlElement
 	String profilePicUpload;
 
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonBackReference
 	@JoinColumns({ @JoinColumn(name = "city_Id", referencedColumnName = "city_Id") })
-	@XmlTransient
 	City city;
 	/**
 	 */
 	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
-
-	@XmlElement(name = "", namespace = "")
 	java.util.Set<Systemactivitylogs> systemactivitylogses;
 	/**
 	 */
 	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
-
-	@XmlElement(name = "", namespace = "")
 	java.util.Set<Propertybidprocess> propertybidprocesses;
 	/**
 	 */
 	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
-
-	@XmlElement(name = "", namespace = "")
 	java.util.Set<Propertybuyerdetails> propertybuyerdetailses;
 	/**
 	 */
 	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
-
-	@XmlElement(name = "", namespace = "")
 	java.util.Set<Buyerpayments> buyerpaymentses;
 	/**
 	 */
 	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
-
-	@XmlElement(name = "", namespace = "")
 	java.util.Set<Sellerpayments> sellerpaymentses;
 	/**
 	 */
 	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
-
-	@XmlElement(name = "", namespace = "")
 	java.util.Set<Propertysellerdetails> propertysellerdetailses;
 	/**
 	 */
 	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
-
-	@XmlElement(name = "", namespace = "")
 	java.util.Set<Chiraghproperty> chiraghproperties;
     
 	@Column(name="token")
@@ -412,53 +368,7 @@ public class Chiraghuser implements Serializable {
 		return city;
 	}
 
-	public java.util.Set<Systemactivitylogs> getSystemactivitylogses() {
-		return systemactivitylogses;
-	}
 
-	public void setSystemactivitylogses(java.util.Set<Systemactivitylogs> systemactivitylogses) {
-		this.systemactivitylogses = systemactivitylogses;
-	}
-
-	public java.util.Set<Propertybidprocess> getPropertybidprocesses() {
-		return propertybidprocesses;
-	}
-
-	public void setPropertybidprocesses(java.util.Set<Propertybidprocess> propertybidprocesses) {
-		this.propertybidprocesses = propertybidprocesses;
-	}
-
-	public java.util.Set<Propertybuyerdetails> getPropertybuyerdetailses() {
-		return propertybuyerdetailses;
-	}
-
-	public void setPropertybuyerdetailses(java.util.Set<Propertybuyerdetails> propertybuyerdetailses) {
-		this.propertybuyerdetailses = propertybuyerdetailses;
-	}
-
-	public java.util.Set<Buyerpayments> getBuyerpaymentses() {
-		return buyerpaymentses;
-	}
-
-	public void setBuyerpaymentses(java.util.Set<Buyerpayments> buyerpaymentses) {
-		this.buyerpaymentses = buyerpaymentses;
-	}
-
-	public java.util.Set<Sellerpayments> getSellerpaymentses() {
-		return sellerpaymentses;
-	}
-
-	public void setSellerpaymentses(java.util.Set<Sellerpayments> sellerpaymentses) {
-		this.sellerpaymentses = sellerpaymentses;
-	}
-
-	public java.util.Set<Propertysellerdetails> getPropertysellerdetailses() {
-		return propertysellerdetailses;
-	}
-
-	public void setPropertysellerdetailses(java.util.Set<Propertysellerdetails> propertysellerdetailses) {
-		this.propertysellerdetailses = propertysellerdetailses;
-	}
 
 	public java.util.Set<Chiraghproperty> getChiraghproperties() {
 		return chiraghproperties;

@@ -1,6 +1,11 @@
 package com.bestercapitalmedia.chiragh.utill;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,6 +37,19 @@ public class ChiragUtill {
 		return activationToken;
 	}
 
+	public Calendar getDate(String date1) {
+		System.out.println("Date" + date1);
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar calendar = null;
+		try {
+			Date date = formatter.parse(date1);
+			calendar = Calendar.getInstance();
+			calendar.setTime(date);
+		} catch (ParseException ex) {
+
+		}
+		return calendar;
+	}
 	// public String encodeUserPassword(String password) {
 	// BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	// return passwordEncoder.encode(password);
@@ -64,49 +82,56 @@ public class ChiragUtill {
 	 * one special character.
 	 */
 	public String passwordValidation(String userName, String password) {
-		
-		if (password.length() > 15 || password.length() < 8)
-			return "Password should be less than 15 and more than 8 characters in length.";
 
-		if (password.indexOf(userName) > -1)
-			return "Password Should not be same as user name";
+		// total score of password
+		int iPasswordScore = 0;
 
-		String upperCaseChars = "(.*[A-Z].*)";
-		if (!password.matches(upperCaseChars))
-			return "Password should contain atleast one upper case alphabet";
+		if (password.length() < 8)
+			return "" + 0;
+		else if (password.length() >= 10)
+			iPasswordScore += 2;
+		else
+			iPasswordScore += 1;
 
-		String lowerCaseChars = "(.*[a-z].*)";
-		if (!password.matches(lowerCaseChars))
-			return "Password should contain atleast one lower case alphabet";
+		// if it contains one digit, add 2 to total score
+		if (password.matches("(?=.*[0-9]).*"))
+			iPasswordScore += 2;
 
-		String numbers = "(.*[0-9].*)";
-		if (!password.matches(numbers))
-			return "Password should contain atleast one number.";
+		// if it contains one lower case letter, add 2 to total score
+		if (password.matches("(?=.*[a-z]).*"))
+			iPasswordScore += 2;
 
-//		String specialChars = "(.*[,~,!,@,#,$,%,^,&,*,(,),-,_,=,+,[,{,],},|,;,:,<,>,/,?].*$)";
-//		if (!password.matches(specialChars))
-//			return "Password should contain atleast one special character";
+		// if it contains one upper case letter, add 2 to total score
+		if (password.matches("(?=.*[A-Z]).*"))
+			iPasswordScore += 2;
 
-		return "valid";
+		// if it contains one special character, add 2 to total score
+		if (password.matches("(?=.*[~!@#$%^&*()_-]).*"))
+			iPasswordScore += 2;
+		System.out.println(iPasswordScore);
+		return "" + iPasswordScore;
 
 	}// end of method
-	
-public String textInputValidation(String input) {
-		
-      String upperCaseChars = "(.*[A-Z].*)(.*[a-z].*)";
+
+	public String textInputValidation(String input) {
+
+		String upperCaseChars = "[a-zA-Z_]+";
 		if (!input.matches(upperCaseChars))
-			return "Name should contain only alphabets";		
-		return "valid";
+			return "Name should contain only alphabets";
+		else
+			return "valid";
 
 	}// end of method
-public String validateEmailAddress(String emailAddress) {
 
-    Pattern regexPattern = Pattern.compile("^[(a-zA-Z-0-9-\\_\\+\\.)]+@[(a-z-A-z)]+\\.[(a-zA-z)]{2,3}$");
-    Matcher regMatcher   = regexPattern.matcher(emailAddress);
-    if(regMatcher.matches()) {
-        return "valid";
-    } else {
-        return "Invalid Email Address";
-    }
-}
+	public String validateEmailAddress(String emailAddress) {
+
+		Pattern regexPattern = Pattern.compile("^[(a-zA-Z-0-9-\\_\\+\\.)]+@[(a-z-A-z)]+\\.[(a-zA-z)]{2,3}$");
+		Matcher regMatcher = regexPattern.matcher(emailAddress);
+		if (regMatcher.matches()) {
+			return "valid";
+		} else {
+			return "Invalid Email Address";
+		}
+	}
+
 }// end of class

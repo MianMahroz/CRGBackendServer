@@ -13,10 +13,7 @@ import javax.persistence.*;
  */
 
 @Entity
-
 @Table(catalog = "chiraghdatabase", name = "configurations")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "Configurations")
 
 public class Configurations implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -29,7 +26,7 @@ public class Configurations implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@XmlElement
+	
 	Integer configurationsId;
 	/**
 	 */
@@ -45,7 +42,7 @@ public class Configurations implements Serializable {
 	@Column(name = "key_Value", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String keyValue;
 
 	/**

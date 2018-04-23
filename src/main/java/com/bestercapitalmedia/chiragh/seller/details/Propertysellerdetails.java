@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.*;
 
 import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
 import com.bestercapitalmedia.chiragh.user.Chiraghuser;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
@@ -20,10 +21,7 @@ import javax.persistence.*;
  */
 
 @Entity
-
 @Table(catalog = "chiraghdatabase", name = "propertysellerdetails")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "Propertysellerdetails")
 
 public class Propertysellerdetails implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -35,8 +33,8 @@ public class Propertysellerdetails implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@XmlElement
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	Integer propertySellerId;
 	/**
 	 */
@@ -44,7 +42,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "first_Name", length = 225)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String firstName;
 	/**
 	 */
@@ -52,7 +49,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "middle_Name", length = 225)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String middleName;
 	/**
 	 */
@@ -60,7 +56,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "last_Name", length = 225)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String lastName;
 	/**
 	 */
@@ -68,7 +63,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "emmirates_Id_No", length = 225)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String emmiratesIdNo;
 	/**
 	 */
@@ -76,7 +70,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "passport_No", length = 225)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String passportNo;
 	/**
 	 */
@@ -84,7 +77,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "telephone", length = 225)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String telephone;
 	/**
 	 */
@@ -92,7 +84,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "mobile", length = 225)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String mobile;
 	/**
 	 */
@@ -100,7 +91,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "address", length = 225)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String address;
 	/**
 	 */
@@ -108,7 +98,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "emirates_Id_Document_Upload", nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	Integer emiratesIdDocumentUpload;
 	/**
 	 */
@@ -116,7 +105,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "poa_Clear_Deed_Upload")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	Integer poaClearDeedUpload;
 	/**
 	 */
@@ -124,7 +112,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "nationality", length = 25, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String nationality;
 	/**
 	 */
@@ -132,7 +119,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "id_Card_No", length = 25, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String idCardNo;
 	/**
 	 */
@@ -140,7 +126,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "passport_Id_Document_Upload")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	Integer passportIdDocumentUpload;
 	/**
 	 */
@@ -148,7 +133,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "id_Card_Expiration", length = 25, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String idCardExpiration;
 	/**
 	 */
@@ -156,7 +140,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "passport_Expiry_Date", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String passportExpiryDate;
 	/**
 	 */
@@ -164,7 +147,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "email", length = 25, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String email;
 	/**
 	 */
@@ -172,7 +154,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "email_Verification_Code", length = 25, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String emailVerificationCode;
 	/**
 	 */
@@ -180,7 +161,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "pobox", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String pobox;
 	/**
 	 */
@@ -188,7 +168,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "passport_Copy_Upload", length = 50)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String passportCopyUpload;
 	/**
 	 */
@@ -196,7 +175,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "scanned_Id_Copy", length = 50, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String scannedIdCopy;
 	/**
 	 */
@@ -204,7 +182,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "property_Document1_upload", length = 25, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String propertyDocument1Upload;
 	/**
 	 */
@@ -212,7 +189,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "property_Document2_Upload", length = 25, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String propertyDocument2Upload;
 	/**
 	 */
@@ -220,7 +196,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "property_Document3_Upload", length = 25, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String propertyDocument3Upload;
 	/**
 	 */
@@ -228,7 +203,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "property_Document4_upload", length = 25, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String propertyDocument4Upload;
 	/**
 	 */
@@ -236,7 +210,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "seller_Profilepic", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String sellerProfilepic;
 	/**
 	 */
@@ -244,7 +217,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "owner_Type", length = 10)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String ownerType;
 	/**
 	 */
@@ -252,7 +224,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "poa_Agreement_Expiry", length = 25, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String poaAgreementExpiry;
 	/**
 	 */
@@ -260,7 +231,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "poa_Property_Authority", length = 10, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String poaPropertyAuthority;
 	/**
 	 */
@@ -268,7 +238,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "title_Deed_Upload", length = 25, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String titleDeedUpload;
 	/**
 	 */
@@ -276,7 +245,6 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "scanned_Notorized_Copy", length = 25, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
 	String scannedNotorizedCopy;
 	/**
 	 */
@@ -284,20 +252,19 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "is_Poa_Accepted")
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	Boolean isPoaAccepted;
+	int isPoaAccepted;
 
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "user_Id", referencedColumnName = "user_Id") })
-	@XmlTransient
+	@JsonBackReference
 	Chiraghuser chiraghuser;
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "property_Id", referencedColumnName = "property_Id") })
-	@XmlTransient
+	@JsonBackReference
 	Chiraghproperty chiraghproperty;
 
 	/**
@@ -674,13 +641,13 @@ public class Propertysellerdetails implements Serializable {
 
 	/**
 	 */
-	public void setIsPoaAccepted(Boolean isPoaAccepted) {
+	public void setIsPoaAccepted(int isPoaAccepted) {
 		this.isPoaAccepted = isPoaAccepted;
 	}
 
 	/**
 	 */
-	public Boolean getIsPoaAccepted() {
+	public int getIsPoaAccepted() {
 		return this.isPoaAccepted;
 	}
 
@@ -713,113 +680,4 @@ public class Propertysellerdetails implements Serializable {
 	public Propertysellerdetails() {
 	}
 
-	/**
-	 * Copies the contents of the specified bean into this bean.
-	 *
-	 */
-	public void copy(Propertysellerdetails that) {
-		setPropertySellerId(that.getPropertySellerId());
-		setFirstName(that.getFirstName());
-		setMiddleName(that.getMiddleName());
-		setLastName(that.getLastName());
-		setEmmiratesIdNo(that.getEmmiratesIdNo());
-		setPassportNo(that.getPassportNo());
-		setTelephone(that.getTelephone());
-		setMobile(that.getMobile());
-		setAddress(that.getAddress());
-		setEmiratesIdDocumentUpload(that.getEmiratesIdDocumentUpload());
-		setPoaClearDeedUpload(that.getPoaClearDeedUpload());
-		setNationality(that.getNationality());
-		setIdCardNo(that.getIdCardNo());
-		setPassportIdDocumentUpload(that.getPassportIdDocumentUpload());
-		setIdCardExpiration(that.getIdCardExpiration());
-		setPassportExpiryDate(that.getPassportExpiryDate());
-		setEmail(that.getEmail());
-		setEmailVerificationCode(that.getEmailVerificationCode());
-		setPobox(that.getPobox());
-		setPassportCopyUpload(that.getPassportCopyUpload());
-		setScannedIdCopy(that.getScannedIdCopy());
-		setPropertyDocument1Upload(that.getPropertyDocument1Upload());
-		setPropertyDocument2Upload(that.getPropertyDocument2Upload());
-		setPropertyDocument3Upload(that.getPropertyDocument3Upload());
-		setPropertyDocument4Upload(that.getPropertyDocument4Upload());
-		setSellerProfilepic(that.getSellerProfilepic());
-		setOwnerType(that.getOwnerType());
-		setPoaAgreementExpiry(that.getPoaAgreementExpiry());
-		setPoaPropertyAuthority(that.getPoaPropertyAuthority());
-		setTitleDeedUpload(that.getTitleDeedUpload());
-		setScannedNotorizedCopy(that.getScannedNotorizedCopy());
-		setIsPoaAccepted(that.getIsPoaAccepted());
-		setChiraghuser(that.getChiraghuser());
-		setChiraghproperty(that.getChiraghproperty());
-	}
-
-	/**
-	 * Returns a textual representation of a bean.
-	 *
-	 */
-	public String toString() {
-
-		StringBuilder buffer = new StringBuilder();
-
-		buffer.append("propertySellerId=[").append(propertySellerId).append("] ");
-		buffer.append("firstName=[").append(firstName).append("] ");
-		buffer.append("middleName=[").append(middleName).append("] ");
-		buffer.append("lastName=[").append(lastName).append("] ");
-		buffer.append("emmiratesIdNo=[").append(emmiratesIdNo).append("] ");
-		buffer.append("passportNo=[").append(passportNo).append("] ");
-		buffer.append("telephone=[").append(telephone).append("] ");
-		buffer.append("mobile=[").append(mobile).append("] ");
-		buffer.append("address=[").append(address).append("] ");
-		buffer.append("emiratesIdDocumentUpload=[").append(emiratesIdDocumentUpload).append("] ");
-		buffer.append("poaClearDeedUpload=[").append(poaClearDeedUpload).append("] ");
-		buffer.append("nationality=[").append(nationality).append("] ");
-		buffer.append("idCardNo=[").append(idCardNo).append("] ");
-		buffer.append("passportIdDocumentUpload=[").append(passportIdDocumentUpload).append("] ");
-		buffer.append("idCardExpiration=[").append(idCardExpiration).append("] ");
-		buffer.append("passportExpiryDate=[").append(passportExpiryDate).append("] ");
-		buffer.append("email=[").append(email).append("] ");
-		buffer.append("emailVerificationCode=[").append(emailVerificationCode).append("] ");
-		buffer.append("pobox=[").append(pobox).append("] ");
-		buffer.append("passportCopyUpload=[").append(passportCopyUpload).append("] ");
-		buffer.append("scannedIdCopy=[").append(scannedIdCopy).append("] ");
-		buffer.append("propertyDocument1Upload=[").append(propertyDocument1Upload).append("] ");
-		buffer.append("propertyDocument2Upload=[").append(propertyDocument2Upload).append("] ");
-		buffer.append("propertyDocument3Upload=[").append(propertyDocument3Upload).append("] ");
-		buffer.append("propertyDocument4Upload=[").append(propertyDocument4Upload).append("] ");
-		buffer.append("sellerProfilepic=[").append(sellerProfilepic).append("] ");
-		buffer.append("ownerType=[").append(ownerType).append("] ");
-		buffer.append("poaAgreementExpiry=[").append(poaAgreementExpiry).append("] ");
-		buffer.append("poaPropertyAuthority=[").append(poaPropertyAuthority).append("] ");
-		buffer.append("titleDeedUpload=[").append(titleDeedUpload).append("] ");
-		buffer.append("scannedNotorizedCopy=[").append(scannedNotorizedCopy).append("] ");
-		buffer.append("isPoaAccepted=[").append(isPoaAccepted).append("] ");
-
-		return buffer.toString();
-	}
-
-	/**
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = (int) (prime * result + ((propertySellerId == null) ? 0 : propertySellerId.hashCode()));
-		return result;
-	}
-
-	/**
-	 */
-	public boolean equals(Object obj) {
-		if (obj == this)
-			return true;
-		if (!(obj instanceof Propertysellerdetails))
-			return false;
-		Propertysellerdetails equalCheck = (Propertysellerdetails) obj;
-		if ((propertySellerId == null && equalCheck.propertySellerId != null) || (propertySellerId != null && equalCheck.propertySellerId == null))
-			return false;
-		if (propertySellerId != null && !propertySellerId.equals(equalCheck.propertySellerId))
-			return false;
-		return true;
-	}
 }

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.xml.bind.annotation.*;
 
 import com.bestercapitalmedia.chiragh.property.bidprocess.Propertybidprocess;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
@@ -20,8 +21,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(catalog = "chiraghdatabase", name = "propertybidfinalize")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "Propertybidfinalize")
+
 
 public class Propertybidfinalize implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -34,7 +34,7 @@ public class Propertybidfinalize implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@XmlElement
+	
 	Integer bidFinalizeId;
 	/**
 	 */
@@ -42,7 +42,7 @@ public class Propertybidfinalize implements Serializable {
 	@Column(name = "brokerage_Mou_Document", length = 225)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String brokerageMouDocument;
 	/**
 	 */
@@ -50,7 +50,7 @@ public class Propertybidfinalize implements Serializable {
 	@Column(name = "is_Commission_Payment", length = 225)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String isCommissionPayment;
 	/**
 	 */
@@ -58,14 +58,14 @@ public class Propertybidfinalize implements Serializable {
 	@Column(name = "is_Final_Payment", length = 225)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String isFinalPayment;
 
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "bid_Id", referencedColumnName = "bid_Id") })
-	@XmlTransient
+	@JsonBackReference
 	Propertybidprocess propertybidprocess;
 
 	/**

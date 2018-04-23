@@ -5,7 +5,6 @@ import java.io.Serializable;
 
 import java.lang.StringBuilder;
 
-import java.math.BigDecimal;
 
 import java.util.Set;
 
@@ -16,6 +15,7 @@ import javax.xml.bind.annotation.*;
 import org.hibernate.annotations.GeneratorType;
 
 import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
@@ -23,11 +23,7 @@ import javax.persistence.*;
  */
 
 @Entity
-
 @Table(catalog = "chiraghdatabase", name = "propertymarketanalysis")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "Propertymarketanalysis")
-
 public class Propertymarketanalysis implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -39,7 +35,7 @@ public class Propertymarketanalysis implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@XmlElement
+	
 	Integer propertyMarketAnalysisField;
 	/**
 	 */
@@ -47,7 +43,7 @@ public class Propertymarketanalysis implements Serializable {
 	@Column(name = "property_Area", length = 225)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String propertyArea;
 	/**
 	 */
@@ -55,62 +51,62 @@ public class Propertymarketanalysis implements Serializable {
 	@Column(name = "property_Amount", precision = 12)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	BigDecimal propertyAmount;
+	
+	float propertyAmount;
 	/**
 	 */
 
 	@Column(name = "lowest_Bid", precision = 12)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	BigDecimal lowestBid;
+	
+	float lowestBid;
 	/**
 	 */
 
 	@Column(name = "highest_Bid", precision = 12)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	BigDecimal highestBid;
+	
+	float highestBid;
 	/**
 	 */
 
 	@Column(name = "recommended_Price", precision = 12)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	BigDecimal recommendedPrice;
+	
+	float recommendedPrice;
 	/**
 	 */
 
 	@Column(name = "current_Price", precision = 12)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	BigDecimal currentPrice;
+	
+	float currentPrice;
 	/**
 	 */
 
 	@Column(name = "percentage_Increased_Since_Last_Year", precision = 12)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	BigDecimal percentageIncreasedSinceLastYear;
+	
+	float percentageIncreasedSinceLastYear;
 	/**
 	 */
 
 	@Column(name = "price_Per_Sqft", precision = 12)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
-	BigDecimal pricePerSqft;
+	
+	float pricePerSqft;
 
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "property_Id", referencedColumnName = "property_Id") })
-	@XmlTransient
+	@JsonBackReference
 	Chiraghproperty chiraghproperty;
 
 	/**
@@ -139,85 +135,85 @@ public class Propertymarketanalysis implements Serializable {
 
 	/**
 	 */
-	public void setPropertyAmount(BigDecimal propertyAmount) {
+	public void setPropertyAmount(float propertyAmount) {
 		this.propertyAmount = propertyAmount;
 	}
 
 	/**
 	 */
-	public BigDecimal getPropertyAmount() {
+	public float getPropertyAmount() {
 		return this.propertyAmount;
 	}
 
 	/**
 	 */
-	public void setLowestBid(BigDecimal lowestBid) {
+	public void setLowestBid(float lowestBid) {
 		this.lowestBid = lowestBid;
 	}
 
 	/**
 	 */
-	public BigDecimal getLowestBid() {
+	public float getLowestBid() {
 		return this.lowestBid;
 	}
 
 	/**
 	 */
-	public void setHighestBid(BigDecimal highestBid) {
+	public void setHighestBid(float highestBid) {
 		this.highestBid = highestBid;
 	}
 
 	/**
 	 */
-	public BigDecimal getHighestBid() {
+	public float getHighestBid() {
 		return this.highestBid;
 	}
 
 	/**
 	 */
-	public void setRecommendedPrice(BigDecimal recommendedPrice) {
+	public void setRecommendedPrice(float recommendedPrice) {
 		this.recommendedPrice = recommendedPrice;
 	}
 
 	/**
 	 */
-	public BigDecimal getRecommendedPrice() {
+	public float getRecommendedPrice() {
 		return this.recommendedPrice;
 	}
 
 	/**
 	 */
-	public void setCurrentPrice(BigDecimal currentPrice) {
+	public void setCurrentPrice(float currentPrice) {
 		this.currentPrice = currentPrice;
 	}
 
 	/**
 	 */
-	public BigDecimal getCurrentPrice() {
+	public float getCurrentPrice() {
 		return this.currentPrice;
 	}
 
 	/**
 	 */
-	public void setPercentageIncreasedSinceLastYear(BigDecimal percentageIncreasedSinceLastYear) {
+	public void setPercentageIncreasedSinceLastYear(float percentageIncreasedSinceLastYear) {
 		this.percentageIncreasedSinceLastYear = percentageIncreasedSinceLastYear;
 	}
 
 	/**
 	 */
-	public BigDecimal getPercentageIncreasedSinceLastYear() {
+	public float getPercentageIncreasedSinceLastYear() {
 		return this.percentageIncreasedSinceLastYear;
 	}
 
 	/**
 	 */
-	public void setPricePerSqft(BigDecimal pricePerSqft) {
+	public void setPricePerSqft(float pricePerSqft) {
 		this.pricePerSqft = pricePerSqft;
 	}
 
 	/**
 	 */
-	public BigDecimal getPricePerSqft() {
+	public float getPricePerSqft() {
 		return this.pricePerSqft;
 	}
 

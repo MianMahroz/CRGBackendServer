@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.xml.bind.annotation.*;
 
 import com.bestercapitalmedia.chiragh.user.Chiraghuser;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
@@ -20,8 +21,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(catalog = "chiraghdatabase", name = "systemactivitylogs")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(namespace = "TestEntities/com/bestercapitalmedia/chiragh", name = "Systemactivitylogs")
+
 
 public class Systemactivitylogs implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -34,7 +34,7 @@ public class Systemactivitylogs implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@XmlElement
+	
 	Integer systemActivityLogsId;
 	/**
 	 */
@@ -42,7 +42,7 @@ public class Systemactivitylogs implements Serializable {
 	@Column(name = "action_Performed", length = 45)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String actionPerformed;
 	/**
 	 */
@@ -50,7 +50,7 @@ public class Systemactivitylogs implements Serializable {
 	@Column(name = "action_Performed_Datetime", length = 45)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String actionPerformedDatetime;
 	/**
 	 */
@@ -58,14 +58,14 @@ public class Systemactivitylogs implements Serializable {
 	@Column(name = "remote_Ip_Address", length = 45)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String remoteIpAddress;
 
 	/**
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "user_Id", referencedColumnName = "user_Id") })
-	@XmlTransient
+	@JsonBackReference
 	Chiraghuser chiraghuser;
 
 	/**
