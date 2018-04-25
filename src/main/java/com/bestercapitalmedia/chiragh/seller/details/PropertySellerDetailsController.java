@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
 import com.bestercapitalmedia.chiragh.property.PropertyRepository;
+import com.bestercapitalmedia.chiragh.property.type.Propertytype;
+import com.bestercapitalmedia.chiragh.property.type.PropertytypeRepository;
 import com.bestercapitalmedia.chiragh.user.Chiraghuser;
 import com.bestercapitalmedia.chiragh.user.UserRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -29,7 +32,14 @@ public class PropertySellerDetailsController {
 	private PropertyRepository propertyRepository;
 
 	@Autowired
+	private PropertytypeRepository propertyTypeRepository;
+
+	@Autowired
 	private UserRepository userRepository;
+
+	RestTemplate restTemplate;
+
+	private Chiraghproperty newProperty;
 
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	public String list() {
@@ -73,7 +83,7 @@ public class PropertySellerDetailsController {
 					&& jsonObject.has("poaAgreementExpiry") && jsonObject.has("poaPropertyAuthority")
 					&& jsonObject.has("titleDeedUpload") && jsonObject.has("scannedNotorizedCopy")
 					&& jsonObject.has("isPoaAccepted") && jsonObject.has("userName")
-					&& jsonObject.has("propertyTitle")) {
+					&& jsonObject.has("propertyTitle")&& jsonObject.has("propertyId")) {
 
 				propertysellerdetails.setFirstName(jsonObject.getString("firstName"));
 				propertysellerdetails.setMiddleName(jsonObject.getString("middleName"));
@@ -109,16 +119,42 @@ public class PropertySellerDetailsController {
 				propertysellerdetails.setTitleDeedUpload(jsonObject.getString("titleDeedUpload"));
 				propertysellerdetails.setScannedNotorizedCopy(jsonObject.getString("scannedNotorizedCopy"));
 				propertysellerdetails.setIsPoaAccepted(Integer.parseInt(jsonObject.getString("isPoaAccepted")));
-
-				Chiraghproperty chiraghproperty = propertyRepository
-						.findByPropertyTitle(jsonObject.getString("propertyTitle"));
 				Chiraghuser chiraghuser = userRepository.findByUserName(jsonObject.getString("userName"));
-
 				propertysellerdetails.setChiraghuser(chiraghuser);
-				propertysellerdetails.setChiraghproperty(chiraghproperty);
-				propertySellerDetailsRepository.save(propertysellerdetails);
-				rtnObject = objectMapper.writeValueAsString(propertysellerdetails);
-				msg = "success";
+				int propertyId = 0;
+				if (jsonObject.has("propertyId")) {
+					String id = jsonObject.getString("propertyId");
+					if (id.equals("") || id == null) {
+						final String uri = "http://localhost:8080/api/property/post/advance/"
+								+ jsonObject.getString("userName");
+						RestTemplate restTemplate = new RestTemplate();
+						int newPropertyId = restTemplate.getForObject(uri, int.class);
+						Chiraghproperty chiraghproperty = propertyRepository.findByPropertyId(newPropertyId);
+						propertysellerdetails.setChiraghproperty(chiraghproperty);
+						Propertysellerdetails propertysellerdetails2 = propertySellerDetailsRepository
+								.save(propertysellerdetails);
+						rtnObject = objectMapper.writeValueAsString(propertysellerdetails2);
+						msg = "success";
+						System.out.println("New Property Id:" + newPropertyId);
+					} else {
+						try {
+							propertyId = Integer.parseInt(jsonObject.getString("propertyId"));
+							Chiraghproperty chiraghproperty = propertyRepository.findByPropertyId(propertyId);
+							propertysellerdetails.setChiraghproperty(chiraghproperty);
+							Propertysellerdetails propertysellerdetails2 = propertySellerDetailsRepository
+									.save(propertysellerdetails);
+							rtnObject = objectMapper.writeValueAsString(propertysellerdetails2);
+							msg = "success";
+						} catch (Exception e) {
+							msg = e.getMessage();
+						}
+						
+					}
+
+				} else {
+					msg = "Object Does not Contain PropertyId";
+
+				}
 
 			} else {
 				msg = "Invalid Object!";

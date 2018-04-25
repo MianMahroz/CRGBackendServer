@@ -42,6 +42,8 @@ public class PropertyController {
 	@Autowired
 	private PropertyRepository propertyRepository;
 
+	private Chiraghproperty chiraghpropertNew;
+
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	public Iterable<Chiraghproperty> list() {
 		log.info("GET: /api/property/getAll");
@@ -51,7 +53,7 @@ public class PropertyController {
 		try {
 			rtnObject = objectMapper.writeValueAsString(userList);
 		} catch (JsonProcessingException e) {
-			
+
 		}
 
 		log.info("Output: " + rtnObject);
@@ -60,7 +62,7 @@ public class PropertyController {
 	}// end of list method
 
 	@RequestMapping(value = "/post")
-	public String create(@RequestBody String data) {
+	public Chiraghproperty create(@RequestBody String data) {
 		log.info("Post: /api/property/post");
 		log.info("Input: " + data);
 
@@ -93,7 +95,7 @@ public class PropertyController {
 					&& jsonObj.has("buyerCommissionDeposit") && jsonObj.has("thirdPartyVerification")
 					&& jsonObj.has("isThirdPartyPayment") && jsonObj.has("verificationHodApproved")
 					&& jsonObj.has("valuationReportDocument") && jsonObj.has("valuationHodApproved")
-					&& jsonObj.has("propertyTypeTitle")&& jsonObj.has("userName")) {
+					&& jsonObj.has("propertyTypeTitle") && jsonObj.has("userName")) {
 
 				chiraghproperty.setPropertyTitle(jsonObj.getString("propertyTitle"));
 				chiraghproperty.setPropertyDescription(jsonObj.getString("propertyDescription"));
@@ -158,28 +160,51 @@ public class PropertyController {
 				Propertytype propertytype1 = propertyTypeRepository
 						.findBytypeTitle(jsonObj.getString("propertyTypeTitle"));
 				chiraghproperty.setPropertytype(propertytype1);
-				Chiraghuser chiraghuser=userRepository.findByUserName(jsonObj.getString("userName"));
-				chiraghproperty.setChiraghuser(chiraghuser);				
-				propertyRepository.save(chiraghproperty);
-				rtnObject=objectMapper.writeValueAsString(chiraghproperty);
-                msg="success";
+				Chiraghuser chiraghuser = userRepository.findByUserName(jsonObj.getString("userName"));
+				chiraghproperty.setChiraghuser(chiraghuser);
+				chiraghpropertNew = propertyRepository.save(chiraghproperty);
+				rtnObject = objectMapper.writeValueAsString(chiraghpropertNew);
+				msg = "success";
 			} // end of if
 			else {
-				msg= "Invalid  Object!";
+				msg = "Invalid  Object!";
 			}
 		} catch (Exception ee) {
-			msg= "Error!"+ee.getMessage();
+			msg = "Error!" + ee.getMessage();
 		}
 
 		if (msg.equals("success")) {
 			log.info("Output: " + rtnObject);
 			log.info("--------------------------------------------------------");
-			return rtnObject;
+			return chiraghpropertNew;
 		} else {
 			log.info("Output: " + msg);
 			log.info("--------------------------------------------------------");
-			return msg;
+			return chiraghpropertNew;
 		}
+	}
+
+	@RequestMapping(value = "/post/advance/{userName}")
+	public int createnew(@PathVariable String userName) {
+		log.info("Post: /api/property/post/advance");
+		log.info("Input: " + userName);
+
+		Chiraghproperty chiraghproperty = new Chiraghproperty();
+		ObjectMapper objectMapper = new ObjectMapper();
+		String rtnObject = "";
+		String msg = "";
+		try {
+			
+			Chiraghuser chiraghuser=userRepository.findByUserName(userName);
+			chiraghproperty.setChiraghuser(chiraghuser);
+			Propertytype propertytype =propertyTypeRepository.findBytypeTitle("TypeTitle");//rough PropertyTitle
+			chiraghproperty.setPropertytype(propertytype);
+			chiraghpropertNew = propertyRepository.save(chiraghproperty);		
+		} catch (Exception ee) {
+               msg=ee.getMessage();
+		}
+		return chiraghpropertNew.getPropertyId();
+
 	}
 
 	@RequestMapping(value = "/put/{id}", method = RequestMethod.PUT)

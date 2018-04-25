@@ -76,7 +76,6 @@ public class Propertysellerdetails implements Serializable {
 
 	@Column(name = "telephone", length = 225)
 	@Basic(fetch = FetchType.EAGER)
-
 	String telephone;
 	/**
 	 */

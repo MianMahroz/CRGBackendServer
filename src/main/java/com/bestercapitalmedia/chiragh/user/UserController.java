@@ -81,17 +81,16 @@ public class UserController {
 					&& jsonObj.has("emailVerificationCode") && jsonObj.has("mobileOtpCode")) {
 
 				if (jsonObj.has("userName")) {
-					String userName=jsonObj.getString("userName");
-					if(userName.equals("")||userName==null){
+					String userName = jsonObj.getString("userName");
+					if (userName.equals("") || userName == null) {
 						return "User Name is Empty!";
+					} else {
+						user.setUserName(jsonObj.getString("userName"));
+						Chiraghuser v_user = userRepository.findByUserName(jsonObj.getString("userName"));
+						if (v_user != null)
+							return "UserName Already Exist!";
 					}
-					else{
-					       	
-					}
-					user.setUserName(jsonObj.getString("userName"));
-					Chiraghuser v_user = userRepository.findByUserName(jsonObj.getString("userName"));
-					if (v_user != null)
-						return "UserName Already Exist!";
+
 				}
 				if (jsonObj.has("userEmail")) {
 					String email = jsonObj.getString("userEmail");
@@ -115,8 +114,30 @@ public class UserController {
 					String password = jsonObj.getString("userPassword");
 					if (password.equals("") || password == null)
 						return "PLease Enter Password!";
-					String status = chiraghUtil.passwordValidation(user.getUserName(), password);
-					if (status.equals("medium")||status.equals("strong")) {
+					String status = "";
+					int point = chiraghUtil.passwordValidation(user.getUserName(), password);
+					status = "" + point;
+					switch (point) {
+					case 0:
+						status = "Invalid Password";
+						break;
+					case 2:
+						status = "weak";
+						break;
+					case 4:
+						status = "medium";
+						break;
+					case 6:
+						status = "good";
+						break;
+					case 8:
+						status = "strong";
+						break;
+					default:
+						break;
+					}
+
+					if (status.equals("good") || status.equals("strong")) {
 						String encrptedPassword = chiraghUtil.getencodedUserPassword(password);
 						user.setUserPassword(encrptedPassword);
 					} else {
@@ -198,7 +219,7 @@ public class UserController {
 						user.setMobileOtpCode(jsonObj.getString("mobileOtpCode"));
 				}
 
-//				userRepository.save(user);
+				 userRepository.save(user);
 				rtnObject = objectMapper.writeValueAsString(userRepository.findByUserName(user.getUserName()));
 				msg = "success";
 			} // end of outer if

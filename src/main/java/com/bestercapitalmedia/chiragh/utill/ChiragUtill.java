@@ -81,17 +81,17 @@ public class ChiragUtill {
 	 * Password should contain at least one number. Password should contain at least
 	 * one special character.
 	 */
-	public String passwordValidation(String userName, String password) {
+	public int passwordValidation(String userName, String password) {
 
 		// total score of password
 		int iPasswordScore = 0;
 
-		if (password.length() < 8)
-			return "" + 0;
-		else if (password.length() >= 10)
-			iPasswordScore += 2;
-		else
-			iPasswordScore += 1;
+		if (password.length() < 8 || password.length()>15)
+			return  0;
+//		else if (password.length() >= 10)
+//			iPasswordScore += 2;
+//		else
+//			iPasswordScore += 1;
 
 		// if it contains one digit, add 2 to total score
 		if (password.matches("(?=.*[0-9]).*"))
@@ -108,8 +108,7 @@ public class ChiragUtill {
 		// if it contains one special character, add 2 to total score
 		if (password.matches("(?=.*[~!@#$%^&*()_-]).*"))
 			iPasswordScore += 2;
-		System.out.println(iPasswordScore);
-		return "" + iPasswordScore;
+		return  iPasswordScore;
 
 	}// end of method
 

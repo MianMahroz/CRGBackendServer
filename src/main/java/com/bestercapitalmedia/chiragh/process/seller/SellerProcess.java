@@ -40,6 +40,9 @@ public class SellerProcess {
 	@Column(name="userId")
 	private int userId;
 	
+	@Column(name="propertyCode")
+	private String propertyCode;
+	
 	public SellerProcess() {
 		
 	}
@@ -114,6 +117,14 @@ public class SellerProcess {
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	public String getPropertyCode() {
+		return propertyCode;
+	}
+
+	public void setPropertyCode(String propertyCode) {
+		this.propertyCode = propertyCode;
 	}
 	
 	
