@@ -561,7 +561,6 @@ public class Chiraghproperty implements Serializable {
 
 	@Column(name = "morgage_Noc", length = 45)
 	@Basic(fetch = FetchType.EAGER)
-
 	String morgageNoc;
 
 	/**

@@ -1,6 +1,5 @@
 package com.bestercapitalmedia.chiragh.user;
 
-import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,22 +7,16 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.providers.encoding.Md5PasswordEncoder;
-import org.springframework.util.Assert;
+
 import org.springframework.util.DigestUtils;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.bestercapitalmedia.chiragh.mail.MailService;
 
-import com.bestercapitalmedia.chiragh.systemactivitylogs.SystemActivityLogController;
 import com.bestercapitalmedia.chiragh.utill.ChiragUtill;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -97,6 +97,8 @@ public class PropertyController {
 					&& jsonObj.has("valuationReportDocument") && jsonObj.has("valuationHodApproved")
 					&& jsonObj.has("propertyTypeTitle") && jsonObj.has("userName")) {
 
+				
+				
 				chiraghproperty.setPropertyTitle(jsonObj.getString("propertyTitle"));
 				chiraghproperty.setPropertyDescription(jsonObj.getString("propertyDescription"));
 				chiraghproperty.setLocation(jsonObj.getString("location"));
@@ -162,6 +164,7 @@ public class PropertyController {
 				chiraghproperty.setPropertytype(propertytype1);
 				Chiraghuser chiraghuser = userRepository.findByUserName(jsonObj.getString("userName"));
 				chiraghproperty.setChiraghuser(chiraghuser);
+				
 				chiraghpropertNew = propertyRepository.save(chiraghproperty);
 				rtnObject = objectMapper.writeValueAsString(chiraghpropertNew);
 				msg = "success";

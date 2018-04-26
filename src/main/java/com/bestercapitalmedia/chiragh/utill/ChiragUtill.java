@@ -11,8 +11,8 @@ import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.providers.encoding.Md5PasswordEncoder;
+
+
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -28,8 +28,7 @@ public class ChiragUtill {
 	private UserRepository userRepository;
 
 	public String createActivationToken(Chiraghuser user, Boolean save) {
-		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-		String activationToken = encoder.encodePassword(user.getUserName(), applicationSecret);
+		String activationToken =  DigestUtils.md5DigestAsHex(user.getUserName().getBytes());
 		if (save) {
 			user.setToken(activationToken);
 			userRepository.save(user);
@@ -55,10 +54,8 @@ public class ChiragUtill {
 	// return passwordEncoder.encode(password);
 	// }
 
-	public String getencodedUserPasswordForReset(String password) {
-		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-		String resetToken = encoder.encodePassword(password, applicationSecret);
-		return resetToken;
+	public String getencodedUserPasswordForReset(String password) {		
+		return  DigestUtils.md5DigestAsHex(password.getBytes());
 	}
 
 	public String getencodedUserPassword(String password) {
