@@ -82,8 +82,8 @@ public class PropertySellerDetailsController {
 					&& jsonObject.has("sellerProfilepic") && jsonObject.has("ownerType")
 					&& jsonObject.has("poaAgreementExpiry") && jsonObject.has("poaPropertyAuthority")
 					&& jsonObject.has("titleDeedUpload") && jsonObject.has("scannedNotorizedCopy")
-					&& jsonObject.has("isPoaAccepted") && jsonObject.has("userName")
-					&& jsonObject.has("propertyTitle")&& jsonObject.has("propertyId")) {
+					&& jsonObject.has("isPoaAccepted") && jsonObject.has("userName") && jsonObject.has("propertyTitle")
+					&& jsonObject.has("propertyId")) {
 
 				propertysellerdetails.setFirstName(jsonObject.getString("firstName"));
 				propertysellerdetails.setMiddleName(jsonObject.getString("middleName"));
@@ -148,7 +148,7 @@ public class PropertySellerDetailsController {
 						} catch (Exception e) {
 							msg = e.getMessage();
 						}
-						
+
 					}
 
 				} else {

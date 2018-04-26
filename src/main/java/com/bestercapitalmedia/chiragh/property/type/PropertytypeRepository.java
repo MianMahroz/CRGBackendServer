@@ -13,8 +13,11 @@ public interface PropertytypeRepository extends CrudRepository<Propertytype, Int
 	@Query(value = "select * from Propertytype where type_Title=?1 ", nativeQuery = true)
 	public Propertytype findBytypeTitle(String typeTitle);
 
-	@Query(value = "select * from Propertytype where type_Classification=?2 ", nativeQuery = true)
+	@Query(value = "select * from Propertytype where type_Classification=?1 ", nativeQuery = true)
 	public Propertytype findBytypeClassification(String typeClassification);
+
+	@Query(value = "select * from Propertytype where property_Id=?1 ", nativeQuery = true)
+	public Propertytype findByPropertyId(int property_Id);
 
 
 
