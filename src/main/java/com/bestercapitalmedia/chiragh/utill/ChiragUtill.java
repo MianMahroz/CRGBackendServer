@@ -12,7 +12,6 @@ import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
-
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -28,7 +27,7 @@ public class ChiragUtill {
 	private UserRepository userRepository;
 
 	public String createActivationToken(Chiraghuser user, Boolean save) {
-		String activationToken =  DigestUtils.md5DigestAsHex(user.getUserName().getBytes());
+		String activationToken = DigestUtils.md5DigestAsHex(user.getUserName().getBytes());
 		if (save) {
 			user.setToken(activationToken);
 			userRepository.save(user);
@@ -54,8 +53,8 @@ public class ChiragUtill {
 	// return passwordEncoder.encode(password);
 	// }
 
-	public String getencodedUserPasswordForReset(String password) {		
-		return  DigestUtils.md5DigestAsHex(password.getBytes());
+	public String getencodedUserPasswordForReset(String password) {
+		return DigestUtils.md5DigestAsHex(password.getBytes());
 	}
 
 	public String getencodedUserPassword(String password) {
@@ -80,15 +79,15 @@ public class ChiragUtill {
 	 */
 	public int passwordValidation(String userName, String password) {
 
-		// total score of password
+		// total score of passwords
 		int iPasswordScore = 0;
 
-		if (password.length() < 8 || password.length()>15)
-			return  0;
-//		else if (password.length() >= 10)
-//			iPasswordScore += 2;
-//		else
-//			iPasswordScore += 1;
+		if (password.length() < 8 || password.length() > 15)
+			return 0;
+		// else if (password.length() >= 10)
+		// iPasswordScore += 2;
+		// else
+		// iPasswordScore += 1;
 
 		// if it contains one digit, add 2 to total score
 		if (password.matches("(?=.*[0-9]).*"))
@@ -105,7 +104,7 @@ public class ChiragUtill {
 		// if it contains one special character, add 2 to total score
 		if (password.matches("(?=.*[~!@#$%^&*()_-]).*"))
 			iPasswordScore += 2;
-		return  iPasswordScore;
+		return iPasswordScore;
 
 	}// end of method
 
