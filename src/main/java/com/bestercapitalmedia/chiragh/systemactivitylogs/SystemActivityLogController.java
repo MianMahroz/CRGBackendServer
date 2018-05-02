@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bestercapitalmedia.chiragh.country.Country;
@@ -25,8 +26,8 @@ public class SystemActivityLogController {
 	}
 
 	@RequestMapping(value="/post")
-	public Systemactivitylogs create(Systemactivitylogs users) {
-		return systemActivityLogRepository.save(users);
+	public @ResponseBody Systemactivitylogs create(@RequestBody Systemactivitylogs systemactivitylogs) {
+		return systemActivityLogRepository.save(systemactivitylogs);
 	}
 
 	

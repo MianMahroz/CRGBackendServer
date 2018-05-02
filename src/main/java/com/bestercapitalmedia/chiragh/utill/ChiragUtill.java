@@ -9,6 +9,9 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -25,6 +28,62 @@ public class ChiragUtill {
 	private String applicationSecret;
 	@Autowired
 	private UserRepository userRepository;
+
+	public boolean isValidSession(HttpServletRequest httpServletRequest) {
+		HttpSession session = httpServletRequest.getSession(false);
+		if(session ==null){
+			return false;
+		}else{
+			return true;
+		}	
+	}
+	public String validatePassword(String password) {
+		String status = "";
+		// total score of passwords
+		int iPasswordScore = 0;
+
+		if (password.length() < 8 || password.length() > 15)
+			iPasswordScore = 0;
+
+		// if it contains one digit, add 2 to total score
+		if (password.matches("(?=.*[0-9]).*"))
+			iPasswordScore += 2;
+
+		// if it contains one lower case letter, add 2 to total score
+		if (password.matches("(?=.*[a-z]).*"))
+			iPasswordScore += 2;
+
+		// if it contains one upper case letter, add 2 to total score
+		if (password.matches("(?=.*[A-Z]).*"))
+			iPasswordScore += 2;
+
+		// if it contains one special character, add 2 to total score
+		if (password.matches("(?=.*[~!@#$%^&*()_-]).*"))
+			iPasswordScore += 2;
+
+		switch (iPasswordScore) {
+		case 0:
+			status = "Invalid Password";
+			break;
+		case 2:
+			status = "weak";
+			break;
+		case 4:
+			status = "medium";
+			break;
+		case 6:
+			status = "good";
+			break;
+		case 8:
+			status = "strong";
+			break;
+		default:
+			break;
+		}
+
+		return status;
+
+	}// end of method
 
 	public String createActivationToken(Chiraghuser user, Boolean save) {
 		String activationToken = DigestUtils.md5DigestAsHex(user.getUserName().getBytes());
@@ -77,37 +136,7 @@ public class ChiragUtill {
 	 * Password should contain at least one number. Password should contain at least
 	 * one special character.
 	 */
-	public int passwordValidation(String userName, String password) {
-
-		// total score of passwords
-		int iPasswordScore = 0;
-
-		if (password.length() < 8 || password.length() > 15)
-			return 0;
-		// else if (password.length() >= 10)
-		// iPasswordScore += 2;
-		// else
-		// iPasswordScore += 1;
-
-		// if it contains one digit, add 2 to total score
-		if (password.matches("(?=.*[0-9]).*"))
-			iPasswordScore += 2;
-
-		// if it contains one lower case letter, add 2 to total score
-		if (password.matches("(?=.*[a-z]).*"))
-			iPasswordScore += 2;
-
-		// if it contains one upper case letter, add 2 to total score
-		if (password.matches("(?=.*[A-Z]).*"))
-			iPasswordScore += 2;
-
-		// if it contains one special character, add 2 to total score
-		if (password.matches("(?=.*[~!@#$%^&*()_-]).*"))
-			iPasswordScore += 2;
-		return iPasswordScore;
-
-	}// end of method
-
+	
 	public String textInputValidation(String input) {
 
 		String upperCaseChars = "[a-zA-Z_]+";

@@ -21,8 +21,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(catalog = "chiraghdatabase", name = "systemactivitylogs")
-
-
 public class Systemactivitylogs implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -39,26 +37,23 @@ public class Systemactivitylogs implements Serializable {
 	/**
 	 */
 
-	@Column(name = "action_Performed", length = 45)
+	@Column(name = "api", length = 45)
 	@Basic(fetch = FetchType.EAGER)
-
-	
-	String actionPerformed;
+	String api;
 	/**
 	 */
-
+    @Column(name="input")
+	String input;
+    @Column(name="output")
+	String output;
 	@Column(name = "action_Performed_Datetime", length = 45)
 	@Basic(fetch = FetchType.EAGER)
-
-	
 	String actionPerformedDatetime;
 	/**
 	 */
 
 	@Column(name = "remote_Ip_Address", length = 45)
 	@Basic(fetch = FetchType.EAGER)
-
-	
 	String remoteIpAddress;
 
 	/**
@@ -80,17 +75,7 @@ public class Systemactivitylogs implements Serializable {
 		return this.systemActivityLogsId;
 	}
 
-	/**
-	 */
-	public void setActionPerformed(String actionPerformed) {
-		this.actionPerformed = actionPerformed;
-	}
-
-	/**
-	 */
-	public String getActionPerformed() {
-		return this.actionPerformed;
-	}
+	
 
 	/**
 	 */
@@ -133,56 +118,28 @@ public class Systemactivitylogs implements Serializable {
 	public Systemactivitylogs() {
 	}
 
-	/**
-	 * Copies the contents of the specified bean into this bean.
-	 *
-	 */
-	public void copy(Systemactivitylogs that) {
-		setSystemActivityLogsId(that.getSystemActivityLogsId());
-		setActionPerformed(that.getActionPerformed());
-		setActionPerformedDatetime(that.getActionPerformedDatetime());
-		setRemoteIpAddress(that.getRemoteIpAddress());
-		setChiraghuser(that.getChiraghuser());
+
+	public String getApi() {
+		return api;
 	}
 
-	/**
-	 * Returns a textual representation of a bean.
-	 *
-	 */
-	public String toString() {
-
-		StringBuilder buffer = new StringBuilder();
-
-		buffer.append("systemActivityLogsId=[").append(systemActivityLogsId).append("] ");
-		buffer.append("actionPerformed=[").append(actionPerformed).append("] ");
-		buffer.append("actionPerformedDatetime=[").append(actionPerformedDatetime).append("] ");
-		buffer.append("remoteIpAddress=[").append(remoteIpAddress).append("] ");
-
-		return buffer.toString();
+	public void setApi(String api) {
+		this.api = api;
 	}
 
-	/**
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = (int) (prime * result + ((systemActivityLogsId == null) ? 0 : systemActivityLogsId.hashCode()));
-		return result;
+	public String getInput() {
+		return input;
 	}
 
-	/**
-	 */
-	public boolean equals(Object obj) {
-		if (obj == this)
-			return true;
-		if (!(obj instanceof Systemactivitylogs))
-			return false;
-		Systemactivitylogs equalCheck = (Systemactivitylogs) obj;
-		if ((systemActivityLogsId == null && equalCheck.systemActivityLogsId != null) || (systemActivityLogsId != null && equalCheck.systemActivityLogsId == null))
-			return false;
-		if (systemActivityLogsId != null && !systemActivityLogsId.equals(equalCheck.systemActivityLogsId))
-			return false;
-		return true;
+	public void setInput(String input) {
+		this.input = input;
+	}
+
+	public String getOutput() {
+		return output;
+	}
+
+	public void setOutput(String output) {
+		this.output = output;
 	}
 }

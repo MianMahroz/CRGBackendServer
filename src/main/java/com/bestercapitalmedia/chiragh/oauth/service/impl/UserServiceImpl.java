@@ -24,8 +24,8 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	private UserDao userDao;
 
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = new User();
-		user.setUsername("Alex123");
+		User user = new User();//user=userDao.findByName(username);
+		user.setUsername("Chiragh");		
 		user.setPassword("$2a$04$I9Q2sDc4QGGg5WNTLmsz0.fvGv3OjoZyj81PrSFyGOqMphqfS2qKu");
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthority());
 	}

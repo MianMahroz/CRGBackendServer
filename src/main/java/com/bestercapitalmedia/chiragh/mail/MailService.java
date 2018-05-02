@@ -38,7 +38,6 @@ public class MailService {
 		String url = appUrl + "reset-password-change/" + token;
 		String subject = "Chiragh Reset Password";
 		String text = "Please click the following link to reset your password: " + url;
-
 		sendMail(to, subject, text);
 	}
 

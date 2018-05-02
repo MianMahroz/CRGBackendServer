@@ -37,16 +37,13 @@ public class Propertybidprocess implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	
 	Integer bidId;
 	/**
 	 */
 
 	@Column(name = "bid_Amount", precision = 12)
 	@Basic(fetch = FetchType.EAGER)
-
-	
-	BigDecimal bidAmount;
+    float bidAmount;
 
 	/**
 	 */
@@ -63,7 +60,6 @@ public class Propertybidprocess implements Serializable {
 	/**
 	 */
 	@OneToMany(mappedBy = "propertybidprocess", fetch = FetchType.LAZY)
-
 	java.util.Set<Propertybidfinalize> propertybidfinalizes;
 
 	/**
@@ -80,13 +76,13 @@ public class Propertybidprocess implements Serializable {
 
 	/**
 	 */
-	public void setBidAmount(BigDecimal bidAmount) {
+	public void setBidAmount(float bidAmount) {
 		this.bidAmount = bidAmount;
 	}
 
 	/**
 	 */
-	public BigDecimal getBidAmount() {
+	public float getBidAmount() {
 		return this.bidAmount;
 	}
 
