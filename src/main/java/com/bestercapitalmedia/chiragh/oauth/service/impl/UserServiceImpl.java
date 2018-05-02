@@ -16,18 +16,28 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
 @Service(value = "userService")
 public class UserServiceImpl implements UserDetailsService, UserService {
-	
+
 	@Autowired
 	private UserDao userDao;
 
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = new User();//user=userDao.findByName(username);
-		user.setUsername("Chiragh");		
-		user.setPassword("$2a$04$I9Q2sDc4QGGg5WNTLmsz0.fvGv3OjoZyj81PrSFyGOqMphqfS2qKu");
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthority());
+		User user = userDao.findByUsername(username);
+
+		// User user=new User();
+		// user.setUsername("Chiragh");
+		// user.setPassword("$2a$04$I9Q2sDc4QGGg5WNTLmsz0.fvGv3OjoZyj81PrSFyGOqMphqfS2qKu");
+		// return new
+		// org.springframework.security.core.userdetails.User(user.getUsername(),
+		// user.getPassword(), getAuthority());
+
+		if (user == null) {
+			throw new UsernameNotFoundException("Invalid username or password.");
+		}
+		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+				getAuthority());
+
 	}
 
 	private List<SimpleGrantedAuthority> getAuthority() {
@@ -46,7 +56,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	}
 
 	@Override
-    public User save(User user) {
-        return userDao.save(user);
-    }
+	public User save(User user) {
+		return userDao.save(user);
+	}
 }

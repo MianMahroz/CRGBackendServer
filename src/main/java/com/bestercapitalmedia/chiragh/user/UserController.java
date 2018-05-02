@@ -1,5 +1,6 @@
 package com.bestercapitalmedia.chiragh.user;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +14,8 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,7 +26,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.bestercapitalmedia.chiragh.mail.MailService;
-
+import com.bestercapitalmedia.chiragh.oauth.dao.UserDao;
+import com.bestercapitalmedia.chiragh.oauth.model.User;
 import com.bestercapitalmedia.chiragh.utill.ChiragUtill;
 import com.bestercapitalmedia.chiragh.utill.LogUtill;
 import com.bestercapitalmedia.chiragh.utill.ValidatedInput;
@@ -46,6 +49,8 @@ public class UserController {
 	private LogUtill logUtill;
 	@Autowired
 	private ChiraghUserService chiraghUserService;
+	@Autowired
+	private UserDao userDAO;
 
 	// @RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	// public @ResponseBody List<UserDTO> list() {
@@ -55,11 +60,18 @@ public class UserController {
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
 	public @ResponseBody UserRegisterationDTO create(@Valid @RequestBody UserRegisterationDTO data,
 			HttpServletRequest httpServletRequest) {
-		ObjectMapper mapper = new ObjectMapper();
-		UserRegisterationDTO userRegisterationDTO = chiraghUserService.save(data);
-		if (userRegisterationDTO == null) {
+		boolean status = chiraghUtil.isValidChiraghSession(httpServletRequest);
+		if (status == false)
 			return null;
-		}
+		ObjectMapper mapper = new ObjectMapper();
+
+		UserRegisterationDTO userRegisterationDTO = chiraghUserService.save(data);
+		if (userRegisterationDTO == null)
+			return null;
+		// saving oauth user
+		User user = chiraghUserService.saveOauthUser(data);
+		if (user == null)
+			return null;
 		try {
 			logUtill.inputLog(httpServletRequest.getRemoteAddr(), userRegisterationDTO.getUserName(),
 					"/api/user/registerUser", mapper.writeValueAsString(data),
@@ -67,12 +79,16 @@ public class UserController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		return userRegisterationDTO;
 	}
 
 	@RequestMapping(value = "/get/{userName}", method = RequestMethod.GET)
 	public @ResponseBody UserRegisterationDTO get(@PathVariable(value = "userName") String userName,
 			HttpServletRequest httpServletRequest) {
+		if(chiraghUtil.isValidSession(httpServletRequest)==false)
+			return null;
+		
 		ObjectMapper mapper = new ObjectMapper();
 		UserRegisterationDTO userRegisterationDTO = chiraghUserService.getUserByName(userName);
 		if (userRegisterationDTO == null) {

@@ -1,6 +1,7 @@
 package com.bestercapitalmedia.chiragh.utill;
 
 import java.io.Serializable;
+import java.security.Principal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,12 +13,15 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import com.bestercapitalmedia.chiragh.oauth.dao.UserDao;
+import com.bestercapitalmedia.chiragh.oauth.model.User;
 import com.bestercapitalmedia.chiragh.user.Chiraghuser;
 import com.bestercapitalmedia.chiragh.user.UserRepository;
 
@@ -28,15 +32,36 @@ public class ChiragUtill {
 	private String applicationSecret;
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	UserDao userDao;
 
-	public boolean isValidSession(HttpServletRequest httpServletRequest) {
-		HttpSession session = httpServletRequest.getSession(false);
-		if(session ==null){
-			return false;
-		}else{
-			return true;
-		}	
+	public String genearteRandomNo(String prefix) {
+		return prefix+"-"+RandomStringUtils.randomNumeric(6)+"-"+RandomStringUtils.randomAlphabetic(3).toUpperCase();
 	}
+	
+	
+	public boolean isValidSession(HttpServletRequest httpServletRequest) {
+		Principal principal = httpServletRequest.getUserPrincipal();
+		System.out.println(principal.getName());
+		Chiraghuser chiraghuser = userRepository.findByUserName(principal.getName());
+		if (chiraghuser == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public boolean isValidChiraghSession(HttpServletRequest httpServletRequest) {
+		Principal principal = httpServletRequest.getUserPrincipal();
+		System.out.println(principal.getName());
+		User user = userDao.findByUsername(principal.getName());
+		if (user == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 	public String validatePassword(String password) {
 		String status = "";
 		// total score of passwords
@@ -116,6 +141,10 @@ public class ChiragUtill {
 		return DigestUtils.md5DigestAsHex(password.getBytes());
 	}
 
+	public String getBCryptEndodedPassword(String password) {
+		return new BCryptPasswordEncoder().encode(password);
+	}
+
 	public String getencodedUserPassword(String password) {
 		return DigestUtils.md5DigestAsHex(password.getBytes());
 	}
@@ -136,7 +165,7 @@ public class ChiragUtill {
 	 * Password should contain at least one number. Password should contain at least
 	 * one special character.
 	 */
-	
+
 	public String textInputValidation(String input) {
 
 		String upperCaseChars = "[a-zA-Z_]+";

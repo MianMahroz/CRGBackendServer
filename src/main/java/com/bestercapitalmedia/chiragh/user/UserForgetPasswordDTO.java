@@ -1,7 +1,10 @@
 package com.bestercapitalmedia.chiragh.user;
 
+import javax.validation.constraints.Email;
+
 public class UserForgetPasswordDTO {
 	
+	@Email
 	private String userEmail;
 	
 	

@@ -2,6 +2,7 @@ package com.bestercapitalmedia.chiragh.user;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
@@ -9,6 +10,7 @@ import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
 public class UserLoginDTO implements Serializable{
 
 	@Size(min=8,max=15)
+	@Pattern(regexp = "[a-zA-Z0-9_.]*")
 	private String userName;
 	@Size(min=8,max=15)
 	private String userPassword;

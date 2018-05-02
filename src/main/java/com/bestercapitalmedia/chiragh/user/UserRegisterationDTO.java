@@ -5,7 +5,9 @@ import java.util.Calendar;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Range;
@@ -14,26 +16,34 @@ import com.bestercapitalmedia.chiragh.city.City;
 
 public class UserRegisterationDTO implements Serializable{
 	
+	
 	@Size(min=8,max=15)
+	@Pattern(regexp = "[a-zA-Z_.]*")
 	private String firstName;
+	@Pattern(regexp = "[a-zA-Z_.]*")
 	private String middleName;
+	@Pattern(regexp = "[a-zA-Z_.]*")
 	@Size(min=8,max=15)
 	private String lastName;
 	@Size(min=8,max=15)
 	private String mobileNo;
+	@Pattern(regexp = "[a-zA-Z0-9_.,#]*")
 	@Size(min=8,max=25)
 	private String streetAddress;
 	@Size(min=8,max=25)
+	@Pattern(regexp = "[a-zA-Z0-9_.,#]*")
 	private String buildingAddress;
 	@Size(min=8,max=15)
+	@Pattern(regexp = "[a-zA-Z0-9_.]*")
 	private String userName;
 	@Size(min=8,max=15)
 	private String userPassword;
 	@Email
 	private String userEmail;
 	@Size(min=4,max=8)
+	@Pattern(regexp = "[0-9]*")	
 	private String mobileOtpCode;
-	@Size(min=4,max=8)
+	@Size(min=8,max=15)
 	private String confirmPassword;
 	
 	

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bestercapitalmedia.chiragh.mail.MailService;
+import com.bestercapitalmedia.chiragh.oauth.dao.UserDao;
+import com.bestercapitalmedia.chiragh.oauth.model.User;
 import com.bestercapitalmedia.chiragh.utill.ChiragUtill;
 import com.bestercapitalmedia.chiragh.utill.ValidatedInput;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -32,6 +34,20 @@ public class ChiraghUserService {
 	private ChiragUtill chiragUtill;
 	@Autowired
 	private MailService mailService;
+	@Autowired
+	private UserDao userDao;
+
+	public User saveOauthUser(UserRegisterationDTO userRegisterationDTO) {
+		if (userDao.findByUsername(userRegisterationDTO.getUserName()) == null) {
+			User user = new User();
+			user.setUsername(userRegisterationDTO.getUserName());
+			user.setPassword(chiragUtill.getBCryptEndodedPassword(userRegisterationDTO.getUserPassword()));
+			return userDao.save(user);
+		}else {
+			return null;
+		}
+       
+	}
 
 	// this method return only two columns
 	public List<UserDTO> getList() {
@@ -53,7 +69,7 @@ public class ChiraghUserService {
 		ModelMapper mapper = new ModelMapper();
 		if (userRepository.findByUserName(userRegisterationDTO.getUserName()) == null
 				&& userRepository.findByEmail(userRegisterationDTO.getUserEmail()) == null
-				&& userRegisterationDTO.getUserPassword() == userRegisterationDTO.getConfirmPassword()
+				&& userRegisterationDTO.getUserPassword().equals(userRegisterationDTO.getConfirmPassword())
 				&& chiragUtill.validatePassword(userRegisterationDTO.getUserPassword()).equals("good")
 				|| chiragUtill.validatePassword(userRegisterationDTO.getUserPassword()).equals("strong")) {
 			Chiraghuser newChiraghuser = userRepository.save(mapper.map(userRegisterationDTO, Chiraghuser.class));
@@ -85,15 +101,16 @@ public class ChiraghUserService {
 	}
 
 	public Chiraghuser resetPassword(UserNewPasswordDTO userNewPasswordDTO) {
-		Chiraghuser chiraghuser = userRepository.findByToken(userNewPasswordDTO.getToken());
-		if (chiraghuser != null) {
-			chiraghuser.setUserPassword(chiragUtill.getencodedUserPassword(userNewPasswordDTO.getUserPassword()));
-			chiraghuser.setToken("1");
-			userRepository.save(chiraghuser);
-			return chiraghuser;
+		if (userNewPasswordDTO.getUserPassword().equals(userNewPasswordDTO.getConfirmPassword())) {
+			Chiraghuser chiraghuser = userRepository.findByToken(userNewPasswordDTO.getToken());
+			if (chiraghuser != null) {
+				chiraghuser.setUserPassword(chiragUtill.getencodedUserPassword(userNewPasswordDTO.getUserPassword()));
+				chiraghuser.setToken("1");
+				userRepository.save(chiraghuser);
+				return chiraghuser;
+			}
 		}
 		return null;
-
 	}
 
 }// end of userService

@@ -1,9 +1,12 @@
 package com.bestercapitalmedia.chiragh.user;
 
+import javax.validation.constraints.Size;
+
 public class UserNewPasswordDTO {
 
-	
+	@Size(min=8,max=15)
 	String userPassword;
+	@Size(min=8,max=15)
 	String confirmPassword;
 	String token;
 	
