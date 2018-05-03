@@ -12,4 +12,7 @@ public interface PropertyRepository extends CrudRepository<Chiraghproperty, Inte
 	@Query(value = "select * from ChiraghProperty where property_ID=?1  ", nativeQuery = true)
 	public Chiraghproperty findByPropertyId(int propertyId);
 	
+	@Query(value = "select * from ChiraghProperty where property_Reference_No=?1  ", nativeQuery = true)
+	public Chiraghproperty findPropertyByRefNo(String refNo);
+	
 }

@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bestercapitalmedia.chiragh.city.CityRepository;
@@ -43,6 +46,9 @@ public class PropertyController {
 	private PropertyRepository propertyRepository;
 
 	private Chiraghproperty chiraghpropertNew;
+	
+	@Autowired
+	private ChiraghPropertyService chiraghPropertyService;
 
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	public Iterable<Chiraghproperty> list() {
@@ -601,5 +607,34 @@ public class PropertyController {
 	@RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
 	public Optional<Chiraghproperty> get(@PathVariable(value = "id") int id) {
 		return propertyRepository.findById(id);
+	}
+	
+	@RequestMapping(value = "/details/{refNo}", method = RequestMethod.GET)
+	public @ResponseBody PropertyDetailFetchDTO get(@PathVariable(value = "refNo") String refNo, 
+			HttpServletRequest httpServletRequest) {
+		PropertyDetailFetchDTO propertyDetailFetchDTO = new PropertyDetailFetchDTO();
+		
+		try {			
+			if (chiraghUtil.isValidSession(httpServletRequest) == false) {
+				propertyDetailFetchDTO.setMsg("Session Expired");
+				propertyDetailFetchDTO.setStatusval(0);
+				return propertyDetailFetchDTO;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		propertyDetailFetchDTO = chiraghPropertyService.getPropertyByRefNo(refNo);
+		if (propertyDetailFetchDTO == null)
+			return null;
+		try {
+			//logUtill.inputLog(httpServletRequest, propertyRepository.findByUserId(userId), "/api/user/get/{userName}",
+				//	mapper.writeValueAsString(userId), mapper.writeValueAsString(userRegisterationDTO));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return propertyDetailFetchDTO;
 	}
 }// end of class controller
