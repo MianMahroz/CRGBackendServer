@@ -15,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.DigestUtils;
@@ -38,6 +39,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/user")
+@Scope("session")
 public class UserController {
 	@Autowired
 	private UserRepository userRepository;
@@ -48,10 +50,13 @@ public class UserController {
 	@Autowired
 	private ChiraghUserService chiraghUserService;
 
-	// @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-	// public @ResponseBody List<UserDTO> list() {
-	// return chiraghUserService.getList();
-	// }// end of list method
+	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
+	public @ResponseBody String list(HttpServletRequest httpServletRequest) throws JsonProcessingException {
+		ObjectMapper mapper = new ObjectMapper();
+		Chiraghuser chiraghuser = (Chiraghuser) httpServletRequest.getSession().getAttribute("user");
+		return mapper.writeValueAsString(chiraghuser);
+
+	}// end of list method
 
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
 	public @ResponseBody UserRegisterationDTO create(@Valid @RequestBody UserRegisterationDTO data,
@@ -95,17 +100,12 @@ public class UserController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public @ResponseBody UserLoginDTO login(@Valid @RequestBody UserLoginDTO userLoginDTO,
-			HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+			HttpServletRequest httpServletRequest) {
 		ObjectMapper mapper = new ObjectMapper();
 		UserLoginDTO loginDTO = chiraghUserService.login(userLoginDTO);
-		HttpSession httpSession = httpServletRequest.getSession(true);// true means new Session & false means old
-		
-		loginDTO.setUserPassword("");							
 		// session
-		httpSession.setAttribute("user", userRepository.findByUserName(loginDTO.getUserName()));
-		Cookie cookie = new Cookie("user", loginDTO.toString());
-		httpServletResponse.addCookie(cookie);
-
+		httpServletRequest.getSession().setAttribute("user", userRepository.findByUserName(loginDTO.getUserName()));
+	
 		try {
 			logUtill.inputLog(httpServletRequest, userRepository.findByUserName(loginDTO.getUserName()),
 					"/api/user/login", mapper.writeValueAsString(userLoginDTO),

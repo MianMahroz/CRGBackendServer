@@ -38,19 +38,25 @@ public class ChiragUtill {
 	UserDao userDao;
 
 	public String genearteRandomNo(String prefix) {
-		return prefix+"-"+RandomStringUtils.randomNumeric(6)+"-"+RandomStringUtils.randomAlphabetic(3).toUpperCase();
+		return prefix + "-" + RandomStringUtils.randomNumeric(6) + "-"
+				+ RandomStringUtils.randomAlphabetic(3).toUpperCase();
 	}
-	
-	
+
+	public Chiraghuser getSessionUser(HttpServletRequest httpServletRequest) {
+		return (Chiraghuser) httpServletRequest.getSession(false).getAttribute("user");
+	}
+
 	public boolean isValidSession(HttpServletRequest httpServletRequest) {
-		boolean status=false;
+		boolean status = false;
 		try {
-	     HttpSession session=httpServletRequest.getSession(false);	
-		 System.out.println(session.getId());
-		 System.err.println(session.getAttribute("user"));
-		 
-		 status=true;
-		}catch(Exception e) {
+			
+			Chiraghuser chiraghuser = getSessionUser(httpServletRequest);
+			if (chiraghuser == null)
+				status = false;
+			else
+				status = true;
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return status;

@@ -26,6 +26,7 @@ public class UserRegisterationDTO implements Serializable{
 	@Size(min=8,max=15)
 	private String lastName;
 	@Size(min=8,max=15)
+	@Pattern(regexp = "[0-9-+]*")
 	private String mobileNo;
 	@Pattern(regexp = "[a-zA-Z0-9_.,#]*")
 	@Size(min=8,max=25)
