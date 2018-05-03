@@ -10,7 +10,9 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -41,14 +43,17 @@ public class ChiragUtill {
 	
 	
 	public boolean isValidSession(HttpServletRequest httpServletRequest) {
-		Principal principal = httpServletRequest.getUserPrincipal();
-		System.out.println(principal.getName());
-		Chiraghuser chiraghuser = userRepository.findByUserName(principal.getName());
-		if (chiraghuser == null) {
-			return false;
-		} else {
-			return true;
+		boolean status=false;
+		try {
+	     HttpSession session=httpServletRequest.getSession(false);	
+		 System.out.println(session.getId());
+		 System.err.println(session.getAttribute("user"));
+		 
+		 status=true;
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
+		return status;
 	}
 
 	public boolean isValidChiraghSession(HttpServletRequest httpServletRequest) {

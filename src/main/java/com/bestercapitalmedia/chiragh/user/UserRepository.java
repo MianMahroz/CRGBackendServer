@@ -19,6 +19,9 @@ public interface UserRepository extends CrudRepository<Chiraghuser, Integer> {
 	@Query(value = "select * from Chiraghuser where token=?1  ", nativeQuery = true)
 	public Chiraghuser findByToken(String token);
 
+	@Query(value = "select * from Chiraghuser where user_Id=?1  ", nativeQuery = true)
+	public Chiraghuser findByUserId(int  userId);
+
 	@Query(value = "Select * from Chiraghuser;", nativeQuery = true)
 	public List<Chiraghuser> findAllUser();
 	

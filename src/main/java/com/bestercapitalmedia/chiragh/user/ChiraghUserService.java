@@ -37,23 +37,13 @@ public class ChiraghUserService {
 	@Autowired
 	private UserDao userDao;
 
-	public User saveOauthUser(UserRegisterationDTO userRegisterationDTO) {
-		if (userDao.findByUsername(userRegisterationDTO.getUserName()) == null) {
-			User user = new User();
-			user.setUsername(userRegisterationDTO.getUserName());
-			user.setPassword(chiragUtill.getBCryptEndodedPassword(userRegisterationDTO.getUserPassword()));
-			return userDao.save(user);
-		}else {
+	public UserRegisterationDTO getUserByUserId(int userId) {
+		ModelMapper mapper = new ModelMapper();
+		Chiraghuser chiraghuser = userRepository.findByUserId(userId);
+		if (chiraghuser != null)
+			return mapper.map(chiraghuser, UserRegisterationDTO.class);
+		else
 			return null;
-		}
-       
-	}
-
-	// this method return only two columns
-	public List<UserDTO> getList() {
-		ModelMapper modelMapper = new ModelMapper();
-		return userRepository.findAllUser().stream().map(temp -> modelMapper.map(temp, UserDTO.class))
-				.collect(Collectors.toList());
 	}
 
 	public UserRegisterationDTO getUserByName(String name) {

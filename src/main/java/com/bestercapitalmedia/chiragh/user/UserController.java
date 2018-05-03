@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -38,19 +39,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @CrossOrigin
 @RequestMapping("/api/user")
 public class UserController {
-	private static final Logger log = LoggerFactory.getLogger(UserController.class);
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
 	private ChiragUtill chiraghUtil;
 	@Autowired
-	private MailService mailService;
-	@Autowired
 	private LogUtill logUtill;
 	@Autowired
 	private ChiraghUserService chiraghUserService;
-	@Autowired
-	private UserDao userDAO;
 
 	// @RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	// public @ResponseBody List<UserDTO> list() {
@@ -60,20 +56,14 @@ public class UserController {
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
 	public @ResponseBody UserRegisterationDTO create(@Valid @RequestBody UserRegisterationDTO data,
 			HttpServletRequest httpServletRequest) {
-		boolean status = chiraghUtil.isValidChiraghSession(httpServletRequest);
-		if (status == false)
-			return null;
 		ObjectMapper mapper = new ObjectMapper();
 
 		UserRegisterationDTO userRegisterationDTO = chiraghUserService.save(data);
 		if (userRegisterationDTO == null)
 			return null;
-		// saving oauth user
-		User user = chiraghUserService.saveOauthUser(data);
-		if (user == null)
-			return null;
+
 		try {
-			logUtill.inputLog(httpServletRequest.getRemoteAddr(), userRegisterationDTO.getUserName(),
+			logUtill.inputLog(httpServletRequest, userRepository.findByUserName(userRegisterationDTO.getUserName()),
 					"/api/user/registerUser", mapper.writeValueAsString(data),
 					mapper.writeValueAsString(userRegisterationDTO));
 		} catch (Exception e) {
@@ -83,20 +73,19 @@ public class UserController {
 		return userRegisterationDTO;
 	}
 
-	@RequestMapping(value = "/get/{userName}", method = RequestMethod.GET)
-	public @ResponseBody UserRegisterationDTO get(@PathVariable(value = "userName") String userName,
+	@RequestMapping(value = "/get/{userId}", method = RequestMethod.GET)
+	public @ResponseBody UserRegisterationDTO get(@PathVariable(value = "userId") int userId,
 			HttpServletRequest httpServletRequest) {
-		if(chiraghUtil.isValidSession(httpServletRequest)==false)
+		if (chiraghUtil.isValidSession(httpServletRequest) == false)
 			return null;
-		
+
 		ObjectMapper mapper = new ObjectMapper();
-		UserRegisterationDTO userRegisterationDTO = chiraghUserService.getUserByName(userName);
-		if (userRegisterationDTO == null) {
+		UserRegisterationDTO userRegisterationDTO = chiraghUserService.getUserByUserId(userId);
+		if (userRegisterationDTO == null)
 			return null;
-		}
 		try {
-			logUtill.inputLog(httpServletRequest.getRemoteAddr(), userName, "/api/user/get/{userName}",
-					mapper.writeValueAsString(userName), mapper.writeValueAsString(userRegisterationDTO));
+			logUtill.inputLog(httpServletRequest, userRepository.findByUserId(userId), "/api/user/get/{userName}",
+					mapper.writeValueAsString(userId), mapper.writeValueAsString(userRegisterationDTO));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -106,13 +95,21 @@ public class UserController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public @ResponseBody UserLoginDTO login(@Valid @RequestBody UserLoginDTO userLoginDTO,
-			HttpServletRequest httpServletRequest) {
+			HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
 		ObjectMapper mapper = new ObjectMapper();
 		UserLoginDTO loginDTO = chiraghUserService.login(userLoginDTO);
+		HttpSession httpSession = httpServletRequest.getSession(true);// true means new Session & false means old
+		
+		loginDTO.setUserPassword("");							
+		// session
+		httpSession.setAttribute("user", userRepository.findByUserName(loginDTO.getUserName()));
+		Cookie cookie = new Cookie("user", loginDTO.toString());
+		httpServletResponse.addCookie(cookie);
+
 		try {
-			userLoginDTO.setUserPassword("");
-			logUtill.inputLog(httpServletRequest.getRemoteAddr(), loginDTO.getUserName(), "/api/user/login",
-					mapper.writeValueAsString(userLoginDTO), mapper.writeValueAsString(loginDTO));
+			logUtill.inputLog(httpServletRequest, userRepository.findByUserName(loginDTO.getUserName()),
+					"/api/user/login", mapper.writeValueAsString(userLoginDTO),
+					mapper.writeValueAsString(userLoginDTO));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -121,7 +118,7 @@ public class UserController {
 	}// end of method
 
 	@RequestMapping(value = "/resetPasswordRequest", method = RequestMethod.POST)
-	public @ResponseBody String resetPasswordRequest(@RequestBody UserForgetPasswordDTO userForgetPasswordDTO,
+	public @ResponseBody String resetPasswordRequest(@Valid @RequestBody UserForgetPasswordDTO userForgetPasswordDTO,
 			HttpServletRequest httpServletRequest) {
 		ObjectMapper mapper = new ObjectMapper();
 		String msg = "";
@@ -132,8 +129,8 @@ public class UserController {
 		}
 		msg = "Sent";
 		try {
-			logUtill.inputLog(httpServletRequest.getRemoteAddr(), chiraghuser.getUserName(), "/api/user/reset-password",
-					mapper.writeValueAsString(userForgetPasswordDTO), msg);
+			logUtill.inputLog(httpServletRequest, chiraghuser, "/api/user/resetPasswordRequest",
+					mapper.writeValueAsString(userForgetPasswordDTO), mapper.writeValueAsString(msg));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -142,7 +139,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
-	public String resetPasswordChangePost(@RequestBody UserNewPasswordDTO userNewPasswordDTO,
+	public String resetPasswordChangePost(@Valid @RequestBody UserNewPasswordDTO userNewPasswordDTO,
 			HttpServletRequest httpServletRequest) {
 		ObjectMapper mapper = new ObjectMapper();
 		String msg = "";
@@ -152,8 +149,8 @@ public class UserController {
 
 		msg = "success";
 		try {
-			logUtill.inputLog(httpServletRequest.getRemoteAddr(), chiraghuser.getUserName(), "/api/user/resetPassword",
-					mapper.writeValueAsString(userNewPasswordDTO), msg);
+			logUtill.inputLog(httpServletRequest, chiraghuser, "/api/user/resetPassword",
+					mapper.writeValueAsString(userNewPasswordDTO), mapper.writeValueAsString(msg));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
