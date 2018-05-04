@@ -13,8 +13,8 @@ import javax.xml.bind.annotation.*;
 
 import org.hibernate.validator.constraints.Range;
 
-import com.bestercapitalmedia.chiragh.buyer.details.Propertybuyerdetails;
-import com.bestercapitalmedia.chiragh.buyer.payments.Buyerpayments;
+import com.bestercapitalmedia.chiragh.buyer.details.PropertyBuyerDetails;
+import com.bestercapitalmedia.chiragh.buyer.payments.BuyerPayments;
 import com.bestercapitalmedia.chiragh.city.City;
 import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
 import com.bestercapitalmedia.chiragh.property.bidprocess.Propertybidprocess;
@@ -155,12 +155,11 @@ public class Chiraghuser implements Serializable {
 	java.util.Set<Propertybidprocess> propertybidprocesses;
 	/**
 	 */
-	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
-	java.util.Set<Propertybuyerdetails> propertybuyerdetailses;
+	
 	/**
 	 */
 	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
-	java.util.Set<Buyerpayments> buyerpaymentses;
+	java.util.Set<BuyerPayments> buyerpaymentses;
 	/**
 	 */
 	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
@@ -337,19 +336,12 @@ public class Chiraghuser implements Serializable {
 		this.propertybidprocesses = propertybidprocesses;
 	}
 
-	public java.util.Set<Propertybuyerdetails> getPropertybuyerdetailses() {
-		return propertybuyerdetailses;
-	}
 
-	public void setPropertybuyerdetailses(java.util.Set<Propertybuyerdetails> propertybuyerdetailses) {
-		this.propertybuyerdetailses = propertybuyerdetailses;
-	}
-
-	public java.util.Set<Buyerpayments> getBuyerpaymentses() {
+	public java.util.Set<BuyerPayments> getBuyerpaymentses() {
 		return buyerpaymentses;
 	}
 
-	public void setBuyerpaymentses(java.util.Set<Buyerpayments> buyerpaymentses) {
+	public void setBuyerpaymentses(java.util.Set<BuyerPayments> buyerpaymentses) {
 		this.buyerpaymentses = buyerpaymentses;
 	}
 

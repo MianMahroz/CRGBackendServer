@@ -1,6 +1,7 @@
 package com.bestercapitalmedia.chiragh.utill;
 
 import java.io.Serializable;
+import java.nio.file.Path;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -10,6 +11,7 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,6 +39,11 @@ public class ChiragUtill {
 	@Autowired
 	UserDao userDao;
 
+	public ChiraghMessage getMessageObject(String msg) {
+		ChiraghMessage chiraghMessage=new ChiraghMessage();
+		chiraghMessage.setMsg(msg);
+		return chiraghMessage;
+	}
 	public String genearteRandomNo(String prefix) {
 		return prefix + "-" + RandomStringUtils.randomNumeric(6) + "-"
 				+ RandomStringUtils.randomAlphabetic(3).toUpperCase();
@@ -57,7 +64,7 @@ public class ChiragUtill {
 				status = true;
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Invalid Session");
 		}
 		return status;
 	}
@@ -197,5 +204,19 @@ public class ChiragUtill {
 			return "Invalid Email Address";
 		}
 	}
+	
+//	public Resource loadFile(String filename) {
+//		try {
+//			Path file = rootLocation.resolve(filename);
+//			Resource resource = new UrlResource(file.toUri());
+//			if (resource.exists() || resource.isReadable()) {
+//				return resource;
+//			} else {
+//				throw new RuntimeException("FAIL!");
+//			}
+//		} catch (MalformedURLException e) {
+//			throw new RuntimeException("FAIL!");
+//		}
+//	}
 
 }// end of class

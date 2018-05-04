@@ -17,6 +17,7 @@ import com.bestercapitalmedia.chiragh.city.City;
 public class UserRegisterationDTO implements Serializable{
 	
 	
+	private int userId;
 	@Size(min=8,max=15)
 	@Pattern(regexp = "[a-zA-Z_.]*")
 	private String firstName;
@@ -155,6 +156,14 @@ public class UserRegisterationDTO implements Serializable{
 
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 	 
 }

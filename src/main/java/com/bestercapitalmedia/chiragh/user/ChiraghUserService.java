@@ -57,16 +57,21 @@ public class ChiraghUserService {
 
 	public UserRegisterationDTO save(UserRegisterationDTO userRegisterationDTO) {
 		ModelMapper mapper = new ModelMapper();
-		if (userRepository.findByUserName(userRegisterationDTO.getUserName()) == null
-				&& userRepository.findByEmail(userRegisterationDTO.getUserEmail()) == null
-				&& userRegisterationDTO.getUserPassword().equals(userRegisterationDTO.getConfirmPassword())
-				&& chiragUtill.validatePassword(userRegisterationDTO.getUserPassword()).equals("good")
-				|| chiragUtill.validatePassword(userRegisterationDTO.getUserPassword()).equals("strong")) {
-			   userRegisterationDTO.setUserPassword( chiragUtill.getencodedUserPassword(userRegisterationDTO.getUserPassword()));
-			Chiraghuser newChiraghuser = userRepository.save(mapper.map(userRegisterationDTO, Chiraghuser.class));
-			return mapper.map(newChiraghuser, UserRegisterationDTO.class);
-		} else
-			return null;
+		try {
+			if (userRepository.findByUserName(userRegisterationDTO.getUserName()) == null
+					&& userRepository.findByEmail(userRegisterationDTO.getUserEmail()) == null
+					&& userRegisterationDTO.getUserPassword().equals(userRegisterationDTO.getConfirmPassword())
+					&& chiragUtill.validatePassword(userRegisterationDTO.getUserPassword()).equals("good")
+					|| chiragUtill.validatePassword(userRegisterationDTO.getUserPassword()).equals("strong")) {
+				userRegisterationDTO
+						.setUserPassword(chiragUtill.getencodedUserPassword(userRegisterationDTO.getUserPassword()));
+				Chiraghuser newChiraghuser = userRepository.save(mapper.map(userRegisterationDTO, Chiraghuser.class));
+				return mapper.map(newChiraghuser, UserRegisterationDTO.class);
+			} else
+				return null;
+		} catch (Exception e) {
+            return null;
+		}
 	}
 
 	public UserLoginDTO login(UserLoginDTO userLoginDTO) {
@@ -86,8 +91,9 @@ public class ChiraghUserService {
 		} else {
 			String resetToken = chiragUtill.createResetPasswordToken(chiraghuser, true);
 			mailService.sendResetPassword(chiraghuser.getUserEmail(), resetToken);
+			return chiraghuser;
 		}
-		return chiraghuser;
+		
 
 	}
 

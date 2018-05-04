@@ -25,7 +25,6 @@ public class CrgBackendServerApplication {
 		SpringApplication.run(CrgBackendServerApplication.class, args);
 	}
 	
-	
 //	@Bean
 //	public JobDetail sampleJobDetail() {
 //		return JobBuilder.newJob(SampleJob.class).withIdentity("sampleJob").usingJobData("name", "World").storeDurably()

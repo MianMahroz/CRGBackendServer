@@ -13,7 +13,7 @@ import javax.persistence.Id;
 
 import javax.xml.bind.annotation.*;
 
-import com.bestercapitalmedia.chiragh.buyer.details.Propertybuyerdetails;
+import com.bestercapitalmedia.chiragh.buyer.details.PropertyBuyerDetails;
 import com.bestercapitalmedia.chiragh.property.auctionprocess.Propertyauctionprocess;
 import com.bestercapitalmedia.chiragh.property.bidprocess.Propertybidprocess;
 import com.bestercapitalmedia.chiragh.property.brokerage.Propertybrokerage;
@@ -595,13 +595,7 @@ public class Chiraghproperty implements Serializable {
 	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
 
 	java.util.Set<Sellerpayments> sellerpaymentses;
-	/**
-	 */
-	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
 
-	java.util.Set<Propertybuyerdetails> propertybuyerdetailses;
-	/**
-	 */
 	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
 
 	java.util.Set<Propertysellerdetails> propertysellerdetailses;
@@ -788,8 +782,6 @@ public class Chiraghproperty implements Serializable {
 	public void setRentalEjariNo(Integer rentalEjariNo) {
 		this.rentalEjariNo = rentalEjariNo;
 	}
-
-	
 
 	public Integer getRentalPaymentChecks() {
 		return rentalPaymentChecks;
@@ -1261,14 +1253,6 @@ public class Chiraghproperty implements Serializable {
 
 	public void setSellerpaymentses(java.util.Set<Sellerpayments> sellerpaymentses) {
 		this.sellerpaymentses = sellerpaymentses;
-	}
-
-	public java.util.Set<Propertybuyerdetails> getPropertybuyerdetailses() {
-		return propertybuyerdetailses;
-	}
-
-	public void setPropertybuyerdetailses(java.util.Set<Propertybuyerdetails> propertybuyerdetailses) {
-		this.propertybuyerdetailses = propertybuyerdetailses;
 	}
 
 	public java.util.Set<Propertysellerdetails> getPropertysellerdetailses() {
