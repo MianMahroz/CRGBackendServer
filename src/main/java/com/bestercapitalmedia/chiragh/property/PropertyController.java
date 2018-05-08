@@ -53,6 +53,91 @@ public class PropertyController {
 	@Autowired
 	private LogUtill logUtill;
 
+	@RequestMapping(value = "/getPropertyDetails/{propertyId}", method = RequestMethod.GET)
+	public ResponseEntity getPropertyDetailsById(@PathVariable(value = "propertyId") int propertyId,
+			HttpServletRequest httpServletRequest) {
+		try {
+
+			if (chiraghUtil.isValidSession(httpServletRequest) == false)
+				return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session!"), HttpStatus.BAD_REQUEST);
+
+			ModelMapper mapper = new ModelMapper();
+			ObjectMapper objectMapper = new ObjectMapper();
+			Chiraghproperty chiraghproperty = propertyRepository.findByPropertyId(propertyId);
+			ChiraghPropertyDetailsDTO chiraghPropertyDetailsDTO = mapper.map(chiraghproperty,
+					ChiraghPropertyDetailsDTO.class);
+			try {
+				logUtill.inputLog(httpServletRequest, chiraghUtil.getSessionUser(httpServletRequest),
+						"/api/property/getPropertyDetails/{propertyId}", objectMapper.writeValueAsString(propertyId),
+						objectMapper.writeValueAsString(chiraghPropertyDetailsDTO));
+			} catch (Exception e) {
+				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.BAD_REQUEST);
+			}
+
+			return new ResponseEntity(chiraghPropertyDetailsDTO, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity(chiraghUtil.getMessageObject("Internal Server Error!" + e.getMessage()),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	}
+	@RequestMapping(value = "/getPropertyFinancialDetails/{propertyId}", method = RequestMethod.GET)
+	public ResponseEntity getPropertyFinancialDetailsById(@PathVariable(value = "propertyId") int propertyId,
+			HttpServletRequest httpServletRequest) {
+		try {
+
+			if (chiraghUtil.isValidSession(httpServletRequest) == false)
+				return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session!"), HttpStatus.BAD_REQUEST);
+
+			ModelMapper mapper = new ModelMapper();
+			ObjectMapper objectMapper = new ObjectMapper();
+			Chiraghproperty chiraghproperty = propertyRepository.findByPropertyId(propertyId);
+			ChiraghPropertyFinancialsDTO chiraghPropertyDetailsDTO = mapper.map(chiraghproperty,
+					ChiraghPropertyFinancialsDTO.class);
+			try {
+				logUtill.inputLog(httpServletRequest, chiraghUtil.getSessionUser(httpServletRequest),
+						"/api/property/getPropertyFinancialDetails/{propertyId}", objectMapper.writeValueAsString(propertyId),
+						objectMapper.writeValueAsString(chiraghPropertyDetailsDTO));
+			} catch (Exception e) {
+				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.BAD_REQUEST);
+			}
+
+			return new ResponseEntity(chiraghPropertyDetailsDTO, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity(chiraghUtil.getMessageObject("Internal Server Error!" + e.getMessage()),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	}
+	@RequestMapping(value = "/getPropertyRentalDetails/{propertyId}", method = RequestMethod.GET)
+	public ResponseEntity getPropertyRentalDetailsById(@PathVariable(value = "propertyId") int propertyId,
+			HttpServletRequest httpServletRequest) {
+		try {
+
+			if (chiraghUtil.isValidSession(httpServletRequest) == false)
+				return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session!"), HttpStatus.BAD_REQUEST);
+
+			ModelMapper mapper = new ModelMapper();
+			ObjectMapper objectMapper = new ObjectMapper();
+			Chiraghproperty chiraghproperty = propertyRepository.findByPropertyId(propertyId);
+			ChiraghPropertyRentDetailsDTO chiraghPropertyDetailsDTO = mapper.map(chiraghproperty,
+					ChiraghPropertyRentDetailsDTO.class);
+			try {
+				logUtill.inputLog(httpServletRequest, chiraghUtil.getSessionUser(httpServletRequest),
+						"/api/property/getPropertyRentalDetails/{propertyId}", objectMapper.writeValueAsString(propertyId),
+						objectMapper.writeValueAsString(chiraghPropertyDetailsDTO));
+			} catch (Exception e) {
+				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.BAD_REQUEST);
+			}
+
+			return new ResponseEntity(chiraghPropertyDetailsDTO, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity(chiraghUtil.getMessageObject("Internal Server Error!" + e.getMessage()),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	}
+
 	@RequestMapping(value = "/updateProperty/Details", method = RequestMethod.PUT)
 	public @ResponseBody ResponseEntity update(@RequestBody ChiraghPropertyDetailsDTO chiraghPropertyDetailsDTO,
 			HttpServletRequest httpServletRequest) {
@@ -85,7 +170,6 @@ public class PropertyController {
 
 	}
 
-	
 	@RequestMapping(value = "/updateProperty/FinancialDetails", method = RequestMethod.PUT)
 	public @ResponseBody ResponseEntity updateFinancials(
 			@RequestBody ChiraghPropertyFinancialsDTO chiraghPropertyFinancialsDTO,
@@ -142,5 +226,4 @@ public class PropertyController {
 		}
 	}
 
-	
 }// end of class controller
