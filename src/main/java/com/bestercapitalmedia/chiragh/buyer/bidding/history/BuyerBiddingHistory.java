@@ -63,6 +63,7 @@ public class BuyerBiddingHistory implements Serializable {
 	@JoinColumns({ @JoinColumn(name = "property_Id", referencedColumnName = "property_Id") })
 	@JsonBackReference
 	Chiraghproperty chiraghproperty;
+	
 	/**
 	 */
 	@OneToMany(mappedBy = "buyerbiddinghistory", fetch = FetchType.LAZY)

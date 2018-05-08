@@ -49,10 +49,8 @@ public class ChiraghPropertyService {
 			chiraghproperty.setPropertytype(newPropertytype);
 
 			Chiraghproperty newChiraghproperty = propertyRepository.save(chiraghproperty);
-			System.out.println(newChiraghproperty.getPropertyDescription());
 			return newChiraghproperty;
 		} catch (Exception e) {
-			e.printStackTrace();
 			return null;
 		}
 

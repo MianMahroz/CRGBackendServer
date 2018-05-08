@@ -6,12 +6,16 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
 import com.bestercapitalmedia.chiragh.property.PropertyRepository;
@@ -44,43 +48,33 @@ public class PropertySellerDetailsController {
 	@Autowired
 	private LogUtill logUtill;
 	@Autowired
-	private ChiragUtill chiraghUtill;
-
-	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
-	public String list() {
-		log.info("GET: /api/Propertysellerdetails/getAll");
-		ObjectMapper objectMapper = new ObjectMapper();
-		Iterable<Propertysellerdetails> userList = propertySellerDetailsRepository.findAll();
-		String rtnObject = "";
-		try {
-			rtnObject = objectMapper.writeValueAsString(userList);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-
-		log.info("Output: " + rtnObject);
-		log.info("--------------------------------------------------------");
-		return rtnObject;
-	}// end of list method
+	private ChiragUtill chiraghUtil;
 
 	@RequestMapping(value = "/post")
-	public PropertySellerDetailDTO create(@RequestBody PropertySellerDetailDTO propertySellerDetailDTO,
-			HttpServletRequest httpServletRequest) {
-	
-		if(chiraghUtill.isValidSession(httpServletRequest)==false)
-			return null;
-		
+	public ResponseEntity create(@RequestBody PropertySellerDetailDTO propertySellerDetailDTO,
+			@RequestParam("passport") MultipartFile passport, @RequestParam("idCard") MultipartFile idCard,
+			@RequestParam("scannedNotorizedPoa") MultipartFile scannedNotorizedPoa,
+			HttpServletRequest httpServletRequest)  {
+		ObjectMapper mapper = new ObjectMapper();
+		if (chiraghUtil.isValidSession(httpServletRequest) == false)
+			return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session!"), HttpStatus.BAD_REQUEST);
+		if (!propertySellerDetailsService.validateMultipartFiles(idCard, passport, scannedNotorizedPoa,
+				propertySellerDetailDTO.getOwnerType()))
+			return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Multipart File"), HttpStatus.BAD_REQUEST);
+
 		PropertySellerDetailDTO newPropertySellerDetailDTO = propertySellerDetailsService
-				.savePropertySellerDetails(httpServletRequest, propertySellerDetailDTO);
+				.savePropertySellerDetails(httpServletRequest, propertySellerDetailDTO, idCard, passport,scannedNotorizedPoa);
+
+		if (newPropertySellerDetailDTO == null)
+			return new ResponseEntity(chiraghUtil.getMessageObject("Seller Not Saved!"), HttpStatus.BAD_REQUEST);
 		try {
-			ObjectMapper mapper = new ObjectMapper();
-			logUtill.inputLog(httpServletRequest, chiraghUtill.getSessionUser(httpServletRequest),
-					"/api/user/registerUser", mapper.writeValueAsString(propertySellerDetailDTO),
+			logUtill.inputLog(httpServletRequest, chiraghUtil.getSessionUser(httpServletRequest),
+					"/api/user/get/{userName}", mapper.writeValueAsString(propertySellerDetailDTO),
 					mapper.writeValueAsString(newPropertySellerDetailDTO));
 		} catch (Exception e) {
-			e.printStackTrace();
+			return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.BAD_REQUEST);
 		}
-		return newPropertySellerDetailDTO;
+		return new ResponseEntity(chiraghUtil.getMessageObject("Seller Saved Successfully"), HttpStatus.OK);
 	}
 
 }

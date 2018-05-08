@@ -4,6 +4,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class PropertySellerDetailDTO {
 	Integer propertySellerId;
 	String firstName;
@@ -21,7 +23,6 @@ public class PropertySellerDetailDTO {
 	String pobox;
 	String passportCopyUpload;
 	String scannedIdCopy;
-
 	String propertyDocument1Upload;
 	String propertyDocument2Upload;
 	String propertyDocument3Upload;
@@ -141,22 +142,6 @@ public class PropertySellerDetailDTO {
 		this.pobox = pobox;
 	}
 
-	public String getPassportCopyUpload() {
-		return passportCopyUpload;
-	}
-
-	public void setPassportCopyUpload(String passportCopyUpload) {
-		this.passportCopyUpload = passportCopyUpload;
-	}
-
-	public String getScannedIdCopy() {
-		return scannedIdCopy;
-	}
-
-	public void setScannedIdCopy(String scannedIdCopy) {
-		this.scannedIdCopy = scannedIdCopy;
-	}
-
 	public String getPropertyDocument1Upload() {
 		return propertyDocument1Upload;
 	}
@@ -244,5 +229,23 @@ public class PropertySellerDetailDTO {
 	public void setPropertySellerId(Integer propertySellerId) {
 		this.propertySellerId = propertySellerId;
 	}
+
+	public String getPassportCopyUpload() {
+		return passportCopyUpload;
+	}
+
+	public void setPassportCopyUpload(String passportCopyUpload) {
+		this.passportCopyUpload = passportCopyUpload;
+	}
+
+	public String getScannedIdCopy() {
+		return scannedIdCopy;
+	}
+
+	public void setScannedIdCopy(String scannedIdCopy) {
+		this.scannedIdCopy = scannedIdCopy;
+	}
+
+	
 
 }

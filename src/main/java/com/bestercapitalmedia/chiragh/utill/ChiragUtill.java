@@ -20,9 +20,11 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bestercapitalmedia.chiragh.oauth.dao.UserDao;
 import com.bestercapitalmedia.chiragh.oauth.model.User;
@@ -39,11 +41,21 @@ public class ChiragUtill {
 	@Autowired
 	UserDao userDao;
 
+	public boolean checkMineType(MultipartFile file) {
+		MediaType mediaType = MediaType.parseMediaType(file.getContentType());
+        String mineType=mediaType.getType();
+        if(mineType.equals("appication/pdf")||mineType.equals("appication/jpg")||mineType.equals("appication/png"))
+        	return true;
+        else 
+        	return false;
+	}
+
 	public ChiraghMessage getMessageObject(String msg) {
-		ChiraghMessage chiraghMessage=new ChiraghMessage();
+		ChiraghMessage chiraghMessage = new ChiraghMessage();
 		chiraghMessage.setMsg(msg);
 		return chiraghMessage;
 	}
+
 	public String genearteRandomNo(String prefix) {
 		return prefix + "-" + RandomStringUtils.randomNumeric(6) + "-"
 				+ RandomStringUtils.randomAlphabetic(3).toUpperCase();
@@ -56,7 +68,7 @@ public class ChiragUtill {
 	public boolean isValidSession(HttpServletRequest httpServletRequest) {
 		boolean status = false;
 		try {
-			
+
 			Chiraghuser chiraghuser = getSessionUser(httpServletRequest);
 			if (chiraghuser == null)
 				status = false;
@@ -204,19 +216,19 @@ public class ChiragUtill {
 			return "Invalid Email Address";
 		}
 	}
-	
-//	public Resource loadFile(String filename) {
-//		try {
-//			Path file = rootLocation.resolve(filename);
-//			Resource resource = new UrlResource(file.toUri());
-//			if (resource.exists() || resource.isReadable()) {
-//				return resource;
-//			} else {
-//				throw new RuntimeException("FAIL!");
-//			}
-//		} catch (MalformedURLException e) {
-//			throw new RuntimeException("FAIL!");
-//		}
-//	}
+
+	// public Resource loadFile(String filename) {
+	// try {
+	// Path file = rootLocation.resolve(filename);
+	// Resource resource = new UrlResource(file.toUri());
+	// if (resource.exists() || resource.isReadable()) {
+	// return resource;
+	// } else {
+	// throw new RuntimeException("FAIL!");
+	// }
+	// } catch (MalformedURLException e) {
+	// throw new RuntimeException("FAIL!");
+	// }
+	// }
 
 }// end of class

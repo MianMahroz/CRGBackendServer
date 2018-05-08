@@ -100,13 +100,13 @@ public class UserController {
 				return new ResponseEntity(chiraghUtil.getMessageObject("User Not Found"), HttpStatus.NOT_FOUND);
 
 			try {
-				logUtill.inputLog(httpServletRequest, userRepository.findByUserId(userId), "/api/user/get/{userName}",
+				logUtill.inputLog(httpServletRequest, chiraghUtil.getSessionUser(httpServletRequest), "/api/user/get/{userName}",
 						mapper.writeValueAsString(userId), mapper.writeValueAsString(userRegisterationDTO));
 			} catch (Exception e) {
 				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.BAD_REQUEST);
 			}
 
-			return new ResponseEntity(userRegisterationDTO, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity(userRegisterationDTO, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity(chiraghUtil.getMessageObject("Internal Server Error!" + e.getMessage()),
 					HttpStatus.INTERNAL_SERVER_ERROR);

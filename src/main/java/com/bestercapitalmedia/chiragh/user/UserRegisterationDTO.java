@@ -41,6 +41,8 @@ public class UserRegisterationDTO implements Serializable{
 	@Size(min=8,max=15)
 	private String userPassword;
 	@Email
+	@NotEmpty
+	@NotEmpty
 	private String userEmail;
 	@Size(min=4,max=8)
 	@Pattern(regexp = "[0-9]*")	
