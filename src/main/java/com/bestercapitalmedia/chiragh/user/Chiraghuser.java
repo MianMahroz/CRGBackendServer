@@ -39,8 +39,7 @@ import javax.validation.constraints.NotNull;
 public class Chiraghuser implements Serializable {
 	private static final long serialVersionUID = 2L;
 
-	/**
-	 */
+	
 
 	@Column(name = "user_Id", nullable = false)
 	@Basic(fetch = FetchType.EAGER)
@@ -147,32 +146,32 @@ public class Chiraghuser implements Serializable {
 	/**
 	 */
 	
-	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
-	java.util.Set<Systemactivitylogs> systemactivitylogses;
+//	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
+//	java.util.Set<Systemactivitylogs> systemactivitylogses;
 	/**
 	 */
-	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
-	java.util.Set<Propertybidprocess> propertybidprocesses;
-	/**
-	 */
-	
-	/**
-	 */
-	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
-	java.util.Set<BuyerPayments> buyerpaymentses;
-	/**
-	 */
-	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
-	java.util.Set<Sellerpayments> sellerpaymentses;
-	/**
-	 */
-	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
-	java.util.Set<Propertysellerdetails> propertysellerdetailses;
-	/**
-	 */
-	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
-	java.util.List<Chiraghproperty> chiraghproperties;
-    
+//	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
+//	java.util.Set<Propertybidprocess> propertybidprocesses;
+//	/**
+//	 */
+//	
+//	/**
+//	 */
+//	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
+//	java.util.Set<BuyerPayments> buyerpaymentses;
+//	/**
+//	 */
+//	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
+//	java.util.Set<Sellerpayments> sellerpaymentses;
+//	/**
+//	 */
+//	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
+//	java.util.Set<Propertysellerdetails> propertysellerdetailses;
+//	/**
+//	 */
+//	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
+//	java.util.List<Chiraghproperty> chiraghproperties;
+//    
 	@Column(name="token")
 	String token;
 
@@ -312,13 +311,7 @@ public class Chiraghuser implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public java.util.Set<Systemactivitylogs> getSystemactivitylogses() {
-		return systemactivitylogses;
-	}
-
-	public void setSystemactivitylogses(java.util.Set<Systemactivitylogs> systemactivitylogses) {
-		this.systemactivitylogses = systemactivitylogses;
-	}
+	
 
 	public String getToken() {
 		return token;
@@ -328,46 +321,11 @@ public class Chiraghuser implements Serializable {
 		this.token = token;
 	}
 
-	public java.util.Set<Propertybidprocess> getPropertybidprocesses() {
-		return propertybidprocesses;
-	}
+	
 
-	public void setPropertybidprocesses(java.util.Set<Propertybidprocess> propertybidprocesses) {
-		this.propertybidprocesses = propertybidprocesses;
-	}
+	
 
-
-	public java.util.Set<BuyerPayments> getBuyerpaymentses() {
-		return buyerpaymentses;
-	}
-
-	public void setBuyerpaymentses(java.util.Set<BuyerPayments> buyerpaymentses) {
-		this.buyerpaymentses = buyerpaymentses;
-	}
-
-	public java.util.Set<Sellerpayments> getSellerpaymentses() {
-		return sellerpaymentses;
-	}
-
-	public void setSellerpaymentses(java.util.Set<Sellerpayments> sellerpaymentses) {
-		this.sellerpaymentses = sellerpaymentses;
-	}
-
-	public java.util.Set<Propertysellerdetails> getPropertysellerdetailses() {
-		return propertysellerdetailses;
-	}
-
-	public void setPropertysellerdetailses(java.util.Set<Propertysellerdetails> propertysellerdetailses) {
-		this.propertysellerdetailses = propertysellerdetailses;
-	}
-
-	public java.util.List<Chiraghproperty> getChiraghproperties() {
-		return chiraghproperties;
-	}
-
-	public void setChiraghproperties(java.util.List<Chiraghproperty> chiraghproperties) {
-		this.chiraghproperties = chiraghproperties;
-	}
+	
 
 
 	

@@ -1,6 +1,7 @@
 package com.bestercapitalmedia.chiragh.property;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -24,5 +25,10 @@ public interface PropertyRepository extends CrudRepository<Chiraghproperty, Inte
 
 	@Query(value = "select * from ChiraghProperty where property_Reference_No=?1  ", nativeQuery = true)
 	public Chiraghproperty findPropertyByRefNo(String refNo);
-
+	
+	@Query(value = "select * from ChiraghProperty where user_Id=?1  ", nativeQuery = true)
+	public List<Chiraghproperty> findPropertyByUserId(int userId);
+	
+	@Query(value = "SELECT p.property_Title,pa.final_Amount FROM ChiraghProperty p INNER JOIN propertyAuctionProcess pa  ON p.property_Id=pa.property_Id  ", nativeQuery = true)
+	public List<Map<String,String>> getDate();
 }

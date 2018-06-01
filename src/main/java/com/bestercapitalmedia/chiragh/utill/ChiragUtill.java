@@ -174,6 +174,7 @@ public class ChiragUtill {
 	public String getBCryptEndodedPassword(String password) {
 		return new BCryptPasswordEncoder().encode(password);
 	}
+	
 
 	public String getencodedUserPassword(String password) {
 		return DigestUtils.md5DigestAsHex(password.getBytes());
@@ -188,7 +189,7 @@ public class ChiragUtill {
 		}
 		return resetToken;
 	}
-
+	
 	/*
 	 * Password should be less than 15 and more than 8 characters in length.
 	 * Password should contain at least one upper case and one lower case alphabet.

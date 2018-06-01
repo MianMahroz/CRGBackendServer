@@ -5,7 +5,10 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bestercapitalmedia.chiragh.city.CityRepository;
+import com.bestercapitalmedia.chiragh.property.auctionprocess.Propertyauctionprocess;
 import com.bestercapitalmedia.chiragh.property.type.Propertytype;
 import com.bestercapitalmedia.chiragh.property.type.PropertytypeRepository;
 import com.bestercapitalmedia.chiragh.user.Chiraghuser;
@@ -53,6 +57,49 @@ public class PropertyController {
 	@Autowired
 	private LogUtill logUtill;
 
+	
+	
+	
+	
+	@RequestMapping(value = "/getData", method = RequestMethod.GET)
+	public List<Map<String,String>> getDate(){
+		List p= propertyRepository.getDate();	
+	        return p;
+	}
+	
+	
+	
+	@RequestMapping(value = "/getAll/{userId}", method = RequestMethod.GET)
+	public ResponseEntity getPropertyListByUserId(@PathVariable(value = "userId") int userId,
+			HttpServletRequest httpServletRequest) {
+		try {
+
+			ObjectMapper objectMapper = new ObjectMapper();
+			ModelMapper mapper = new ModelMapper();
+			if (chiraghUtil.isValidSession(httpServletRequest) == false)
+				return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session!"), HttpStatus.BAD_REQUEST);
+			List<Chiraghproperty> chiraghproperty = propertyRepository.findPropertyByUserId(userId);
+			if (chiraghproperty == null)
+				return new ResponseEntity(chiraghUtil.getMessageObject("Property Not Found!"), HttpStatus.BAD_REQUEST);
+			List<ChiraghPropertyDetailsDTO> list = chiraghproperty.stream()
+					.map(object -> mapper.map(object, ChiraghPropertyDetailsDTO.class)).collect(Collectors.toList());
+
+			try {
+				logUtill.inputLog(httpServletRequest, chiraghUtil.getSessionUser(httpServletRequest),
+						"/api/property/getAll/{userId}", objectMapper.writeValueAsString(userId),
+						objectMapper.writeValueAsString(list));
+			} catch (Exception e) {
+				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.BAD_REQUEST);
+			}
+			return new ResponseEntity(list, HttpStatus.OK);
+
+		} catch (Exception e) {
+			return new ResponseEntity(chiraghUtil.getMessageObject("Internal Server Error!" + e.getMessage()),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	}
+
 	@RequestMapping(value = "/getPropertyDetails/{propertyId}", method = RequestMethod.GET)
 	public ResponseEntity getPropertyDetailsById(@PathVariable(value = "propertyId") int propertyId,
 			HttpServletRequest httpServletRequest) {
@@ -81,6 +128,7 @@ public class PropertyController {
 		}
 
 	}
+
 	@RequestMapping(value = "/getPropertyFinancialDetails/{propertyId}", method = RequestMethod.GET)
 	public ResponseEntity getPropertyFinancialDetailsById(@PathVariable(value = "propertyId") int propertyId,
 			HttpServletRequest httpServletRequest) {
@@ -96,7 +144,8 @@ public class PropertyController {
 					ChiraghPropertyFinancialsDTO.class);
 			try {
 				logUtill.inputLog(httpServletRequest, chiraghUtil.getSessionUser(httpServletRequest),
-						"/api/property/getPropertyFinancialDetails/{propertyId}", objectMapper.writeValueAsString(propertyId),
+						"/api/property/getPropertyFinancialDetails/{propertyId}",
+						objectMapper.writeValueAsString(propertyId),
 						objectMapper.writeValueAsString(chiraghPropertyDetailsDTO));
 			} catch (Exception e) {
 				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.BAD_REQUEST);
@@ -109,6 +158,7 @@ public class PropertyController {
 		}
 
 	}
+
 	@RequestMapping(value = "/getPropertyRentalDetails/{propertyId}", method = RequestMethod.GET)
 	public ResponseEntity getPropertyRentalDetailsById(@PathVariable(value = "propertyId") int propertyId,
 			HttpServletRequest httpServletRequest) {
@@ -124,7 +174,8 @@ public class PropertyController {
 					ChiraghPropertyRentDetailsDTO.class);
 			try {
 				logUtill.inputLog(httpServletRequest, chiraghUtil.getSessionUser(httpServletRequest),
-						"/api/property/getPropertyRentalDetails/{propertyId}", objectMapper.writeValueAsString(propertyId),
+						"/api/property/getPropertyRentalDetails/{propertyId}",
+						objectMapper.writeValueAsString(propertyId),
 						objectMapper.writeValueAsString(chiraghPropertyDetailsDTO));
 			} catch (Exception e) {
 				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.BAD_REQUEST);

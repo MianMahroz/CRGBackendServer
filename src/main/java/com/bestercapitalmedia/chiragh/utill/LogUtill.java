@@ -21,6 +21,7 @@ public class LogUtill {
 	
 	public void inputLog(HttpServletRequest httpServletRequest,Chiraghuser chiraghuser,String api,String input,String  output ) {
 		
+		System.out.println(chiraghuser.getUserId());
 		
 //		Systemactivitylogs systemactivitylogs=new Systemactivitylogs();
 //		systemactivitylogs.setRemoteIpAddress(ip);

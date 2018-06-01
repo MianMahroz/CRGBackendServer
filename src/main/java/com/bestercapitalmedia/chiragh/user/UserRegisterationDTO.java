@@ -18,36 +18,36 @@ public class UserRegisterationDTO implements Serializable{
 	
 	
 	private int userId;
-	@Size(min=8,max=15)
-	@Pattern(regexp = "[a-zA-Z_.]*")
+//	@Size(min=8,max=15)
+//	@Pattern(regexp = "[a-zA-Z_.]*")
 	private String firstName;
-	@Pattern(regexp = "[a-zA-Z_.]*")
+//	@Pattern(regexp = "[a-zA-Z_.]*")
 	private String middleName;
-	@Pattern(regexp = "[a-zA-Z_.]*")
-	@Size(min=8,max=15)
+//	@Pattern(regexp = "[a-zA-Z_.]*")
+//	@Size(min=8,max=15)
 	private String lastName;
-	@Size(min=8,max=15)
-	@Pattern(regexp = "[0-9-+]*")
+//	@Size(min=8,max=15)
+//	@Pattern(regexp = "[0-9-+]*")
 	private String mobileNo;
-	@Pattern(regexp = "[a-zA-Z0-9_.,#]*")
-	@Size(min=8,max=25)
-	private String streetAddress;
-	@Size(min=8,max=25)
-	@Pattern(regexp = "[a-zA-Z0-9_.,#]*")
-	private String buildingAddress;
-	@Size(min=8,max=15)
-	@Pattern(regexp = "[a-zA-Z0-9_.]*")
+//	@Pattern(regexp = "[a-zA-Z0-9_.,#]*")
+//	@Size(min=8,max=25)
+//	private String streetAddress;
+//	@Size(min=8,max=25)
+//	@Pattern(regexp = "[a-zA-Z0-9_.,#]*")
+//	private String buildingAddress;
+//	@Size(min=8,max=15)
+//	@Pattern(regexp = "[a-zA-Z0-9_.]*")
 	private String userName;
-	@Size(min=8,max=15)
+//	@Size(min=8,max=15)
 	private String userPassword;
-	@Email
-	@NotEmpty
-	@NotEmpty
+//	@Email
+//	@NotEmpty
+//	@NotEmpty
 	private String userEmail;
-	@Size(min=4,max=8)
-	@Pattern(regexp = "[0-9]*")	
+//	@Size(min=4,max=8)
+//	@Pattern(regexp = "[0-9]*")	BesterCapital2-
 	private String mobileOtpCode;
-	@Size(min=8,max=15)
+//	@Size(min=8,max=15)
 	private String confirmPassword;
 	
 	
@@ -78,22 +78,6 @@ public class UserRegisterationDTO implements Serializable{
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-	
-	public String getStreetAddress() {
-		return streetAddress;
-	}
-
-	public void setStreetAddress(String streetAddress) {
-		this.streetAddress = streetAddress;
-	}
-
-	public String getBuildingAddress() {
-		return buildingAddress;
-	}
-	
-	public void setBuildingAddress(String buildingAddress) {
-		this.buildingAddress = buildingAddress;
 	}
 	
 	

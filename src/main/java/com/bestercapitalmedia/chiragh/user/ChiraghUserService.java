@@ -8,6 +8,8 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -70,12 +72,15 @@ public class ChiraghUserService {
 			} else
 				return null;
 		} catch (Exception e) {
-            return null;
+			return null;
 		}
 	}
 
 	public UserLoginDTO login(UserLoginDTO userLoginDTO) {
 		ModelMapper mapper = new ModelMapper();
+		System.out.println(userLoginDTO.getUserPassword());
+		System.out.println(userLoginDTO.getUserName());
+
 		Chiraghuser chiraghuser = userRepository.findByUserNameNPassword(userLoginDTO.getUserName(),
 				chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword()));
 		if (chiraghuser == null)
@@ -93,10 +98,25 @@ public class ChiraghUserService {
 			mailService.sendResetPassword(chiraghuser.getUserEmail(), resetToken);
 			return chiraghuser;
 		}
-		
 
 	}
 
+
+
+	public Chiraghuser onConfirm(UserNewPasswordDTO userNewPasswordDTO) {
+		if (userNewPasswordDTO.getUserPassword().equals(userNewPasswordDTO.getConfirmPassword())) {
+			Chiraghuser chiraghuser = userRepository.findByToken(userNewPasswordDTO.getToken());
+			if (chiraghuser != null) {
+				chiraghuser.setUserPassword(chiragUtill.getencodedUserPassword(userNewPasswordDTO.getUserPassword()));
+				chiraghuser.setToken("1");
+				userRepository.save(chiraghuser);
+				return chiraghuser;
+			}
+		}
+		return null;
+	}
+	
+	
 	public Chiraghuser resetPassword(UserNewPasswordDTO userNewPasswordDTO) {
 		if (userNewPasswordDTO.getUserPassword().equals(userNewPasswordDTO.getConfirmPassword())) {
 			Chiraghuser chiraghuser = userRepository.findByToken(userNewPasswordDTO.getToken());
@@ -109,5 +129,29 @@ public class ChiraghUserService {
 		}
 		return null;
 	}
+	
+	
+	
+	public Chiraghuser confirmEmail(String userName) {
+		Chiraghuser chiraghuser = userRepository.findByUserName(userName);
+		if (chiraghuser == null) {
+			return null;
+		} else {
+			String resetToken = chiragUtill.createResetPasswordToken(chiraghuser, true);
+			mailService.sendNewRegistration(chiraghuser.getUserEmail(), resetToken);
+			return chiraghuser;
+		}
+
+	}
+	public Chiraghuser confirmEmailByToken(String token) {
+			Chiraghuser chiraghuser = userRepository.findByToken(token);
+			if (chiraghuser != null) {
+				chiraghuser.setToken("1");
+				userRepository.save(chiraghuser);
+				return chiraghuser;
+			}		
+		return null;
+	}
+
 
 }// end of userService

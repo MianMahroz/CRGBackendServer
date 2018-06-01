@@ -584,11 +584,10 @@ public class Chiraghproperty implements Serializable {
 	 */
 	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
 
-	java.util.Set<Propertyauctionprocess> propertyauctionprocesses;
+	java.util.List<Propertyauctionprocess> propertyauctionprocesses;
 	/**
 	 */
 	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
-
 	java.util.Set<Propertybidprocess> propertybidprocesses;
 	/**
 	 */
@@ -1231,13 +1230,7 @@ public class Chiraghproperty implements Serializable {
 		this.propertymarketanalysises = propertymarketanalysises;
 	}
 
-	public java.util.Set<Propertyauctionprocess> getPropertyauctionprocesses() {
-		return propertyauctionprocesses;
-	}
-
-	public void setPropertyauctionprocesses(java.util.Set<Propertyauctionprocess> propertyauctionprocesses) {
-		this.propertyauctionprocesses = propertyauctionprocesses;
-	}
+	
 
 	public java.util.Set<Propertybidprocess> getPropertybidprocesses() {
 		return propertybidprocesses;
@@ -1293,6 +1286,14 @@ public class Chiraghproperty implements Serializable {
 
 	public float getRentalAnnualRent() {
 		return rentalAnnualRent;
+	}
+
+	public java.util.List<Propertyauctionprocess> getPropertyauctionprocesses() {
+		return propertyauctionprocesses;
+	}
+
+	public void setPropertyauctionprocesses(java.util.List<Propertyauctionprocess> propertyauctionprocesses) {
+		this.propertyauctionprocesses = propertyauctionprocesses;
 	}
 
 }

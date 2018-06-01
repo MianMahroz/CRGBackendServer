@@ -4,7 +4,8 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 public interface UserRepository extends CrudRepository<Chiraghuser, Integer> {
 
 	@Query(value = "select * from Chiraghuser where user_Name=?1 AND user_Password=?2 ", nativeQuery = true)

@@ -1,4 +1,3 @@
-
 package com.bestercapitalmedia.chiragh.admin.activitylogs;
 
 import java.io.Serializable;

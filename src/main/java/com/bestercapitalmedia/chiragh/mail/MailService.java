@@ -35,22 +35,20 @@ public class MailService {
 	}
 
 	public void sendResetPassword(String to, String token) {
-		String url = appUrl + "reset-password-change/" + token;
+		String url = appUrl+ token;
 		String subject = "Chiragh Reset Password";
 		String text = "Please click the following link to reset your password: " + url;
 		sendMail(to, subject, text);
 	}
 
 	public void sendNewRegistration(String to, String token) {
-		String url = appUrl + "s?activation=" + token;
+		String url = appUrl+ token;
 		String subject = "Please activate your account";
 		String text = "Please click the following link to activate your account: " + url;
 		sendMail(to, subject, text);
 	}
 
-	public void sendNewActivationRequest(String to, String token) {
-		sendNewRegistration(to, token);
-	}
+	
 
 	// public void sendErrorEmail(Exception e, HttpServletRequest req, User user) {
 	// String subject = "Application Error: " + req.getRequestURL();

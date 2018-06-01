@@ -27,20 +27,12 @@ public class PropertyAuctionProcessController {
 	private PropertyAuctionProcessRepository propertyAuctionProcessRepository;
 
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
-	public String list() {
+	public Iterable<Propertyauctionprocess>list() {
 		log.info("GET: /api/propertyactionprocess/getAll");
 		ObjectMapper objectMapper = new ObjectMapper();
 		Iterable<Propertyauctionprocess> propertyauctionprocessList = propertyAuctionProcessRepository.findAll();
-		String rtnObject = "";
-		try {
-			rtnObject = objectMapper.writeValueAsString(propertyauctionprocessList);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-
-		log.info("Output: " + rtnObject);
-		log.info("--------------------------------------------------------");
-		return rtnObject;
+		
+		return propertyauctionprocessList;
 	}// end of list method
 
 	@RequestMapping(value = "/post", method = RequestMethod.POST)

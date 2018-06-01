@@ -49,6 +49,11 @@ public class PropertySellerDetailsService {
 			PropertySellerDetailDTO propertySellerDetailDTO, MultipartFile idCard, MultipartFile passport,
 			MultipartFile scannedNotorizedPoa) {
 		try {
+			
+			String ownerType=propertySellerDetailDTO.getOwnerType();
+			if(!ownerType.equals("owner")||!ownerType.equals("poa"))
+				return null;
+				
 			ModelMapper mapper = new ModelMapper();
 			Propertysellerdetails propertysellerdetails = mapper.map(propertySellerDetailDTO,
 					Propertysellerdetails.class);
@@ -100,9 +105,9 @@ public class PropertySellerDetailsService {
 			}
 
 		} catch (Exception e) {
-
+              return null;
 		}
-		return null;
+		
 	}
 
 	public int getPropertyIdFromSession(HttpServletRequest httpServletRequest) {
@@ -131,5 +136,9 @@ public class PropertySellerDetailsService {
 		}
 
 	}
+	
+	
+	
+	
 
 }// end of Class

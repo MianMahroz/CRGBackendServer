@@ -50,7 +50,7 @@ public class PropertySellerDetailsController {
 	@Autowired
 	private ChiragUtill chiraghUtil;
 
-	@RequestMapping(value = "/post")
+	@RequestMapping(value = "/post",method=RequestMethod.POST)
 	public ResponseEntity create(@RequestBody PropertySellerDetailDTO propertySellerDetailDTO,
 			@RequestParam("passport") MultipartFile passport, @RequestParam("idCard") MultipartFile idCard,
 			@RequestParam("scannedNotorizedPoa") MultipartFile scannedNotorizedPoa,
@@ -69,7 +69,36 @@ public class PropertySellerDetailsController {
 			return new ResponseEntity(chiraghUtil.getMessageObject("Seller Not Saved!"), HttpStatus.BAD_REQUEST);
 		try {
 			logUtill.inputLog(httpServletRequest, chiraghUtil.getSessionUser(httpServletRequest),
-					"/api/user/get/{userName}", mapper.writeValueAsString(propertySellerDetailDTO),
+					"/api/Propertysellerdetails/post", mapper.writeValueAsString(propertySellerDetailDTO),
+					mapper.writeValueAsString(newPropertySellerDetailDTO));
+		} catch (Exception e) {
+			return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity(chiraghUtil.getMessageObject("Seller Saved Successfully"), HttpStatus.OK);
+	}
+	
+	
+	//this method works for both owner and poa but make sure owner type is present is request.
+	@RequestMapping(value = "/update",method=RequestMethod.PUT)
+	public ResponseEntity update(@RequestBody PropertySellerDetailDTO propertySellerDetailDTO,
+			@RequestParam("passport") MultipartFile passport, @RequestParam("idCard") MultipartFile idCard,
+			@RequestParam("scannedNotorizedPoa") MultipartFile scannedNotorizedPoa,
+			HttpServletRequest httpServletRequest) {
+		ObjectMapper mapper = new ObjectMapper();
+		if (chiraghUtil.isValidSession(httpServletRequest) == false)
+			return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session!"), HttpStatus.BAD_REQUEST);
+		if (!propertySellerDetailsService.validateMultipartFiles(idCard, passport, scannedNotorizedPoa,
+				propertySellerDetailDTO.getOwnerType()))
+			return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Multipart File"), HttpStatus.BAD_REQUEST);
+
+		PropertySellerDetailDTO newPropertySellerDetailDTO = propertySellerDetailsService.savePropertySellerDetails(
+				httpServletRequest, propertySellerDetailDTO, idCard, passport, scannedNotorizedPoa);
+
+		if (newPropertySellerDetailDTO == null)
+			return new ResponseEntity(chiraghUtil.getMessageObject("Seller Not Saved!"), HttpStatus.BAD_REQUEST);
+		try {
+			logUtill.inputLog(httpServletRequest, chiraghUtil.getSessionUser(httpServletRequest),
+					"/api/Propertysellerdetails/post", mapper.writeValueAsString(propertySellerDetailDTO),
 					mapper.writeValueAsString(newPropertySellerDetailDTO));
 		} catch (Exception e) {
 			return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.BAD_REQUEST);
@@ -94,7 +123,7 @@ public class PropertySellerDetailsController {
 
 			try {
 				logUtill.inputLog(httpServletRequest, chiraghUtil.getSessionUser(httpServletRequest),
-						"/api/property/getOwnerDetails/{property_Id}",
+						"/api/Propertysellerdetails/getOwnerDetails/{property_Id}",
 						objectMapper.writeValueAsString(property_Id),
 						objectMapper.writeValueAsString(propertySellerDetailDTO));
 			} catch (Exception e) {
@@ -126,7 +155,7 @@ public class PropertySellerDetailsController {
 
 			try {
 				logUtill.inputLog(httpServletRequest, chiraghUtil.getSessionUser(httpServletRequest),
-						"/api/property/getPoaDetails/{Property_Seller_Id}",
+						"/api/Propertysellerdetails/getPoaDetails/{Property_Seller_Id}",
 						objectMapper.writeValueAsString(property_Id),
 						objectMapper.writeValueAsString(propertySellerDetailDTO));
 			} catch (Exception e) {
