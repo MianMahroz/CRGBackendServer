@@ -15,7 +15,9 @@ import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
 import com.bestercapitalmedia.chiragh.property.PropertyRepository;
 import com.bestercapitalmedia.chiragh.property.type.Propertytype;
 import com.bestercapitalmedia.chiragh.property.type.PropertytypeRepository;
+import com.bestercapitalmedia.chiragh.user.ChiraghUserService;
 import com.bestercapitalmedia.chiragh.user.Chiraghuser;
+import com.bestercapitalmedia.chiragh.user.UserRepository;
 import com.bestercapitalmedia.chiragh.utill.ChiragUtill;
 
 @Service
@@ -31,6 +33,8 @@ public class PropertySellerDetailsService {
 	private PropertytypeRepository propertytypeRepository;
 	@Autowired
 	private StorageService storageService;
+	@Autowired
+	private UserRepository userRepository;
 
 	public boolean validateMultipartFiles(MultipartFile idcard, MultipartFile passport,
 			MultipartFile scannedNotorizedPoa, String ownerType) {
@@ -46,68 +50,35 @@ public class PropertySellerDetailsService {
 	}
 
 	public PropertySellerDetailDTO savePropertySellerDetails(HttpServletRequest httpServletRequest,
-			PropertySellerDetailDTO propertySellerDetailDTO, MultipartFile idCard, MultipartFile passport,
-			MultipartFile scannedNotorizedPoa) {
+			PropertySellerDetailDTO propertySellerDetailDTO) {
 		try {
-			
-			String ownerType=propertySellerDetailDTO.getOwnerType();
-			if(!ownerType.equals("owner")||!ownerType.equals("poa"))
-				return null;
-				
+//			String ownerType = propertySellerDetailDTO.getOwnerType();
+			// if (!ownerType.equals("owner") || !ownerType.equals("poa"))
+			// return null;
+
 			ModelMapper mapper = new ModelMapper();
 			Propertysellerdetails propertysellerdetails = mapper.map(propertySellerDetailDTO,
 					Propertysellerdetails.class);
 			int propertyId = 0;
-			propertyId = getPropertyIdFromSession(httpServletRequest);
-
+			propertyId = propertySellerDetailDTO.getPropertyId();
+			System.out.println("ProeprtyID"+propertyId);
 			if (propertyId == 0) {
-				// generate new Property ID
-				Chiraghproperty chiraghproperty = createNewProperty(httpServletRequest);
-				// saving propertyId in session
-				httpServletRequest.getSession(false).setAttribute("propertyId", chiraghproperty.getPropertyId());
-				propertysellerdetails.setChiraghproperty(chiraghproperty);
-				propertysellerdetails.setChiraghuser(chiragUtill.getSessionUser(httpServletRequest));
-				Propertysellerdetails propertysellerdetailsNew = propertySellerDetailsRepository
-						.save(propertysellerdetails);
-				// saving images of seller
-				String path = "/" + chiraghproperty.getPropertyReferenceNo() + "/Seller";
-				String fileName = chiraghproperty.getPropertyReferenceNo() + ","
-						+ propertysellerdetailsNew.getPropertySellerId();
-				storageService.store(idCard, path, fileName + ",idCard");
-				storageService.store(passport, path, fileName + ",passport");
-				storageService.store(scannedNotorizedPoa, path, fileName + ",scannedNotorizedPoa");
-				// updating seller info
-				propertysellerdetailsNew.setScannedIdCopy(fileName + ",idCard");
-				propertysellerdetailsNew.setPassportCopyUpload(fileName + ",passport");
-				propertysellerdetailsNew.setScannedNotorizedCopy(fileName + ",scannedNotorizedPoa");
-				propertySellerDetailsRepository.save(propertysellerdetailsNew);
-
-				return mapper.map(propertysellerdetailsNew, PropertySellerDetailDTO.class);
-			} else {
+				return null;
+			} else {	
 				Chiraghproperty chiraghproperty = propertyRepository.findByPropertyId(propertyId);
 				propertysellerdetails.setChiraghproperty(chiraghproperty);
-				propertysellerdetails.setChiraghuser(chiragUtill.getSessionUser(httpServletRequest));
+				propertysellerdetails
+						.setChiraghuser(userRepository.findByUserId(chiraghproperty.getChiraghuser().getUserId()));
 				Propertysellerdetails propertysellerdetailsNew = propertySellerDetailsRepository
 						.save(propertysellerdetails);
-				// saving images of seller
-				// saving images of seller
-				String path = "/" + chiraghproperty.getPropertyReferenceNo() + "/Seller";
-				String fileName = chiraghproperty.getPropertyReferenceNo() + ","
-						+ propertysellerdetailsNew.getPropertySellerId();
-				storageService.store(idCard, path, fileName + ",idCard");
-				storageService.store(passport, path, fileName + ",passport");
-				storageService.store(scannedNotorizedPoa, path, fileName + ",scannedNotorizedPoa");
-				// updating seller info
-				propertysellerdetailsNew.setScannedIdCopy(fileName + ",idCard");
-				propertysellerdetailsNew.setPassportCopyUpload(fileName + ",passport");
-				propertysellerdetailsNew.setScannedNotorizedCopy(fileName + ",scannedNotorizedPoa");
 				return mapper.map(propertysellerdetailsNew, PropertySellerDetailDTO.class);
 			}
 
 		} catch (Exception e) {
-              return null;
+			e.printStackTrace();
+			return null;
 		}
-		
+
 	}
 
 	public int getPropertyIdFromSession(HttpServletRequest httpServletRequest) {
@@ -136,9 +107,24 @@ public class PropertySellerDetailsService {
 		}
 
 	}
-	
-	
-	
-	
+
+	public Chiraghproperty createNewPropertyAngular(String userName) {
+		try {
+			Chiraghuser chiraghuser = userRepository.findByUserName(userName);
+			// creating new object of Property Type
+			Propertytype propertytype = new Propertytype();
+			propertytype.setTypeTitle(chiraghuser.getUserName());
+			Propertytype newPropertyType = propertytypeRepository.save(propertytype);
+			// creating new object of property
+			Chiraghproperty chiraghproperty = new Chiraghproperty();
+			chiraghproperty.setChiraghuser(chiraghuser);
+			chiraghproperty.setPropertytype(newPropertyType);
+			chiraghproperty.setPropertyReferenceNo(chiragUtill.genearteRandomNo("Prop"));
+			return propertyRepository.save(chiraghproperty);
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
 
 }// end of Class

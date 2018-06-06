@@ -7,6 +7,8 @@ import javax.persistence.FetchType;
 import org.springframework.web.multipart.MultipartFile;
 
 public class PropertySellerDetailDTO {
+	String userName;
+	int propertyId;
 	Integer propertySellerId;
 	String firstName;
 	String middleName;
@@ -23,16 +25,18 @@ public class PropertySellerDetailDTO {
 	String pobox;
 	String passportCopyUpload;
 	String scannedIdCopy;
-	String propertyDocument1Upload;
-	String propertyDocument2Upload;
-	String propertyDocument3Upload;
-	String propertyDocument4Upload;
-	String sellerProfilepic;
+//	String propertyDocument1Upload;
+//	String propertyDocument2Upload;
+//	String propertyDocument3Upload;
+//	String propertyDocument4Upload;
+//	String sellerProfilepic;
 	String ownerType;
 	String poaAgreementExpiry;
 	String poaPropertyAuthority;
 	String titleDeedUpload;
 	String scannedNotorizedCopy;
+	String fax;
+	String poaNumber;
 
 	public PropertySellerDetailDTO() {
 
@@ -142,46 +146,7 @@ public class PropertySellerDetailDTO {
 		this.pobox = pobox;
 	}
 
-	public String getPropertyDocument1Upload() {
-		return propertyDocument1Upload;
-	}
-
-	public void setPropertyDocument1Upload(String propertyDocument1Upload) {
-		this.propertyDocument1Upload = propertyDocument1Upload;
-	}
-
-	public String getPropertyDocument2Upload() {
-		return propertyDocument2Upload;
-	}
-
-	public void setPropertyDocument2Upload(String propertyDocument2Upload) {
-		this.propertyDocument2Upload = propertyDocument2Upload;
-	}
-
-	public String getPropertyDocument3Upload() {
-		return propertyDocument3Upload;
-	}
-
-	public void setPropertyDocument3Upload(String propertyDocument3Upload) {
-		this.propertyDocument3Upload = propertyDocument3Upload;
-	}
-
-	public String getPropertyDocument4Upload() {
-		return propertyDocument4Upload;
-	}
-
-	public void setPropertyDocument4Upload(String propertyDocument4Upload) {
-		this.propertyDocument4Upload = propertyDocument4Upload;
-	}
-
-	public String getSellerProfilepic() {
-		return sellerProfilepic;
-	}
-
-	public void setSellerProfilepic(String sellerProfilepic) {
-		this.sellerProfilepic = sellerProfilepic;
-	}
-
+	
 	public String getOwnerType() {
 		return ownerType;
 	}
@@ -206,29 +171,7 @@ public class PropertySellerDetailDTO {
 		this.poaPropertyAuthority = poaPropertyAuthority;
 	}
 
-	public String getTitleDeedUpload() {
-		return titleDeedUpload;
-	}
-
-	public void setTitleDeedUpload(String titleDeedUpload) {
-		this.titleDeedUpload = titleDeedUpload;
-	}
-
-	public String getScannedNotorizedCopy() {
-		return scannedNotorizedCopy;
-	}
-
-	public void setScannedNotorizedCopy(String scannedNotorizedCopy) {
-		this.scannedNotorizedCopy = scannedNotorizedCopy;
-	}
-
-	public Integer getPropertySellerId() {
-		return propertySellerId;
-	}
-
-	public void setPropertySellerId(Integer propertySellerId) {
-		this.propertySellerId = propertySellerId;
-	}
+	
 
 	public String getPassportCopyUpload() {
 		return passportCopyUpload;
@@ -245,6 +188,68 @@ public class PropertySellerDetailDTO {
 	public void setScannedIdCopy(String scannedIdCopy) {
 		this.scannedIdCopy = scannedIdCopy;
 	}
+
+
+
+	public String getFax() {
+		return fax;
+	}
+
+	public void setFax(String fax) {
+		this.fax = fax;
+	}
+
+	public int getPropertyId() {
+		return propertyId;
+	}
+
+	public void setPropertyId(int propertyId) {
+		this.propertyId = propertyId;
+	}
+
+	public Integer getPropertySellerId() {
+		return propertySellerId;
+	}
+
+	public void setPropertySellerId(Integer propertySellerId) {
+		this.propertySellerId = propertySellerId;
+	}
+
+	public String getPoaNumber() {
+		return poaNumber;
+	}
+
+	public void setPoaNumber(String poaNumber) {
+		this.poaNumber = poaNumber;
+	}
+
+	public String getTitleDeedUpload() {
+		return titleDeedUpload;
+	}
+
+	public void setTitleDeedUpload(String titleDeedUpload) {
+		this.titleDeedUpload = titleDeedUpload;
+	}
+
+	public String getScannedNotorizedCopy() {
+		return scannedNotorizedCopy;
+	}
+
+	public void setScannedNotorizedCopy(String scannedNotorizedCopy) {
+		this.scannedNotorizedCopy = scannedNotorizedCopy;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+
+
+
 
 	
 

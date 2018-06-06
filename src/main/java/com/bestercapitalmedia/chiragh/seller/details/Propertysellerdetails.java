@@ -112,6 +112,9 @@ public class Propertysellerdetails implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 
 	String nationality;
+
+	@Column(name = "fax")
+	String fax;
 	/**
 	 */
 
@@ -252,6 +255,8 @@ public class Propertysellerdetails implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 
 	int isPoaAccepted;
+	@Column(name = "poa_Number")
+	String poaNumber;
 
 	/**
 	 */
@@ -677,6 +682,22 @@ public class Propertysellerdetails implements Serializable {
 	/**
 	 */
 	public Propertysellerdetails() {
+	}
+
+	public String getFax() {
+		return fax;
+	}
+
+	public void setFax(String fax) {
+		this.fax = fax;
+	}
+
+	public String getPoaNumber() {
+		return poaNumber;
+	}
+
+	public void setPoaNumber(String poaNumber) {
+		this.poaNumber = poaNumber;
 	}
 
 }

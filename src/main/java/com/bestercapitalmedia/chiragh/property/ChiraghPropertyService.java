@@ -38,10 +38,11 @@ public class ChiraghPropertyService {
 		int propertyId = 0;
 		ModelMapper mapper = new ModelMapper();
 		try {
-			propertyId = propertySellerDetailsService.getPropertyIdFromSession(httpServletRequest);
+			propertyId = chiraghPropertyDetailsDTO.getPropertyId();
+			System.out.println("Proeprty Id"+propertyId);
 			Chiraghproperty chiraghproperty = mapper.map(chiraghPropertyDetailsDTO, Chiraghproperty.class);
 			chiraghproperty.setPropertyId(propertyId);
-			chiraghproperty.setChiraghuser(chiragUtill.getSessionUser(httpServletRequest));
+//			chiraghproperty.setChiraghuser(chiragUtill.getSessionUser(httpServletRequest));
 			// Updating property type object
 			Propertytype propertytype = propertyRepository.findByPropertyId(propertyId).getPropertytype();
 			propertytype.setTypeTitle(chiraghPropertyDetailsDTO.getTypeTitle());
@@ -59,7 +60,11 @@ public class ChiraghPropertyService {
 	public Chiraghproperty updatePropertyFinancialDetails(ChiraghPropertyFinancialsDTO chiraghPropertyFinancialsDTO,
 			HttpServletRequest httpServletRequest) {
 		try {
-			int propertyId = propertySellerDetailsService.getPropertyIdFromSession(httpServletRequest);
+			int propertyId =0;
+			propertyId =chiraghPropertyFinancialsDTO.getPropertyId();
+			System.out.println("Property Id"+propertyId);
+			System.out.println("Balance"+chiraghPropertyFinancialsDTO.getBalanceAmount());
+			
 			Chiraghproperty chiraghproperty = propertyRepository.findByPropertyId(propertyId);
 			chiraghproperty.setListedPrice(chiraghPropertyFinancialsDTO.getListedPrice());
 			chiraghproperty.setOriginalPrice(chiraghPropertyFinancialsDTO.getOriginalPrice());
@@ -71,11 +76,14 @@ public class ChiraghPropertyService {
 			chiraghproperty.setMorgageAmount(chiraghPropertyFinancialsDTO.getMorgageAmount());
 			chiraghproperty.setPreClosureCharges(chiraghPropertyFinancialsDTO.getPreClosureCharges());
 			chiraghproperty.setPaymentSchedule(chiraghPropertyFinancialsDTO.getPaymentSchedule());
+			chiraghproperty.setMorgageNoc(chiraghPropertyFinancialsDTO.getMorgageNoc());
 			chiraghproperty.setDate(chiraghPropertyFinancialsDTO.getDate());
 			chiraghproperty.setAmount(chiraghPropertyFinancialsDTO.getAmount());
+			chiraghproperty.setBalanceAmount(chiraghPropertyFinancialsDTO.getBalanceAmount());
 			propertyRepository.save(chiraghproperty);
 			return chiraghproperty;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -83,17 +91,21 @@ public class ChiraghPropertyService {
 	public Chiraghproperty updatePropertyRentDetails(ChiraghPropertyRentDetailsDTO chiraghPropertyRentDetailsDTO,
 			HttpServletRequest httpServletRequest) {
 		try {
-			int propertyId = propertySellerDetailsService.getPropertyIdFromSession(httpServletRequest);
+			int propertyId =0;
+					propertyId =chiraghPropertyRentDetailsDTO.getPropertyId();
 			Chiraghproperty chiraghproperty = propertyRepository.findByPropertyId(propertyId);
 			chiraghproperty.setIsRented(chiraghPropertyRentDetailsDTO.getIsRented());
 			chiraghproperty.setIsVacant(chiraghPropertyRentDetailsDTO.getIsVacant());
 			chiraghproperty.setTenantName(chiraghPropertyRentDetailsDTO.getTenantName());
-			chiraghproperty.setPayementStructure(chiraghPropertyRentDetailsDTO.getPayementStructure());
+			chiraghproperty.setPaymentStructure(chiraghPropertyRentDetailsDTO.getPaymentStructure());
 			chiraghproperty.setRentalEjariNo(chiraghPropertyRentDetailsDTO.getRentalEjariNo());
 			chiraghproperty.setRentalAnnualRent(chiraghPropertyRentDetailsDTO.getRentalAnnualRent());
 			chiraghproperty.setTenancyContractUpload(chiraghPropertyRentDetailsDTO.getTenancyContractUpload());
+			chiraghproperty.setLeaseStartDate(chiraghPropertyRentDetailsDTO.getLeaseStartDate());
+			chiraghproperty.setLeaseExpiryDate(chiraghPropertyRentDetailsDTO.getLeaseExpiryDate());
 			return propertyRepository.save(chiraghproperty);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 

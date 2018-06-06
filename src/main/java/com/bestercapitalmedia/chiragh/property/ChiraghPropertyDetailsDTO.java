@@ -9,6 +9,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 public class ChiraghPropertyDetailsDTO {
 	
+	String userName;
+	int propertyId;
 	String typeTitle;
 	String propertyTitle;
 	String propertyDescription;
@@ -527,5 +529,17 @@ public class ChiraghPropertyDetailsDTO {
 	}
 	public void setTypeTitle(String typeTitle) {
 		this.typeTitle = typeTitle;
+	}
+	public int getPropertyId() {
+		return propertyId;
+	}
+	public void setPropertyId(int propertyId) {
+		this.propertyId = propertyId;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 }

@@ -10,6 +10,8 @@ import javax.persistence.TemporalType;
 
 public class ChiraghPropertyFinancialsDTO {
 
+	String userName;
+	int propertyId;
 	float listedPrice;
 	float originalPrice;
 	float paidAmount;
@@ -19,10 +21,11 @@ public class ChiraghPropertyFinancialsDTO {
 	String bank;
 	float morgageAmount;
 	float preClosureCharges;
-	Calendar paymentSchedule;
+	String paymentSchedule;
 	Calendar date;
 	float amount;
 	String morgageNoc;
+	float balanceAmount;
 	
 	public float getListedPrice() {
 		return listedPrice;
@@ -78,12 +81,7 @@ public class ChiraghPropertyFinancialsDTO {
 	public void setPreClosureCharges(float preClosureCharges) {
 		this.preClosureCharges = preClosureCharges;
 	}
-	public Calendar getPaymentSchedule() {
-		return paymentSchedule;
-	}
-	public void setPaymentSchedule(Calendar paymentSchedule) {
-		this.paymentSchedule = paymentSchedule;
-	}
+	
 	public Calendar getDate() {
 		return date;
 	}
@@ -105,6 +103,30 @@ public class ChiraghPropertyFinancialsDTO {
 	public ChiraghPropertyFinancialsDTO() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public float getBalanceAmount() {
+		return balanceAmount;
+	}
+	public void setBalanceAmount(float balanceAmount) {
+		this.balanceAmount = balanceAmount;
+	}
+	public int getPropertyId() {
+		return propertyId;
+	}
+	public void setPropertyId(int propertyId) {
+		this.propertyId = propertyId;
+	}
+	public String getPaymentSchedule() {
+		return paymentSchedule;
+	}
+	public void setPaymentSchedule(String paymentSchedule) {
+		this.paymentSchedule = paymentSchedule;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 }

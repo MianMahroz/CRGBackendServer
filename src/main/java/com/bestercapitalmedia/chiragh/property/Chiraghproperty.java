@@ -50,6 +50,9 @@ public class Chiraghproperty implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 
 	String propertyTitle;
+	
+	@Column(name="balance_Amount")
+	float balanceAmount;
 	/**
 	 */
 
@@ -175,12 +178,12 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "is_Rented")
 	@Basic(fetch = FetchType.EAGER)
 
-	Integer isRented;
+	String isRented;
 	/**
 	 */
 	@Column(name = "is_Vacant")
 	@Basic(fetch = FetchType.EAGER)
-	Integer isVacant;
+	String isVacant;
 
 	@Column(name = "rental_Ejari_No")
 	@Basic(fetch = FetchType.EAGER)
@@ -413,14 +416,14 @@ public class Chiraghproperty implements Serializable {
 	/**
 	 */
 
-	@Column(name = "payement_Structure", length = 25)
+	@Column(name = "payment_Structure", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	String payementStructure;
+	String paymentStructure;
 	/**
 	 */
 
-	@Column(name = "tenancy_Contract_Upload", length = 25)
+	@Column(name = "tenancy_Contract_Upload", length = 200)
 	@Basic(fetch = FetchType.EAGER)
 
 	String tenancyContractUpload;
@@ -538,11 +541,11 @@ public class Chiraghproperty implements Serializable {
 	float preClosureCharges;
 	/**
 	 */
-	@Temporal(TemporalType.TIMESTAMP)
+	
 	@Column(name = "payment_Schedule")
 	@Basic(fetch = FetchType.EAGER)
 
-	Calendar paymentSchedule;
+	String paymentSchedule;
 	/**
 	 */
 	@Temporal(TemporalType.TIMESTAMP)
@@ -766,13 +769,7 @@ public class Chiraghproperty implements Serializable {
 		this.mortgageYear = mortgageYear;
 	}
 
-	public Integer getIsRented() {
-		return isRented;
-	}
-
-	public void setIsRented(Integer isRented) {
-		this.isRented = isRented;
-	}
+	
 
 	public Integer getRentalEjariNo() {
 		return rentalEjariNo;
@@ -1030,13 +1027,7 @@ public class Chiraghproperty implements Serializable {
 		this.tenantName = tenantName;
 	}
 
-	public String getPayementStructure() {
-		return payementStructure;
-	}
-
-	public void setPayementStructure(String payementStructure) {
-		this.payementStructure = payementStructure;
-	}
+	
 
 	public String getTenancyContractUpload() {
 		return tenancyContractUpload;
@@ -1174,13 +1165,7 @@ public class Chiraghproperty implements Serializable {
 		this.preClosureCharges = preClosureCharges;
 	}
 
-	public Calendar getPaymentSchedule() {
-		return paymentSchedule;
-	}
-
-	public void setPaymentSchedule(Calendar paymentSchedule) {
-		this.paymentSchedule = paymentSchedule;
-	}
+	
 
 	public Calendar getDate() {
 		return date;
@@ -1272,13 +1257,7 @@ public class Chiraghproperty implements Serializable {
 		this.propertybrokerages = propertybrokerages;
 	}
 
-	public Integer getIsVacant() {
-		return isVacant;
-	}
-
-	public void setIsVacant(Integer isVacant) {
-		this.isVacant = isVacant;
-	}
+	
 
 	public void setRentalAnnualRent(float rentalAnnualRent) {
 		this.rentalAnnualRent = rentalAnnualRent;
@@ -1294,6 +1273,42 @@ public class Chiraghproperty implements Serializable {
 
 	public void setPropertyauctionprocesses(java.util.List<Propertyauctionprocess> propertyauctionprocesses) {
 		this.propertyauctionprocesses = propertyauctionprocesses;
+	}
+
+	public float getBalanceAmount() {
+		return balanceAmount;
+	}
+
+	public void setBalanceAmount(float balanceAmount) {
+		this.balanceAmount = balanceAmount;
+	}
+
+	public String getPaymentSchedule() {
+		return paymentSchedule;
+	}
+
+	public void setPaymentSchedule(String paymentSchedule) {
+		this.paymentSchedule = paymentSchedule;
+	}
+
+	public String getPaymentStructure() {
+		return paymentStructure;
+	}
+
+	public void setPaymentStructure(String paymentStructure) {
+		this.paymentStructure = paymentStructure;
+	}
+
+	public String getIsRented() {
+		return isRented;
+	}
+
+	public void setIsRented(String isRented) {
+		this.isRented = isRented;
+	}
+
+	public void setIsVacant(String isVacant) {
+		this.isVacant = isVacant;
 	}
 
 }

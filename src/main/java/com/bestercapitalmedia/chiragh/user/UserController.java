@@ -170,6 +170,7 @@ public class UserController {
 			// session
 			httpServletRequest.getSession().invalidate();
 			HttpSession session = httpServletRequest.getSession(true);
+			
 			session.setAttribute("user", userRepository.findByUserName(loginDTO.getUserName()));
 			
 			try {

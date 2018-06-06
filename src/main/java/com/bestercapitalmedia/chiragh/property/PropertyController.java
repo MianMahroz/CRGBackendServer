@@ -61,12 +61,6 @@ public class PropertyController {
 	
 	
 	
-	@RequestMapping(value = "/getData", method = RequestMethod.GET)
-	public List<Map<String,String>> getDate(){
-		List p= propertyRepository.getDate();	
-	        return p;
-	}
-	
 	
 	
 	@RequestMapping(value = "/getAll/{userId}", method = RequestMethod.GET)
@@ -77,10 +71,10 @@ public class PropertyController {
 			ObjectMapper objectMapper = new ObjectMapper();
 			ModelMapper mapper = new ModelMapper();
 			if (chiraghUtil.isValidSession(httpServletRequest) == false)
-				return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session!"), HttpStatus.BAD_REQUEST);
+				return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session!"), HttpStatus.OK);
 			List<Chiraghproperty> chiraghproperty = propertyRepository.findPropertyByUserId(userId);
 			if (chiraghproperty == null)
-				return new ResponseEntity(chiraghUtil.getMessageObject("Property Not Found!"), HttpStatus.BAD_REQUEST);
+				return new ResponseEntity(chiraghUtil.getMessageObject("Property Not Found!"), HttpStatus.OK);
 			List<ChiraghPropertyDetailsDTO> list = chiraghproperty.stream()
 					.map(object -> mapper.map(object, ChiraghPropertyDetailsDTO.class)).collect(Collectors.toList());
 
@@ -89,7 +83,7 @@ public class PropertyController {
 						"/api/property/getAll/{userId}", objectMapper.writeValueAsString(userId),
 						objectMapper.writeValueAsString(list));
 			} catch (Exception e) {
-				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.BAD_REQUEST);
+				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.OK);
 			}
 			return new ResponseEntity(list, HttpStatus.OK);
 
@@ -106,7 +100,7 @@ public class PropertyController {
 		try {
 
 			if (chiraghUtil.isValidSession(httpServletRequest) == false)
-				return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session!"), HttpStatus.BAD_REQUEST);
+				return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session!"), HttpStatus.OK);
 
 			ModelMapper mapper = new ModelMapper();
 			ObjectMapper objectMapper = new ObjectMapper();
@@ -118,7 +112,7 @@ public class PropertyController {
 						"/api/property/getPropertyDetails/{propertyId}", objectMapper.writeValueAsString(propertyId),
 						objectMapper.writeValueAsString(chiraghPropertyDetailsDTO));
 			} catch (Exception e) {
-				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.BAD_REQUEST);
+				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.OK);
 			}
 
 			return new ResponseEntity(chiraghPropertyDetailsDTO, HttpStatus.OK);
@@ -135,7 +129,7 @@ public class PropertyController {
 		try {
 
 			if (chiraghUtil.isValidSession(httpServletRequest) == false)
-				return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session!"), HttpStatus.BAD_REQUEST);
+				return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session!"), HttpStatus.OK);
 
 			ModelMapper mapper = new ModelMapper();
 			ObjectMapper objectMapper = new ObjectMapper();
@@ -148,7 +142,7 @@ public class PropertyController {
 						objectMapper.writeValueAsString(propertyId),
 						objectMapper.writeValueAsString(chiraghPropertyDetailsDTO));
 			} catch (Exception e) {
-				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.BAD_REQUEST);
+				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.OK);
 			}
 
 			return new ResponseEntity(chiraghPropertyDetailsDTO, HttpStatus.OK);
@@ -165,7 +159,7 @@ public class PropertyController {
 		try {
 
 			if (chiraghUtil.isValidSession(httpServletRequest) == false)
-				return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session!"), HttpStatus.BAD_REQUEST);
+				return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session!"), HttpStatus.OK);
 
 			ModelMapper mapper = new ModelMapper();
 			ObjectMapper objectMapper = new ObjectMapper();
@@ -178,7 +172,7 @@ public class PropertyController {
 						objectMapper.writeValueAsString(propertyId),
 						objectMapper.writeValueAsString(chiraghPropertyDetailsDTO));
 			} catch (Exception e) {
-				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.BAD_REQUEST);
+				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.OK);
 			}
 
 			return new ResponseEntity(chiraghPropertyDetailsDTO, HttpStatus.OK);
@@ -193,27 +187,30 @@ public class PropertyController {
 	public @ResponseBody ResponseEntity update(@RequestBody ChiraghPropertyDetailsDTO chiraghPropertyDetailsDTO,
 			HttpServletRequest httpServletRequest) {
 		try {
-
-			if (chiraghUtil.isValidSession(httpServletRequest) == false)
-				return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session!"), HttpStatus.BAD_REQUEST);
-
+			String userName=chiraghPropertyDetailsDTO.getUserName();
+			if(userName.equals("")||userName==null) {
+				return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session"),
+						HttpStatus.OK);
+			}
+			
 			ModelMapper modelMapper = new ModelMapper();
 			ObjectMapper mapper = new ObjectMapper();
 			Chiraghproperty chiraghProperty = chiraghPropertyService.updatePropertyDetails(chiraghPropertyDetailsDTO,
 					httpServletRequest);
 			if (chiraghProperty == null)
 				return new ResponseEntity(chiraghUtil.getMessageObject("Property Updates Ended with Error!"),
-						HttpStatus.BAD_REQUEST);
+						HttpStatus.OK);
 			ChiraghPropertyDetailsDTO chiraghPropertyDetailsDTO2 = modelMapper.map(chiraghProperty,
 					ChiraghPropertyDetailsDTO.class);
 			if (chiraghPropertyDetailsDTO2 == null)
 				return new ResponseEntity(chiraghUtil.getMessageObject("Mapping Fail during property updates!!"),
-						HttpStatus.BAD_REQUEST);
+						HttpStatus.OK);
 
-			logUtill.inputLog(httpServletRequest, chiraghUtil.getSessionUser(httpServletRequest),
+			logUtill.inputLog(httpServletRequest, userRepository.findByUserName(chiraghPropertyDetailsDTO.getUserName()),
 					"/api/property/updateProperty/Details", mapper.writeValueAsString(chiraghPropertyDetailsDTO),
 					mapper.writeValueAsString(chiraghPropertyDetailsDTO2));
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity(chiraghUtil.getMessageObject("Internal Server Error!" + e.getMessage()),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -226,17 +223,20 @@ public class PropertyController {
 			@RequestBody ChiraghPropertyFinancialsDTO chiraghPropertyFinancialsDTO,
 			HttpServletRequest httpServletRequest) {
 		try {
-			if (chiraghUtil.isValidSession(httpServletRequest) == false)
-				return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session!"), HttpStatus.BAD_REQUEST);
 
+			String userName=chiraghPropertyFinancialsDTO.getUserName();
+			if(userName.equals("")||userName==null) {
+				return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session"),
+						HttpStatus.OK);
+			}
 			ObjectMapper mapper = new ObjectMapper();
 			Chiraghproperty chiraghproperty = chiraghPropertyService
 					.updatePropertyFinancialDetails(chiraghPropertyFinancialsDTO, httpServletRequest);
 			if (chiraghproperty == null)
 				return new ResponseEntity(chiraghUtil.getMessageObject("Property Financial Details Not Updated!"),
-						HttpStatus.BAD_REQUEST);
+						HttpStatus.OK);
 
-			logUtill.inputLog(httpServletRequest, chiraghUtil.getSessionUser(httpServletRequest),
+			logUtill.inputLog(httpServletRequest, userRepository.findByUserName(chiraghPropertyFinancialsDTO.getUserName()),
 					"/api/property/updateProperty/FinancialDetails",
 					mapper.writeValueAsString(chiraghPropertyFinancialsDTO),
 					mapper.writeValueAsString("Property Financial Detail Updated Successfully"));
@@ -256,16 +256,20 @@ public class PropertyController {
 			HttpServletRequest httpServletRequest) {
 		try {
 
+			String userName=chiraghPropertyRentDetailsDTO.getUserName();
+			if(userName.equals("")||userName==null) {
+				return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session"),
+						HttpStatus.OK);
+			}
 			ObjectMapper mapper = new ObjectMapper();
 			Chiraghproperty chiraghproperty = chiraghPropertyService
 					.updatePropertyRentDetails(chiraghPropertyRentDetailsDTO, httpServletRequest);
-			Chiraghproperty newChiraghproperty = propertyRepository.save(chiraghproperty);
-			if (newChiraghproperty == null)
+			if (chiraghproperty == null)
 				return new ResponseEntity(chiraghUtil.getMessageObject("Property Rental Info Not Updated!"),
-						HttpStatus.BAD_REQUEST);
+						HttpStatus.OK);
 
-			logUtill.inputLog(httpServletRequest, chiraghUtil.getSessionUser(httpServletRequest),
-					"/api/property/updateProperty/FinancialDetails",
+			logUtill.inputLog(httpServletRequest, userRepository.findByUserName(chiraghPropertyRentDetailsDTO.getUserName()),
+					"/api/property/updateProperty/rentInfo",
 					mapper.writeValueAsString(chiraghPropertyRentDetailsDTO),
 					mapper.writeValueAsString("Property Rental Info Updated Successfully"));
 
