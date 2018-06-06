@@ -52,6 +52,7 @@ public class ChiraghPropertyService {
 			Chiraghproperty newChiraghproperty = propertyRepository.save(chiraghproperty);
 			return newChiraghproperty;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 

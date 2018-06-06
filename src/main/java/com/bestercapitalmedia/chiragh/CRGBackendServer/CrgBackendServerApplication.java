@@ -10,7 +10,9 @@ import org.quartz.TriggerBuilder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.Ordered;
@@ -26,16 +28,25 @@ import com.bestercapitalmedia.chiragh.utill.ChiragUtill;
 @EnableJpaRepositories("com.bestercapitalmedia")
 @EntityScan("com.bestercapitalmedia")
 @PropertySource(value = { "classpath:application.properties" })
-public class CrgBackendServerApplication {
+public class CrgBackendServerApplication extends SpringBootServletInitializer {
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+	        return application.sources(CrgBackendServerApplication.class);
+	    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(CrgBackendServerApplication.class, args);
-	}
+	    public static void main(String[] args) throws Exception {
+	        SpringApplication.run(CrgBackendServerApplication.class, args);
+	    }
+
+//	public static void main(String[] args) {
+//		SpringApplication.run(CrgBackendServerApplication.class, args);
+//	}
 	@Bean
 	public FilterRegistrationBean simpleCorsFilter() {
 	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 	    CorsConfiguration config = new CorsConfiguration();
 	    config.setAllowCredentials(true);
+//	    config.setAllowedOrigins(Collections.singletonList("*"));
 	    config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
 	    config.setAllowedMethods(Collections.singletonList("*"));
 	    config.setAllowedHeaders(Collections.singletonList("*"));

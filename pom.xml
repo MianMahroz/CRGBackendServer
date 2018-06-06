@@ -6,7 +6,7 @@
 	<groupId>com.bestercapitalmedia.chiragh</groupId>
 	<artifactId>CRGBackendServer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>CRGBackendServer</name>
 	<description>CRGBackendServer</description>
@@ -22,6 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<start-class>com.bestercapitalmedia.chiragh.CRGBackendServer.CrgBackendServerApplication</start-class>
 	</properties>
 
 	<dependencies>
@@ -45,7 +46,11 @@
 			<version>3.0</version>
 		</dependency>
 		
-       
+       <dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-tomcat</artifactId>
+		<scope>provided</scope>
+	</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
@@ -115,10 +120,21 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
-		<dependency>
+		<!--  <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		-->
+		<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-web</artifactId>
+    <exclusions>
+        <exclusion>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
 <dependency>
     <groupId>com.fasterxml.jackson.core</groupId>
@@ -163,6 +179,8 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+	
+	
 	</dependencies>
 
 	<build>
@@ -171,11 +189,10 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-                     <finalName>chiragh-mysql</finalName>
-        
+                     <finalName>ChiraghServer</finalName>
                </configuration>
 		 </plugin>
-	  </plugins>
+		</plugins>
 	</build>
 
 
