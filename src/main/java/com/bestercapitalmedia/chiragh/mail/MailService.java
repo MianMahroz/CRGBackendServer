@@ -1,5 +1,7 @@
 package com.bestercapitalmedia.chiragh.mail;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailSender;
@@ -13,6 +15,9 @@ public class MailService {
 
 	@Value("${app.url}")
 	private String appUrl;
+
+	@Value("${resetPassword.url}")
+	private String resetPasswordUrl;
 
 	@Value("${app.email.support}")
 	private String supportEmail;
@@ -35,7 +40,7 @@ public class MailService {
 	}
 
 	public void sendResetPassword(String to, String token) {
-		String url = appUrl+ token;
+		String url = resetPasswordUrl+ token;
 		String subject = "Chiragh Reset Password";
 		String text = "Please click the following link to reset your password: " + url;
 		sendMail(to, subject, text);

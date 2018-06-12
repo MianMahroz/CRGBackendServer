@@ -66,25 +66,27 @@ public class AuctionController {
 			HttpServletRequest httpServletRequest) {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
+			if(chiraghPropertyAuctionDetailsDTO.getUserName() == null||chiraghPropertyAuctionDetailsDTO.getUserName().equals("")) {
+
+				return new ResponseEntity(chiraghUtill.getMessageObject("Invalid Session!"),
+						HttpStatus.INTERNAL_SERVER_ERROR);
+				}
+			System.out.println(chiraghPropertyAuctionDetailsDTO.getAuctionStartDate());
 			
 			Auction auction = auctionService.saveAuction(chiraghPropertyAuctionDetailsDTO, httpServletRequest);
-			if (auction == null) {
-				httpServletRequest.getSession(false).setAttribute("propertyId", 0);
-				return new ResponseEntity(chiraghUtill.getMessageObject("Property Auctioning Fail with an error!!"),
-						HttpStatus.BAD_REQUEST);
-				
-			}
-			httpServletRequest.getSession(false).setAttribute("propertyId", 0);
-			logUtill.inputLog(httpServletRequest, chiraghUtill.getSessionUser(httpServletRequest),
-					"/api/auction/saveAuction", mapper.writeValueAsString(chiraghPropertyAuctionDetailsDTO),
-					mapper.writeValueAsString("Property added for auctioning"));
-			
+		if(auction==null) {
+			return null;
+		}
+//			logUtill.inputLog(httpServletRequest, chiraghUtill.getSessionUser(httpServletRequest),
+//					"/api/auction/saveAuction", mapper.writeValueAsString(chiraghPropertyAuctionDetailsDTO),
+//					mapper.writeValueAsString("Property added for auctioning"));
+//			
 		} catch (Exception e) {
-			httpServletRequest.getSession(false).setAttribute("propertyId", 0);
+	
 			return new ResponseEntity(chiraghUtill.getMessageObject("Internal Server Error!" + e.getMessage()),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity(chiraghUtill.getMessageObject("roperty added for auctioning"), HttpStatus.OK);
+		return new ResponseEntity(chiraghUtill.getMessageObject("Property added for auction"), HttpStatus.OK);
 		
 	}// end of create
 

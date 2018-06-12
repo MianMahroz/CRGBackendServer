@@ -194,7 +194,8 @@ ObjectMapper mapper=new ObjectMapper();
 		}
 		
 		ObjectMapper mapper=new ObjectMapper();
-		String fileName= document.saveMultipartFile("C://upload-dir/", name, file);
+//		/C://upload-dir/
+		String fileName= document.saveMultipartFile("../Chiragh/", name, file);
 	     if(fileName.equals("")||fileName.equals(null))
 	    	 return null;
 

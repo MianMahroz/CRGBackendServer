@@ -4,11 +4,9 @@ package com.bestercapitalmedia.chiragh.auction;
 import java.io.Serializable;
 
 import java.lang.StringBuilder;
-
+import java.util.Calendar;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
-import javax.persistence.Id;
 
 import javax.xml.bind.annotation.*;
 
@@ -67,6 +65,15 @@ public class Auction implements Serializable {
 
 	
 	String securityDeposit;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Basic(fetch = FetchType.EAGER)
+	@Column(name="auction_Start_Date")
+	Calendar auctionStartDate;
+	
+	@Column(name="auction_End_Date")
+	Calendar auctionEndDate;
+	
 
 	/**
 	 */
@@ -227,5 +234,21 @@ public class Auction implements Serializable {
 		if (auctionDurationId != null && !auctionDurationId.equals(equalCheck.auctionDurationId))
 			return false;
 		return true;
+	}
+
+	public Calendar getAuctionStartDate() {
+		return auctionStartDate;
+	}
+
+	public void setAuctionStartDate(Calendar auctionStartDate) {
+		this.auctionStartDate = auctionStartDate;
+	}
+
+	public Calendar getAuctionEndDate() {
+		return auctionEndDate;
+	}
+
+	public void setAuctionEndDate(Calendar auctionEndDate) {
+		this.auctionEndDate = auctionEndDate;
 	}
 }

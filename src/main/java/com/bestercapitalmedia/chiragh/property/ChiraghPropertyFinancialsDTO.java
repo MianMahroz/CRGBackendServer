@@ -116,17 +116,19 @@ public class ChiraghPropertyFinancialsDTO {
 	public void setPropertyId(int propertyId) {
 		this.propertyId = propertyId;
 	}
-	public String getPaymentSchedule() {
-		return paymentSchedule;
-	}
-	public void setPaymentSchedule(String paymentSchedule) {
-		this.paymentSchedule = paymentSchedule;
-	}
+	
 	public String getUserName() {
 		return userName;
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+	public String getPaymentSchedule() {
+		return paymentSchedule;
+	}
+	public void setPaymentSchedule(String paymentSchedule) {
+		this.paymentSchedule = paymentSchedule;
+	}
+	
 
 }

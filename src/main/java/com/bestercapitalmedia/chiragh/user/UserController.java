@@ -45,7 +45,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 // @SessionScope
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+@CrossOrigin
 @RequestMapping("/api/user")
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class UserController {
@@ -203,7 +203,7 @@ public class UserController {
 				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.OK);
 			}
 
-			return new ResponseEntity(chiraghUtil.getMessageObject("Email Sent"), HttpStatus.OK);
+			return new ResponseEntity(chiraghUtil.getMessageObject("Email Sent to "+userForgetPasswordDTO.getUserEmail()), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity(chiraghUtil.getMessageObject("Internal Server Error!" + e.getMessage()),
 					HttpStatus.INTERNAL_SERVER_ERROR);
@@ -216,9 +216,9 @@ public class UserController {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			String msg = "";
-			Chiraghuser chiraghuser = chiraghUserService.resetPassword(userNewPasswordDTO);
+			Chiraghuser chiraghuser = chiraghUserService.onConfirm(userNewPasswordDTO);
 			if (chiraghuser == null)
-				return new ResponseEntity(chiraghUtil.getMessageObject("Reset Password Fail!"), HttpStatus.OK);
+				return new ResponseEntity(chiraghUtil.getMessageObject("Reset Password Fail! User not verified!"), HttpStatus.OK);
 
 			try {
 				logUtill.inputLog(httpServletRequest, chiraghuser, "/api/user/resetPassword",

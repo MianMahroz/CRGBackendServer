@@ -19,7 +19,7 @@ import com.bestercapitalmedia.chiragh.city.City;
 import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
 import com.bestercapitalmedia.chiragh.property.bidprocess.Propertybidprocess;
 import com.bestercapitalmedia.chiragh.seller.details.Propertysellerdetails;
-import com.bestercapitalmedia.chiragh.seller.payments.Sellerpayments;
+
 import com.bestercapitalmedia.chiragh.systemactivitylogs.Systemactivitylogs;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

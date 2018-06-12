@@ -1,5 +1,7 @@
 package com.bestercapitalmedia.chiragh.auction;
 
+import java.util.Calendar;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.modelmapper.ModelMapper;
@@ -24,13 +26,19 @@ public class AuctionService {
 	public Auction saveAuction(ChiraghPropertyAuctionDetailsDTO chiraghPropertyAuctionDetailsDTO,
 			HttpServletRequest httpServletRequest) {
 		try {
+			
+//			Calendar c=chiraghPropertyAuctionDetailsDTO.getAuctionStartDate();
+//			c.add(Calendar.DATE, Integer.parseInt(chiraghPropertyAuctionDetailsDTO.getAuctionDuration()));
 			ModelMapper mapper = new ModelMapper();
-			int propertyId = propertySellerDetailsService.getPropertyIdFromSession(httpServletRequest);
+			int propertyId = chiraghPropertyAuctionDetailsDTO.getPropertyId();
 			Chiraghproperty chiraghproperty = propertyRepository.findByPropertyId(propertyId);
 			Auction auction = mapper.map(chiraghPropertyAuctionDetailsDTO, Auction.class);
+//			System.out.println(c.getTime());
+//			auction.setAuctionEndDate(c);
 			auction.setChiraghproperty(chiraghproperty);
 			return auctionRepository.save(auction);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}

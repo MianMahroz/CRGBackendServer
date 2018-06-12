@@ -57,15 +57,6 @@ public class Propertysellerdetails implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 
 	String lastName;
-	/**
-	 */
-
-	@Column(name = "emmirates_Id_No", length = 225)
-	@Basic(fetch = FetchType.EAGER)
-
-	String emmiratesIdNo;
-	/**
-	 */
 
 	@Column(name = "passport_No", length = 225)
 	@Basic(fetch = FetchType.EAGER)
@@ -91,20 +82,6 @@ public class Propertysellerdetails implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 
 	String address;
-	/**
-	 */
-
-	@Column(name = "emirates_Id_Document_Upload", nullable = false)
-	@Basic(fetch = FetchType.EAGER)
-
-	Integer emiratesIdDocumentUpload;
-	/**
-	 */
-
-	@Column(name = "poa_Clear_Deed_Upload")
-	@Basic(fetch = FetchType.EAGER)
-
-	Integer poaClearDeedUpload;
 	/**
 	 */
 
@@ -318,19 +295,6 @@ public class Propertysellerdetails implements Serializable {
 	public String getLastName() {
 		return this.lastName;
 	}
-
-	/**
-	 */
-	public void setEmmiratesIdNo(String emmiratesIdNo) {
-		this.emmiratesIdNo = emmiratesIdNo;
-	}
-
-	/**
-	 */
-	public String getEmmiratesIdNo() {
-		return this.emmiratesIdNo;
-	}
-
 	/**
 	 */
 	public void setPassportNo(String passportNo) {
@@ -378,31 +342,8 @@ public class Propertysellerdetails implements Serializable {
 	public String getAddress() {
 		return this.address;
 	}
-
-	/**
-	 */
-	public void setEmiratesIdDocumentUpload(Integer emiratesIdDocumentUpload) {
-		this.emiratesIdDocumentUpload = emiratesIdDocumentUpload;
-	}
-
-	/**
-	 */
-	public Integer getEmiratesIdDocumentUpload() {
-		return this.emiratesIdDocumentUpload;
-	}
-
-	/**
-	 */
-	public void setPoaClearDeedUpload(Integer poaClearDeedUpload) {
-		this.poaClearDeedUpload = poaClearDeedUpload;
-	}
-
-	/**
-	 */
-	public Integer getPoaClearDeedUpload() {
-		return this.poaClearDeedUpload;
-	}
-
+	
+	
 	/**
 	 */
 	public void setNationality(String nationality) {
