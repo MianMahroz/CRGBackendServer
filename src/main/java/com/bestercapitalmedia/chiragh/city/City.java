@@ -10,7 +10,6 @@ import java.util.Set;
 
 import javax.persistence.Id;
 
-import javax.xml.bind.annotation.*;
 
 import com.bestercapitalmedia.chiragh.country.Country;
 import com.bestercapitalmedia.chiragh.user.Chiraghuser;

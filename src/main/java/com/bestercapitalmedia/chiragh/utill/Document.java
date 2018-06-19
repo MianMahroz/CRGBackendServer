@@ -17,6 +17,7 @@ public class Document {
 		SimpleDateFormat dateFormat1 = new SimpleDateFormat("ddMMyy-hhmmss");
 		Date date = new Date();
 		String fileName = "";
+		System.out.println(path);
 
 		if (!file.isEmpty()) {
 			try {
@@ -25,9 +26,10 @@ public class Document {
 				fileName = name+"-File-" + dateFormat1.format(date) + "." + ext;
 
 				if (Files.notExists(Paths.get(path), LinkOption.NOFOLLOW_LINKS))
-					Files.createDirectory(Paths.get(path));
+					Files.createDirectories(Paths.get(path));
 				Files.copy(file.getInputStream(), Paths.get(path, fileName));
 			} catch (IOException | RuntimeException e) {
+				e.printStackTrace();
 				return "";
 			}
 		} else {

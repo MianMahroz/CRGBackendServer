@@ -9,7 +9,7 @@ import java.util.Set;
 
 import javax.persistence.Id;
 
-import javax.xml.bind.annotation.*;
+
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 
@@ -144,7 +144,7 @@ public class PropertyBuyerDetails implements Serializable {
 	@Column(name = "email", length = 45)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String email;
 	/**
 	 */
@@ -152,7 +152,7 @@ public class PropertyBuyerDetails implements Serializable {
 	@Column(name = "email_Verification_Code", length = 45)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String emailVerificationCode;
 	/**
 	 */

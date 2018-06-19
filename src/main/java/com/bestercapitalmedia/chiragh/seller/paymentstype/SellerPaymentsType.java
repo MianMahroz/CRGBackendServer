@@ -9,7 +9,7 @@ import java.util.Set;
 
 import javax.persistence.Id;
 
-import javax.xml.bind.annotation.*;
+
 
 import com.bestercapitalmedia.chiragh.seller.payments.SellerPayments;
 import com.fasterxml.jackson.annotation.JsonBackReference;

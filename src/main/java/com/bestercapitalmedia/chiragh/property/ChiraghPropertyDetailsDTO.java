@@ -17,6 +17,7 @@ public class ChiraghPropertyDetailsDTO {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+	private String area;
 	private String typeTitle;
 	private String propertyTitle;
 	private String propertyDescription;
@@ -143,6 +144,28 @@ public class ChiraghPropertyDetailsDTO {
 	private String poloClubAndClubhouse;
 	private String publicPark;
 	private String park;
+	//financial Dto
+	String morgageStatus;
+	String morgageRegNo;
+	String bank;
+	float morgageAmount;
+	float preClosureCharges;
+	Calendar date;
+	float amount;
+	String morgageNoc;
+	float balanceAmount;
+	//rental dto
+	Calendar leaseStartDate;
+	Calendar leaseExpiryDate;
+	String tenantName;
+	String tenancyContractUpload;
+	String isRented;
+	String isVacant;
+	Integer rentalEjariNo;
+	float rentalAnnualRent;
+	Integer rentalPaymentChecks;
+	String paymentStructure;
+	
 	
 	public int getStatusval() {
 		return statusval;
@@ -920,6 +943,126 @@ public class ChiraghPropertyDetailsDTO {
 	}
 	public void setPaymentSchedule(String paymentSchedule) {
 		this.paymentSchedule = paymentSchedule;
+	}
+	public String getArea() {
+		return area;
+	}
+	public void setArea(String area) {
+		this.area = area;
+	}
+	public String getMorgageStatus() {
+		return morgageStatus;
+	}
+	public void setMorgageStatus(String morgageStatus) {
+		this.morgageStatus = morgageStatus;
+	}
+	public String getMorgageRegNo() {
+		return morgageRegNo;
+	}
+	public void setMorgageRegNo(String morgageRegNo) {
+		this.morgageRegNo = morgageRegNo;
+	}
+	public String getBank() {
+		return bank;
+	}
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
+	public float getMorgageAmount() {
+		return morgageAmount;
+	}
+	public void setMorgageAmount(float morgageAmount) {
+		this.morgageAmount = morgageAmount;
+	}
+	public float getPreClosureCharges() {
+		return preClosureCharges;
+	}
+	public void setPreClosureCharges(float preClosureCharges) {
+		this.preClosureCharges = preClosureCharges;
+	}
+	public Calendar getDate() {
+		return date;
+	}
+	public void setDate(Calendar date) {
+		this.date = date;
+	}
+	public float getAmount() {
+		return amount;
+	}
+	public void setAmount(float amount) {
+		this.amount = amount;
+	}
+	public String getMorgageNoc() {
+		return morgageNoc;
+	}
+	public void setMorgageNoc(String morgageNoc) {
+		this.morgageNoc = morgageNoc;
+	}
+	public float getBalanceAmount() {
+		return balanceAmount;
+	}
+	public void setBalanceAmount(float balanceAmount) {
+		this.balanceAmount = balanceAmount;
+	}
+	public Calendar getLeaseStartDate() {
+		return leaseStartDate;
+	}
+	public void setLeaseStartDate(Calendar leaseStartDate) {
+		this.leaseStartDate = leaseStartDate;
+	}
+	public Calendar getLeaseExpiryDate() {
+		return leaseExpiryDate;
+	}
+	public void setLeaseExpiryDate(Calendar leaseExpiryDate) {
+		this.leaseExpiryDate = leaseExpiryDate;
+	}
+	public String getTenantName() {
+		return tenantName;
+	}
+	public void setTenantName(String tenantName) {
+		this.tenantName = tenantName;
+	}
+	public String getTenancyContractUpload() {
+		return tenancyContractUpload;
+	}
+	public void setTenancyContractUpload(String tenancyContractUpload) {
+		this.tenancyContractUpload = tenancyContractUpload;
+	}
+	public String getIsRented() {
+		return isRented;
+	}
+	public void setIsRented(String isRented) {
+		this.isRented = isRented;
+	}
+	public String getIsVacant() {
+		return isVacant;
+	}
+	public void setIsVacant(String isVacant) {
+		this.isVacant = isVacant;
+	}
+	public Integer getRentalEjariNo() {
+		return rentalEjariNo;
+	}
+	public void setRentalEjariNo(Integer rentalEjariNo) {
+		this.rentalEjariNo = rentalEjariNo;
+	}
+	public float getRentalAnnualRent() {
+		return rentalAnnualRent;
+	}
+	public void setRentalAnnualRent(float rentalAnnualRent) {
+		this.rentalAnnualRent = rentalAnnualRent;
+	}
+	public Integer getRentalPaymentChecks() {
+		return rentalPaymentChecks;
+	}
+	public void setRentalPaymentChecks(Integer rentalPaymentChecks) {
+		this.rentalPaymentChecks = rentalPaymentChecks;
+	}
+	public String getPaymentStructure() {
+		return paymentStructure;
+	}
+	public void setPaymentStructure(String paymentStructure) {
+		this.paymentStructure = paymentStructure;
 	}
 	
 

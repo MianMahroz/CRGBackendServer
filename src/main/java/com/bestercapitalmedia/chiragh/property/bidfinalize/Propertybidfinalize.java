@@ -9,7 +9,7 @@ import java.util.Set;
 
 import javax.persistence.Id;
 
-import javax.xml.bind.annotation.*;
+
 
 import com.bestercapitalmedia.chiragh.property.bidprocess.Propertybidprocess;
 import com.fasterxml.jackson.annotation.JsonBackReference;

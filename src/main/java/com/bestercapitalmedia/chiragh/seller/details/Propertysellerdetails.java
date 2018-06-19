@@ -9,7 +9,6 @@ import java.util.Set;
 
 import javax.persistence.Id;
 
-import javax.xml.bind.annotation.*;
 
 import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
 import com.bestercapitalmedia.chiragh.user.Chiraghuser;
@@ -231,7 +230,7 @@ public class Propertysellerdetails implements Serializable {
 	@Column(name = "is_Poa_Accepted")
 	@Basic(fetch = FetchType.EAGER)
 
-	int isPoaAccepted;
+	String isPoaAccepted;
 	@Column(name = "poa_Number")
 	String poaNumber;
 
@@ -586,15 +585,6 @@ public class Propertysellerdetails implements Serializable {
 
 	/**
 	 */
-	public void setIsPoaAccepted(int isPoaAccepted) {
-		this.isPoaAccepted = isPoaAccepted;
-	}
-
-	/**
-	 */
-	public int getIsPoaAccepted() {
-		return this.isPoaAccepted;
-	}
 
 	/**
 	 */
@@ -639,6 +629,14 @@ public class Propertysellerdetails implements Serializable {
 
 	public void setPoaNumber(String poaNumber) {
 		this.poaNumber = poaNumber;
+	}
+
+	public String getIsPoaAccepted() {
+		return isPoaAccepted;
+	}
+
+	public void setIsPoaAccepted(String isPoaAccepted) {
+		this.isPoaAccepted = isPoaAccepted;
 	}
 
 }

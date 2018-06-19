@@ -4,7 +4,7 @@ package com.bestercapitalmedia.chiragh.gateways;
 import java.io.Serializable;
 import java.lang.StringBuilder;
 import java.util.Set;
-import javax.xml.bind.annotation.*;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
 

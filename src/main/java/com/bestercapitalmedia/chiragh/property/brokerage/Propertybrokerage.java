@@ -7,7 +7,7 @@ import java.lang.StringBuilder;
 
 import java.util.Set;
 
-import javax.xml.bind.annotation.*;
+
 
 import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
 import com.fasterxml.jackson.annotation.JsonBackReference;

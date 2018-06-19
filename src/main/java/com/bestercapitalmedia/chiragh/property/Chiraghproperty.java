@@ -11,7 +11,7 @@ import java.util.Set;
 
 import javax.persistence.Id;
 
-import javax.xml.bind.annotation.*;
+
 
 import com.bestercapitalmedia.chiragh.buyer.details.PropertyBuyerDetails;
 import com.bestercapitalmedia.chiragh.property.auctionprocess.Propertyauctionprocess;
@@ -48,6 +48,8 @@ public class Chiraghproperty implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 
 	String propertyTitle;
+	@Column
+	String area; 
 	/**
 	 */
 
@@ -299,7 +301,7 @@ public class Chiraghproperty implements Serializable {
 	/**
 	 */
 
-	@Column(name = "scanned_Title_Deed", length = 25)
+	@Column(name = "scanned_Title_Deed")
 	@Basic(fetch = FetchType.EAGER)
 
 	String scannedTitleDeed;
@@ -1359,13 +1361,7 @@ public class Chiraghproperty implements Serializable {
 	public void setMorgageStatus(String morgageStatus) {
 		this.morgageStatus = morgageStatus;
 	}
-	public Integer getAgreeVatCommission() {
-		return agreeVatCommission;
-	}
-
-	public void setAgreeVatCommission(Integer agreeVatCommission) {
-		this.agreeVatCommission = agreeVatCommission;
-	}
+	
 
 	public String getMorgageRegNo() {
 		return morgageRegNo;
@@ -1544,9 +1540,7 @@ public class Chiraghproperty implements Serializable {
 		this.propertyNo = propertyNo;
 	}
 
-	public void setAgreeVatCommission(int agreeVatCommission) {
-		this.agreeVatCommission = agreeVatCommission;
-	}
+	
 
 	public String getIsVacant() {
 		return isVacant;
@@ -2250,6 +2244,14 @@ public class Chiraghproperty implements Serializable {
 
 	public void setPaymentSchedule(String paymentSchedule) {
 		this.paymentSchedule = paymentSchedule;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
 	}
 
 	

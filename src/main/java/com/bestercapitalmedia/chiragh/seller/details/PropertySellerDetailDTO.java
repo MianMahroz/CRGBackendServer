@@ -37,6 +37,7 @@ public class PropertySellerDetailDTO {
 	String scannedNotorizedCopy;
 	String fax;
 	String poaNumber;
+	String isPoaAccepted;
 
 	public PropertySellerDetailDTO() {
 
@@ -245,6 +246,14 @@ public class PropertySellerDetailDTO {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public String getIsPoaAccepted() {
+		return isPoaAccepted;
+	}
+
+	public void setIsPoaAccepted(String isPoaAccepted) {
+		this.isPoaAccepted = isPoaAccepted;
 	}
 
 

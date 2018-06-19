@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 import java.lang.StringBuilder;
 
-import javax.xml.bind.annotation.*;
+
 
 import javax.persistence.*;
 
@@ -34,7 +34,7 @@ public class Configurations implements Serializable {
 	@Column(name = "key_Name", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
-	@XmlElement
+	
 	String keyName;
 	/**
 	 */

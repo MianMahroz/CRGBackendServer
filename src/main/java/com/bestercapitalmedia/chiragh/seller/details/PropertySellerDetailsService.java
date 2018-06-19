@@ -68,7 +68,9 @@ public class PropertySellerDetailsService {
 				Chiraghproperty chiraghproperty = propertyRepository.findByPropertyId(propertyId);
 				propertysellerdetails.setChiraghproperty(chiraghproperty);
 				propertysellerdetails
-						.setChiraghuser(userRepository.findByUserId(chiraghproperty.getChiraghuser().getUserId()));
+						.setChiraghuser(userRepository.findByUserName(propertySellerDetailDTO.getUserName()));
+				
+				
 				Propertysellerdetails propertysellerdetailsNew = propertySellerDetailsRepository
 						.save(propertysellerdetails);
 				return mapper.map(propertysellerdetailsNew, PropertySellerDetailDTO.class);

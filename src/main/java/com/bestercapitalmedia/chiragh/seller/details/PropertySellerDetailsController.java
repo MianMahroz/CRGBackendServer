@@ -60,6 +60,7 @@ public class PropertySellerDetailsController {
 			HttpServletRequest httpServletRequest) {
 		ObjectMapper mapper = new ObjectMapper();
     	String userName=propertySellerDetailDTO.getUserName();
+    	System.out.println(propertySellerDetailDTO.getPropertyId());
 		if (userName.equals("")||userName==null) {
 			return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session!"), HttpStatus.OK);	
 		}	
@@ -185,8 +186,8 @@ ObjectMapper mapper=new ObjectMapper();
 
 	}//end of getOwners
 	
-	@RequestMapping(value = "/saveDocument/{name}/{userName}",method=RequestMethod.POST)
-	public ResponseEntity saveDocument(@PathVariable(value = "name") String name,@PathVariable(value = "userName") String userName,
+	@RequestMapping(value = "/saveDocument/{path}/{name}/{userName}",method=RequestMethod.POST)
+	public ResponseEntity saveDocument(@PathVariable(value = "path") String path,@PathVariable(value = "name") String name,@PathVariable(value = "userName") String userName,
 			@RequestParam("file") MultipartFile file,
 			HttpServletRequest httpServletRequest) {
 		if (userName.equals("")||userName==null) {
@@ -195,7 +196,7 @@ ObjectMapper mapper=new ObjectMapper();
 		
 		ObjectMapper mapper=new ObjectMapper();
 //		/C://upload-dir/
-		String fileName= document.saveMultipartFile("../Chiragh/", name, file);
+		String fileName= document.saveMultipartFile("../ChiraghDocuments/"+path, name, file);
 	     if(fileName.equals("")||fileName.equals(null))
 	    	 return null;
 

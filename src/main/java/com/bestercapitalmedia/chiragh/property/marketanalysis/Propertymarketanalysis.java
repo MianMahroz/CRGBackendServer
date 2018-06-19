@@ -10,7 +10,7 @@ import java.util.Set;
 
 import javax.persistence.Id;
 
-import javax.xml.bind.annotation.*;
+
 
 import org.hibernate.annotations.GeneratorType;
 

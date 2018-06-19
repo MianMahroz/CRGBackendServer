@@ -3,14 +3,7 @@ package com.bestercapitalmedia.chiragh.user;
 import java.io.Serializable;
 
 import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
-import com.bestercapitalmedia.chiragh.property.PropertyDTO;
-
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
+import com.bestercapitalmedia.chiragh.property.PropertyDTO;;
 
 
 public class UserDTO {

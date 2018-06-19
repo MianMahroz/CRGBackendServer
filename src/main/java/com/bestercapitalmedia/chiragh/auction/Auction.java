@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.xml.bind.annotation.*;
+
 
 import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
 import com.bestercapitalmedia.chiragh.property.auctionprocess.Propertyauctionprocess;
@@ -85,7 +85,7 @@ public class Auction implements Serializable {
 	 */
 	@OneToMany(mappedBy = "auction", fetch = FetchType.LAZY)
 
-	@XmlElement(name = "", namespace = "")
+	
 	java.util.Set<Propertyauctionprocess> propertyauctionprocesses;
 
 	/**
