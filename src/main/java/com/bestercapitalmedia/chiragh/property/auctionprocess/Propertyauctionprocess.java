@@ -65,10 +65,6 @@ public class Propertyauctionprocess implements Serializable {
 	/**
 	 */
 
-	@Column(name = "propertyauctionprocesscol", length = 45)
-	@Basic(fetch = FetchType.EAGER)
-
-	String propertyauctionprocesscol;
 
 	/**
 	 */
@@ -143,17 +139,6 @@ public class Propertyauctionprocess implements Serializable {
 		return this.isActive;
 	}
 
-	/**
-	 */
-	public void setPropertyauctionprocesscol(String propertyauctionprocesscol) {
-		this.propertyauctionprocesscol = propertyauctionprocesscol;
-	}
-
-	/**
-	 */
-	public String getPropertyauctionprocesscol() {
-		return this.propertyauctionprocesscol;
-	}
 
 	/**
 	 */
@@ -188,57 +173,4 @@ public class Propertyauctionprocess implements Serializable {
 	 * Copies the contents of the specified bean into this bean.
 	 *
 	 */
-	public void copy(Propertyauctionprocess that) {
-		setPropertyIdAuctionProcess(that.getPropertyIdAuctionProcess());
-		setBidStartDate(that.getBidStartDate());
-		setBidEndDate(that.getBidEndDate());
-		setFinalAmount(that.getFinalAmount());
-		setIsActive(that.getIsActive());
-		setPropertyauctionprocesscol(that.getPropertyauctionprocesscol());
-		setAuction(that.getAuction());
-		setChiraghproperty(that.getChiraghproperty());
-	}
-
-	/**
-	 * Returns a textual representation of a bean.
-	 *
-	 */
-	public String toString() {
-
-		StringBuilder buffer = new StringBuilder();
-
-		buffer.append("propertyIdAuctionProcess=[").append(propertyIdAuctionProcess).append("] ");
-		buffer.append("bidStartDate=[").append(bidStartDate).append("] ");
-		buffer.append("bidEndDate=[").append(bidEndDate).append("] ");
-		buffer.append("finalAmount=[").append(finalAmount).append("] ");
-		buffer.append("isActive=[").append(isActive).append("] ");
-		buffer.append("propertyauctionprocesscol=[").append(propertyauctionprocesscol).append("] ");
-
-		return buffer.toString();
-	}
-
-	/**
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = (int) (prime * result + ((propertyIdAuctionProcess == null) ? 0 : propertyIdAuctionProcess.hashCode()));
-		return result;
-	}
-
-	/**
-	 */
-	public boolean equals(Object obj) {
-		if (obj == this)
-			return true;
-		if (!(obj instanceof Propertyauctionprocess))
-			return false;
-		Propertyauctionprocess equalCheck = (Propertyauctionprocess) obj;
-		if ((propertyIdAuctionProcess == null && equalCheck.propertyIdAuctionProcess != null) || (propertyIdAuctionProcess != null && equalCheck.propertyIdAuctionProcess == null))
-			return false;
-		if (propertyIdAuctionProcess != null && !propertyIdAuctionProcess.equals(equalCheck.propertyIdAuctionProcess))
-			return false;
-		return true;
-	}
 }

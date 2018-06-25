@@ -1,11 +1,22 @@
 package com.bestercapitalmedia.chiragh.mail;
 
 import java.util.Date;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,8 +35,10 @@ public class MailService {
 
 	@Autowired
 	private MailSender mailSender;
+	@Autowired
+	private JavaMailSender javaMailSender;
 
-	public void sendMail(String to, String subject, String text) {
+	public void sendMail1(String to, String subject, String text) {
 		try {
 			SimpleMailMessage email = new SimpleMailMessage();
 			email.setTo(to);
@@ -39,21 +52,56 @@ public class MailService {
 		}
 	}
 
+	public void sendMail(String to, String subject, String body) {
+		 final String username = "mianmahroz@gmail.com";
+	        final String password = "mianmian";
+
+	        Properties props = new Properties();
+	        props.put("mail.smtp.auth", "true");
+	        props.put("mail.smtp.starttls.enable", "true");
+	        props.put("mail.smtp.host", "smtp.gmail.com");
+	        props.put("mail.smtp.port", "587");
+
+	        Session session = Session.getInstance(props,
+	          new javax.mail.Authenticator() {
+	            protected PasswordAuthentication getPasswordAuthentication() {
+	                return new PasswordAuthentication(username, password);
+	            }
+	          });
+
+	        try {
+
+	            Message message = new MimeMessage(session);
+	            message.setFrom(new InternetAddress("mianmahroz@gmail.com"));
+	            message.setRecipients(Message.RecipientType.TO,
+	                InternetAddress.parse(to));
+	            message.setSubject("Chiragh Verification Email");
+	            message.setText(body);
+
+	            Transport.send(message);
+
+	            System.out.println("Done");
+
+	        } catch (MessagingException e) {
+	            throw new RuntimeException(e);
+	        }
+	    
+
+	}
+
 	public void sendResetPassword(String to, String token) {
-		String url = resetPasswordUrl+ token;
+		String url = resetPasswordUrl + token;
 		String subject = "Chiragh Reset Password";
 		String text = "Please click the following link to reset your password: " + url;
 		sendMail(to, subject, text);
 	}
 
 	public void sendNewRegistration(String to, String token) {
-		String url = appUrl+ token;
+		String url = appUrl + token;
 		String subject = "Please activate your account";
 		String text = "Please click the following link to activate your account: " + url;
 		sendMail(to, subject, text);
 	}
-
-	
 
 	// public void sendErrorEmail(Exception e, HttpServletRequest req, User user) {
 	// String subject = "Application Error: " + req.getRequestURL();

@@ -14,6 +14,7 @@ public class UserLoginDTO implements Serializable{
 	private String userName;
 //	@Size(min=8,max=15)
 	private String userPassword;
+	String msg;
 	
 	public UserLoginDTO() {
 	}
@@ -34,6 +35,18 @@ public class UserLoginDTO implements Serializable{
 
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
+	}
+
+
+
+	public String getMsg() {
+		return msg;
+	}
+
+
+
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 
 

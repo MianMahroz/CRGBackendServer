@@ -10,6 +10,8 @@ import com.bestercapitalmedia.chiragh.property.type.Propertytype;
 import com.bestercapitalmedia.chiragh.property.type.PropertytypeRepository;
 import com.bestercapitalmedia.chiragh.seller.details.PropertySellerDetailsService;
 import com.bestercapitalmedia.chiragh.seller.details.Propertysellerdetails;
+import com.bestercapitalmedia.chiragh.user.Chiraghuser;
+import com.bestercapitalmedia.chiragh.user.UserRepository;
 import com.bestercapitalmedia.chiragh.utill.ChiragUtill;
 
 @Service
@@ -21,6 +23,8 @@ public class ChiraghPropertyService {
 	private ChiragUtill chiragUtill;
 	@Autowired
 	private PropertytypeRepository propertytypeRepository;
+	@Autowired
+	private UserRepository userRepository;
 
 	@Autowired
 	private PropertySellerDetailsService propertySellerDetailsService;
@@ -48,6 +52,8 @@ public class ChiraghPropertyService {
 			propertytype.setTypeTitle(chiraghPropertyDetailsDTO.getTypeTitle());
 			Propertytype newPropertytype = propertytypeRepository.save(propertytype);
 			chiraghproperty.setPropertytype(newPropertytype);
+			Chiraghuser user=userRepository.findByUserName(chiraghPropertyDetailsDTO.getUserName());
+			chiraghproperty.setChiraghuser(user);
 
 			Chiraghproperty newChiraghproperty = propertyRepository.save(chiraghproperty);
 			return newChiraghproperty;

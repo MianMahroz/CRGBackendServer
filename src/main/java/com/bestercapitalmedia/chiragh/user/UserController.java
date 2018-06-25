@@ -165,22 +165,24 @@ public class UserController {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			UserLoginDTO loginDTO = chiraghUserService.login(userLoginDTO);
-			if (loginDTO == null)
-				return new ResponseEntity(chiraghUtil.getMessageObject("User Not Found!"), HttpStatus.OK);
+//			if (loginDTO == null)
+//				return new ResponseEntity(chiraghUtil.getMessageObject("User Not Found!"), HttpStatus.OK);
+//			
+			
 			// session
-			httpServletRequest.getSession().invalidate();
-			HttpSession session = httpServletRequest.getSession(true);
-			
-			session.setAttribute("user", userRepository.findByUserName(loginDTO.getUserName()));
-			
-			try {
-				logUtill.inputLog(httpServletRequest, chiraghUtil.getSessionUser(httpServletRequest), "/api/user/login",
-						mapper.writeValueAsString(userLoginDTO), mapper.writeValueAsString(userLoginDTO));
-			} catch (Exception e) {
-				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.OK);
-			}
-			// return new ResponseEntity(loginDTO, HttpStatus.OK);
-			return new ResponseEntity(chiraghUtil.getMessageObject("Login Successfully"), HttpStatus.OK);
+//			httpServletRequest.getSession().invalidate();
+//			HttpSession session = httpServletRequest.getSession(true);
+//			
+//			session.setAttribute("user", userRepository.findByUserName(loginDTO.getUserName()));
+//			
+//			try {
+//				logUtill.inputLog(httpServletRequest, chiraghUtil.getSessionUser(httpServletRequest), "/api/user/login",
+//						mapper.writeValueAsString(userLoginDTO), mapper.writeValueAsString(userLoginDTO));
+//			} catch (Exception e) {
+//				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.OK);
+//			}
+//			// return new ResponseEntity(loginDTO, HttpStatus.OK);
+			return new ResponseEntity(chiraghUtil.getMessageObject(loginDTO.getMsg()), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity(chiraghUtil.getMessageObject("Internal Server Error!" + e.getMessage()),
 					HttpStatus.INTERNAL_SERVER_ERROR);
@@ -238,6 +240,7 @@ public class UserController {
 	public @ResponseBody ResponseEntity confirmEmailRequest(@Valid @RequestBody String userName,
 			HttpServletRequest httpServletRequest) {
 		try {
+			System.out.println(userName);
 			ObjectMapper mapper = new ObjectMapper();
 			Chiraghuser chiraghuser = chiraghUserService.confirmEmail(userName);
 			if (chiraghuser == null)

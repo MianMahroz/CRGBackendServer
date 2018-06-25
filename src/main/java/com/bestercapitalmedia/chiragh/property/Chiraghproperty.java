@@ -899,6 +899,8 @@ public class Chiraghproperty implements Serializable {
 	@JoinColumns({ @JoinColumn(name = "user_Id", referencedColumnName = "user_Id") })
 	@JsonBackReference
 	Chiraghuser chiraghuser;
+	
+	
 	/**
 	 */
 	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
@@ -2254,7 +2256,14 @@ public class Chiraghproperty implements Serializable {
 		this.area = area;
 	}
 
-	
+	public int getAgreeVatCommission() {
+		return agreeVatCommission;
+	}
+
+	public void setAgreeVatCommission(int agreeVatCommission) {
+		this.agreeVatCommission = agreeVatCommission;
+	}
+
 
 
 	

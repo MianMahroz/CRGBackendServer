@@ -57,29 +57,29 @@ public class PropertyController {
 	@Autowired
 	private LogUtill logUtill;
 
-	@RequestMapping(value = "/getAll/{userId}", method = RequestMethod.GET)
-	public ResponseEntity getPropertyListByUserId(@PathVariable(value = "userId") int userId,
+	@RequestMapping(value = "/getAll/{userName}", method = RequestMethod.GET)
+	public ResponseEntity getPropertyListByUserId(@PathVariable(value = "userName") String userName,
 			HttpServletRequest httpServletRequest) {
 		try {
 
 			ObjectMapper objectMapper = new ObjectMapper();
 			ModelMapper mapper = new ModelMapper();
-			if (chiraghUtil.isValidSession(httpServletRequest) == false)
-				return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session!"), HttpStatus.OK);
-			List<Chiraghproperty> chiraghproperty = propertyRepository.findPropertyByUserId(userId);
+			
+			 Chiraghuser user=userRepository.findByUserName(userName);
+			List<Chiraghproperty> chiraghproperty = propertyRepository.findPropertyByUserId(user.getUserId());
 			if (chiraghproperty == null)
 				return new ResponseEntity(chiraghUtil.getMessageObject("Property Not Found!"), HttpStatus.OK);
-			List<ChiraghPropertyDetailsDTO> list = chiraghproperty.stream()
-					.map(object -> mapper.map(object, ChiraghPropertyDetailsDTO.class)).collect(Collectors.toList());
+//			List<ChiraghPropertyDetailsDTO> list = chiraghproperty.stream()
+//					.map(object -> mapper.map(object, ChiraghPropertyDetailsDTO.class)).collect(Collectors.toList());
 
-			try {
-				logUtill.inputLog(httpServletRequest, chiraghUtil.getSessionUser(httpServletRequest),
-						"/api/property/getAll/{userId}", objectMapper.writeValueAsString(userId),
-						objectMapper.writeValueAsString(list));
-			} catch (Exception e) {
-				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.OK);
-			}
-			return new ResponseEntity(list, HttpStatus.OK);
+//			try {
+//				logUtill.inputLog(httpServletRequest, chiraghUtil.getSessionUser(httpServletRequest),
+//						"/api/property/getAll/{userId}", objectMapper.writeValueAsString(userId),
+//						objectMapper.writeValueAsString(list));
+//			} catch (Exception e) {
+//				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.OK);
+//			}
+			return new ResponseEntity(chiraghproperty, HttpStatus.OK);
 
 		} catch (Exception e) {
 			return new ResponseEntity(chiraghUtil.getMessageObject("Internal Server Error!" + e.getMessage()),
