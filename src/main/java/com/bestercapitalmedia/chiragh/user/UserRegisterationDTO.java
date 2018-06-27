@@ -49,6 +49,7 @@ public class UserRegisterationDTO implements Serializable{
 	private String mobileOtpCode;
 //	@Size(min=8,max=15)
 	private String confirmPassword;
+	private String role;
 	
 	
 	
@@ -150,6 +151,14 @@ public class UserRegisterationDTO implements Serializable{
 
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 	 
 }

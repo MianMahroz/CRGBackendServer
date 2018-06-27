@@ -39,6 +39,12 @@ public class ChiraghUserService {
 	@Autowired
 	private UserDao userDao;
 
+	
+	
+	public List<Chiraghuser> getUserWithCompleteProperties(){
+		return userRepository.findUserWithCompleteProperties();
+	}
+	
 	public UserRegisterationDTO getUserByUserId(int userId) {
 		ModelMapper mapper = new ModelMapper();
 		Chiraghuser chiraghuser = userRepository.findByUserId(userId);
@@ -79,9 +85,18 @@ public class ChiraghUserService {
 	public UserLoginDTO login(UserLoginDTO userLoginDTO) {
 		ModelMapper mapper = new ModelMapper();
 		Chiraghuser u1 = userRepository.findByUserName(userLoginDTO.getUserName());
-		System.out.println("User" + u1);
-		Chiraghuser chiraghuser = userRepository.findByUserNameNPassword(userLoginDTO.getUserName(),
-				chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword()));
+		System.out.println(userLoginDTO.getRole());
+		
+		Chiraghuser chiraghuser=null;
+		if (u1.getRole().equals("chiraghuser")) {
+			chiraghuser=null; 
+			chiraghuser = userRepository.findByUserNameNPassword(userLoginDTO.getUserName(),
+					chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword()));
+		} else {
+			 chiraghuser=null;
+			 chiraghuser = userRepository.findAdminUserByUserNameNPasswordNRole(userLoginDTO.getUserName(),
+					chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword()),u1.getRole());
+		}
 
 		if (u1 == null) {
 			userLoginDTO.setMsg("Invalid User Name!");
@@ -90,6 +105,7 @@ public class ChiraghUserService {
 		}
 		if (u1 != null && chiraghuser != null) {
 			userLoginDTO.setMsg("Login Successfully");
+			userLoginDTO.setRole(u1.getRole());
 			return userLoginDTO;
 		} else {
 			return userLoginDTO;

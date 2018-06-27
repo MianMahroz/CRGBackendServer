@@ -1,9 +1,11 @@
 package com.bestercapitalmedia.chiragh.user;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +38,7 @@ import org.springframework.web.context.annotation.SessionScope;
 import com.bestercapitalmedia.chiragh.mail.MailService;
 import com.bestercapitalmedia.chiragh.oauth.dao.UserDao;
 import com.bestercapitalmedia.chiragh.oauth.model.User;
+import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
 import com.bestercapitalmedia.chiragh.utill.ChiragUtill;
 import com.bestercapitalmedia.chiragh.utill.ChiraghMessage;
 import com.bestercapitalmedia.chiragh.utill.LogUtill;
@@ -58,6 +61,26 @@ public class UserController {
 	private LogUtill logUtill;
 	@Autowired
 	private ChiraghUserService chiraghUserService;
+
+	@RequestMapping(value = "/getUserWithCompleteProperties/{userName}", method = RequestMethod.GET)
+	public List<ChiraghAdminDashboardDTO> getUserWithCompleteProperties(@PathVariable(value = "userName") String userName) {
+		if (userName.equals("") || userName == null) {
+//			return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session"), HttpStatus.OK);
+		}
+		List<ChiraghAdminDashboardDTO> adminDtoList = new ArrayList<ChiraghAdminDashboardDTO>();
+
+		List<Chiraghuser> userList = chiraghUserService.getUserWithCompleteProperties();
+		ModelMapper mapper = new ModelMapper();
+		userList.stream().map(s -> adminDtoList.add(mapper.map(s, ChiraghAdminDashboardDTO.class)))
+				.collect(Collectors.toList());
+
+		return adminDtoList;
+////		if (userList != null) {
+////			return new ResponseEntity(adminDtoList, HttpStatus.OK);
+//		} else {
+////			return new ResponseEntity(chiraghUtil.getMessageObject("User Not Found!"), HttpStatus.OK);
+//		}
+	}// end of method
 
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	public @ResponseBody Iterable<Chiraghuser> list(HttpServletRequest httpServletRequest)
@@ -165,24 +188,29 @@ public class UserController {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			UserLoginDTO loginDTO = chiraghUserService.login(userLoginDTO);
-//			if (loginDTO == null)
-//				return new ResponseEntity(chiraghUtil.getMessageObject("User Not Found!"), HttpStatus.OK);
-//			
-			
+			// if (loginDTO == null)
+			// return new ResponseEntity(chiraghUtil.getMessageObject("User Not Found!"),
+			// HttpStatus.OK);
+			//
+
 			// session
-//			httpServletRequest.getSession().invalidate();
-//			HttpSession session = httpServletRequest.getSession(true);
-//			
-//			session.setAttribute("user", userRepository.findByUserName(loginDTO.getUserName()));
-//			
-//			try {
-//				logUtill.inputLog(httpServletRequest, chiraghUtil.getSessionUser(httpServletRequest), "/api/user/login",
-//						mapper.writeValueAsString(userLoginDTO), mapper.writeValueAsString(userLoginDTO));
-//			} catch (Exception e) {
-//				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.OK);
-//			}
-//			// return new ResponseEntity(loginDTO, HttpStatus.OK);
-			return new ResponseEntity(chiraghUtil.getMessageObject(loginDTO.getMsg()), HttpStatus.OK);
+			// httpServletRequest.getSession().invalidate();
+			// HttpSession session = httpServletRequest.getSession(true);
+			//
+			// session.setAttribute("user",
+			// userRepository.findByUserName(loginDTO.getUserName()));
+			//
+			// try {
+			// logUtill.inputLog(httpServletRequest,
+			// chiraghUtil.getSessionUser(httpServletRequest), "/api/user/login",
+			// mapper.writeValueAsString(userLoginDTO),
+			// mapper.writeValueAsString(userLoginDTO));
+			// } catch (Exception e) {
+			// return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation
+			// Fail!"), HttpStatus.OK);
+			// }
+			// // return new ResponseEntity(loginDTO, HttpStatus.OK);
+			return new ResponseEntity(loginDTO, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity(chiraghUtil.getMessageObject("Internal Server Error!" + e.getMessage()),
 					HttpStatus.INTERNAL_SERVER_ERROR);
@@ -205,7 +233,9 @@ public class UserController {
 				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.OK);
 			}
 
-			return new ResponseEntity(chiraghUtil.getMessageObject("Email Sent to "+userForgetPasswordDTO.getUserEmail()), HttpStatus.OK);
+			return new ResponseEntity(
+					chiraghUtil.getMessageObject("Email Sent to " + userForgetPasswordDTO.getUserEmail()),
+					HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity(chiraghUtil.getMessageObject("Internal Server Error!" + e.getMessage()),
 					HttpStatus.INTERNAL_SERVER_ERROR);
@@ -220,7 +250,8 @@ public class UserController {
 			String msg = "";
 			Chiraghuser chiraghuser = chiraghUserService.onConfirm(userNewPasswordDTO);
 			if (chiraghuser == null)
-				return new ResponseEntity(chiraghUtil.getMessageObject("Reset Password Fail! User not verified!"), HttpStatus.OK);
+				return new ResponseEntity(chiraghUtil.getMessageObject("Reset Password Fail! User not verified!"),
+						HttpStatus.OK);
 
 			try {
 				logUtill.inputLog(httpServletRequest, chiraghuser, "/api/user/resetPassword",
@@ -252,6 +283,7 @@ public class UserController {
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
 	@RequestMapping(value = "/confirmEmailByToken", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity checkEmail(@Valid @RequestBody String token,
 			HttpServletRequest httpServletRequest) {

@@ -15,7 +15,9 @@ public interface PropertyRepository extends CrudRepository<Chiraghproperty, Inte
 	@Query(value = "select * from ChiraghProperty where property_ID=?1  ", nativeQuery = true)
 	public Chiraghproperty findByPropertyId(int propertyId);
 
-	
+	@Query(value = "select * from ChiraghProperty where status='inprocess'", nativeQuery = true)
+	public List<Chiraghproperty> findCompleteProperties();
+
 	@Query(value = "SELECT c.property_Title,c.property_Description,c.property_Id,c.location,c.no_Of_Bedrooms,c.no_Of_Baths,"
 			+ "c.outdoor_Type,c.is_Furnished,c.kitchen_Type,c.is_Maid_Room,c.is_Swimming_Pool,c.is_Gym,"
 			+ "c.is_Heli_Pad,c.no_Of_Parking,c.no_Of_Floors" + "c.no_Units,c.no_Shops,c. no_Facilities,c."

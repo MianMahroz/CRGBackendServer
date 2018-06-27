@@ -124,6 +124,7 @@ public class PropertySellerDetailsService {
 			chiraghproperty.setPropertyReferenceNo(chiragUtill.genearteRandomNo("Prop"));
 			return propertyRepository.save(chiraghproperty);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 

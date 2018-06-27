@@ -57,6 +57,20 @@ public class PropertyController {
 	@Autowired
 	private LogUtill logUtill;
 
+
+	@RequestMapping(value = "/getCompleteProperties/{userName}", method = RequestMethod.GET)
+	public ResponseEntity getCompleteProperties(@PathVariable(value = "userName") String userName) {
+		if (userName.equals("") || userName == null) {
+			return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session"), HttpStatus.OK);
+		}
+		List<Chiraghproperty> propertiesList = chiraghPropertyService.getCompleteProperties();
+		if (propertiesList != null) {
+			return new ResponseEntity(propertiesList, HttpStatus.OK);
+		} else {
+			return new ResponseEntity(chiraghUtil.getMessageObject("Property Not Found!"), HttpStatus.OK);
+		}
+	}//end of method
+
 	@RequestMapping(value = "/getAll/{userName}", method = RequestMethod.GET)
 	public ResponseEntity getPropertyListByUserId(@PathVariable(value = "userName") String userName,
 			HttpServletRequest httpServletRequest) {
@@ -64,21 +78,24 @@ public class PropertyController {
 
 			ObjectMapper objectMapper = new ObjectMapper();
 			ModelMapper mapper = new ModelMapper();
-			
-			 Chiraghuser user=userRepository.findByUserName(userName);
+
+			Chiraghuser user = userRepository.findByUserName(userName);
 			List<Chiraghproperty> chiraghproperty = propertyRepository.findPropertyByUserId(user.getUserId());
 			if (chiraghproperty == null)
 				return new ResponseEntity(chiraghUtil.getMessageObject("Property Not Found!"), HttpStatus.OK);
-//			List<ChiraghPropertyDetailsDTO> list = chiraghproperty.stream()
-//					.map(object -> mapper.map(object, ChiraghPropertyDetailsDTO.class)).collect(Collectors.toList());
+			// List<ChiraghPropertyDetailsDTO> list = chiraghproperty.stream()
+			// .map(object -> mapper.map(object,
+			// ChiraghPropertyDetailsDTO.class)).collect(Collectors.toList());
 
-//			try {
-//				logUtill.inputLog(httpServletRequest, chiraghUtil.getSessionUser(httpServletRequest),
-//						"/api/property/getAll/{userId}", objectMapper.writeValueAsString(userId),
-//						objectMapper.writeValueAsString(list));
-//			} catch (Exception e) {
-//				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"), HttpStatus.OK);
-//			}
+			// try {
+			// logUtill.inputLog(httpServletRequest,
+			// chiraghUtil.getSessionUser(httpServletRequest),
+			// "/api/property/getAll/{userId}", objectMapper.writeValueAsString(userId),
+			// objectMapper.writeValueAsString(list));
+			// } catch (Exception e) {
+			// return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation
+			// Fail!"), HttpStatus.OK);
+			// }
 			return new ResponseEntity(chiraghproperty, HttpStatus.OK);
 
 		} catch (Exception e) {
@@ -136,7 +153,8 @@ public class PropertyController {
 						"/api/property/getPropertyDetails/{propertyId}", objectMapper.writeValueAsString(propertyId),
 						objectMapper.writeValueAsString(chiraghPropertyDetailsDTO));
 			} catch (Exception e) {
-				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!"+e.getMessage()), HttpStatus.OK);
+				return new ResponseEntity(chiraghUtil.getMessageObject("Log Generation Fail!" + e.getMessage()),
+						HttpStatus.OK);
 			}
 
 			return new ResponseEntity(chiraghPropertyDetailsDTO, HttpStatus.OK);

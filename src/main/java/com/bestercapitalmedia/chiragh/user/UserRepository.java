@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 public interface UserRepository extends CrudRepository<Chiraghuser, Integer> {
 
-	@Query(value = "select * from Chiraghuser where user_Name=?1 AND user_Password=?2 ", nativeQuery = true)
+	@Query(value = "select * from Chiraghuser where user_Name=?1 AND user_Password=?2", nativeQuery = true)
 	public Chiraghuser findByUserNameNPassword(String userName,String userPassword);
+	
+	@Query(value = "select * from Chiraghuser where user_Name=?1 AND user_Password=?2  AND role=?3", nativeQuery = true)
+	public Chiraghuser findAdminUserByUserNameNPasswordNRole(String userName,String userPassword,String role);
 		
 	@Query(value = "select * from Chiraghuser where user_Email=?1  ", nativeQuery = true)
 	public Chiraghuser findByEmail(String email);
@@ -26,7 +29,8 @@ public interface UserRepository extends CrudRepository<Chiraghuser, Integer> {
 	@Query(value = "Select * from Chiraghuser;", nativeQuery = true)
 	public List<Chiraghuser> findAllUser();
 	
-	
+	@Query(value = "SELECT * FROM chiraghUser WHERE User_Id=Any(SELECT USer_Id FROM Chiraghproperty WHERE Property_Status='complete')", nativeQuery = true)
+	public List<Chiraghuser> findUserWithCompleteProperties();
 	
 	
 }

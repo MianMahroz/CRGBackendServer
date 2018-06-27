@@ -19,7 +19,7 @@ import com.bestercapitalmedia.chiragh.city.City;
 import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
 import com.bestercapitalmedia.chiragh.property.bidprocess.Propertybidprocess;
 import com.bestercapitalmedia.chiragh.seller.details.Propertysellerdetails;
-
+import com.bestercapitalmedia.chiragh.seller.payments.SellerPayments;
 import com.bestercapitalmedia.chiragh.systemactivitylogs.Systemactivitylogs;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -37,7 +37,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(catalog = "chiraghdatabase", name = "chiraghuser")
 public class Chiraghuser implements Serializable {
-	private static final long serialVersionUID = 2L;
+	 static final long serialVersionUID = 2L;
 
 	
 
@@ -134,7 +134,10 @@ public class Chiraghuser implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 	String profilePicUpload;
 	
-//	@Transient
+	@Column(name="role")
+	String role;
+
+	//	@Transient
 //	String errorMsg;
 
 	/**
@@ -162,163 +165,138 @@ public class Chiraghuser implements Serializable {
 //	/**
 //	 */
 //	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
-//	java.util.Set<Sellerpayments> sellerpaymentses;
-//	/**
-//	 */
+//	java.util.Set<SellerPayments> sellerpaymentses;
+////	/**
+////	 */
 //	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
-//	java.util.Set<Propertysellerdetails> propertysellerdetailses;
-//	/**
-//	 */
-//	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
-//	java.util.List<Chiraghproperty> chiraghproperties;
-//    
+//	java.util.List<Propertysellerdetails> propertysellerdetailses;
+
+	@OneToMany(mappedBy = "chiraghuser", fetch = FetchType.LAZY)
+	java.util.List<Chiraghproperty> chiraghproperties;
+    
+	
 	@Column(name="token")
 	String token;
-
-	
 	public Integer getUserId() {
 		return userId;
 	}
-
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
-
 	public String getUserName() {
 		return userName;
 	}
-
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-
 	public String getUserEmail() {
 		return userEmail;
 	}
-
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
-
 	public String getUserPassword() {
 		return userPassword;
 	}
-
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
 	}
-
 	public String getFirstName() {
 		return firstName;
 	}
-
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-
 	public String getMiddleName() {
 		return middleName;
 	}
-
 	public void setMiddleName(String middleName) {
 		this.middleName = middleName;
 	}
-
 	public String getLastName() {
 		return lastName;
 	}
-
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
 	public String getMobileNo() {
 		return mobileNo;
 	}
-
 	public void setMobileNo(String mobileNo) {
 		this.mobileNo = mobileNo;
 	}
-
 	public String getStreetAddress() {
 		return streetAddress;
 	}
-
 	public void setStreetAddress(String streetAddress) {
 		this.streetAddress = streetAddress;
 	}
-
 	public String getBuildingAddress() {
 		return buildingAddress;
 	}
-
 	public void setBuildingAddress(String buildingAddress) {
 		this.buildingAddress = buildingAddress;
 	}
-
 	public String getEmailVerificationCode() {
 		return emailVerificationCode;
 	}
-
 	public void setEmailVerificationCode(String emailVerificationCode) {
 		this.emailVerificationCode = emailVerificationCode;
 	}
-
 	public String getMobileOtpCode() {
 		return mobileOtpCode;
 	}
-
 	public void setMobileOtpCode(String mobileOtpCode) {
 		this.mobileOtpCode = mobileOtpCode;
 	}
-
 	public String getPasswordVerificationCode() {
 		return passwordVerificationCode;
 	}
-
 	public void setPasswordVerificationCode(String passwordVerificationCode) {
 		this.passwordVerificationCode = passwordVerificationCode;
 	}
-
 	public Calendar getOtpCodeExpiration() {
 		return otpCodeExpiration;
 	}
-
 	public void setOtpCodeExpiration(Calendar otpCodeExpiration) {
 		this.otpCodeExpiration = otpCodeExpiration;
 	}
-
 	public String getProfilePicUpload() {
 		return profilePicUpload;
 	}
-
 	public void setProfilePicUpload(String profilePicUpload) {
 		this.profilePicUpload = profilePicUpload;
 	}
-
-	
-
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
 	public City getCity() {
 		return city;
 	}
-
 	public void setCity(City city) {
 		this.city = city;
 	}
 
-
-	public Chiraghuser() {
-		// TODO Auto-generated constructor stub
-	}
-
-	
-
 	public String getToken() {
 		return token;
 	}
-
 	public void setToken(String token) {
 		this.token = token;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	public Chiraghuser() {
+		
+	}
+	public java.util.List<Chiraghproperty> getChiraghproperties() {
+		return chiraghproperties;
+	}
+	public void setChiraghproperties(java.util.List<Chiraghproperty> chiraghproperties) {
+		this.chiraghproperties = chiraghproperties;
 	}
 
 	
