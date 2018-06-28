@@ -135,6 +135,36 @@ public class ChiraghUserService {
 		return null;
 	}
 
+	public String changePassword(String userName,ChangePasswordDTO changepasswordDTO) {
+    String msg="";
+		if (changepasswordDTO.getUserPassword().equals(changepasswordDTO.getConfirmPassword())) {
+			Chiraghuser chiraghuser = userRepository.findByUserName(userName);
+			if (chiraghuser != null) {
+				String oldPassword=chiraghuser.getUserPassword();
+				String newPassword=chiragUtill.getencodedUserPassword(changepasswordDTO.getUserPassword());
+				if(oldPassword.equals(newPassword))
+				{
+					
+					msg="Use different password from the previous!";
+				  
+				}
+				else {
+					 chiraghuser.setUserPassword(newPassword);
+					  userRepository.save(chiraghuser);
+					  msg="Your Password Changed Successfully";
+				}
+				
+			}
+			else {
+				msg="User not found!";
+			}
+		}
+		else {
+			msg="Password not match!!";
+		}
+		return msg;
+	}
+	
 	public Chiraghuser confirmEmail(String userName) {
 		Chiraghuser chiraghuser = userRepository.findByUserName(userName);
 		if (chiraghuser == null) {

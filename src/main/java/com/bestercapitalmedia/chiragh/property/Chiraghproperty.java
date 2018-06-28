@@ -445,6 +445,11 @@ public class Chiraghproperty implements Serializable {
 	/**
 	 */
 
+	@Column(name = "area_Unit")
+	@Basic(fetch = FetchType.EAGER)
+
+	String areaUnit;
+	
 	@Column(name = "third_Party_Verification")
 	@Basic(fetch = FetchType.EAGER)
 
@@ -1766,6 +1771,14 @@ public class Chiraghproperty implements Serializable {
 
 	public void setSquashCourts(String squashCourts) {
 		this.squashCourts = squashCourts;
+	}
+     
+	public String getAreaUnit() {
+		return areaUnit;
+	}
+
+	public void setAreaUnit(String areaUnit) {
+		this.areaUnit = areaUnit;
 	}
 
 	public String getTennisCourts() {

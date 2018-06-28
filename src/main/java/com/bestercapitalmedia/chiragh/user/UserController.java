@@ -33,9 +33,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.annotation.SessionScope;
 
+import com.bestercapitalmedia.chiragh.buyer.bidding.history.BuyerBiddingHistoryDTO;
 import com.bestercapitalmedia.chiragh.mail.MailService;
 import com.bestercapitalmedia.chiragh.oauth.dao.UserDao;
 import com.bestercapitalmedia.chiragh.oauth.model.User;
+import com.bestercapitalmedia.chiragh.property.ChiraghPropertyFinancialsDTO;
 import com.bestercapitalmedia.chiragh.utill.ChiragUtill;
 import com.bestercapitalmedia.chiragh.utill.ChiraghMessage;
 import com.bestercapitalmedia.chiragh.utill.LogUtill;
@@ -267,5 +269,46 @@ public class UserController {
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	//   Dashboard Personal info
+	
+	@RequestMapping(value = "/getpersonalinfo/{userName}", method = RequestMethod.GET)
+	public @ResponseBody ResponseEntity getpersonalinfo(@PathVariable(value = "userName") String userName,
+			HttpServletRequest httpServletRequest) {
+		try {
+		    Chiraghuser chiraghuser = userRepository.findByUserName(userName);
+		    System.out.println(chiraghuser.getUserEmail());
+			if (chiraghuser == null)
+				return new ResponseEntity(chiraghUtil.getMessageObject("User Not Found"), HttpStatus.OK);
+
+			return new ResponseEntity(chiraghuser, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity(chiraghUtil.getMessageObject("Internal Server Error!" + e.getMessage()),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@RequestMapping(value = "/changePassword/{userName}", method = RequestMethod.PUT)
+	public @ResponseBody ResponseEntity changePassword(@PathVariable(value = "userName") String userName,@Valid @RequestBody ChangePasswordDTO userNewPasswordDTO,
+			HttpServletRequest httpServletRequest) {
+		try {
+			
+			
+			ObjectMapper objmapper = new ObjectMapper();
+			ModelMapper mapper = new ModelMapper(); 
+			String msg = chiraghUserService.changePassword(userName, userNewPasswordDTO);			
+			return new ResponseEntity(chiraghUtil.getMessageObject(msg), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity(chiraghUtil.getMessageObject("Internal Server Error!" + e.getMessage()),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	
+	
+	
+	
 
 }// end of class

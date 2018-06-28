@@ -205,6 +205,11 @@ public class Propertysellerdetails implements Serializable {
 	String poaAgreementExpiry;
 	/**
 	 */
+	
+	@Column(name = "specific_Property", length = 25, nullable = false)
+	@Basic(fetch = FetchType.EAGER)
+
+	String specificProperty;
 
 	@Column(name = "poa_Property_Authority", length = 10, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
@@ -231,6 +236,8 @@ public class Propertysellerdetails implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 
 	String isPoaAccepted;
+	
+	
 	@Column(name = "poa_Number")
 	String poaNumber;
 
@@ -534,6 +541,9 @@ public class Propertysellerdetails implements Serializable {
 	public String getOwnerType() {
 		return this.ownerType;
 	}
+	
+	
+	
 
 	/**
 	 */
@@ -602,6 +612,16 @@ public class Propertysellerdetails implements Serializable {
 	 */
 	public void setChiraghproperty(Chiraghproperty chiraghproperty) {
 		this.chiraghproperty = chiraghproperty;
+	}
+	
+	
+
+	public String getSpecificProperty() {
+		return specificProperty;
+	}
+
+	public void setSpecificProperty(String specificProperty) {
+		this.specificProperty = specificProperty;
 	}
 
 	/**

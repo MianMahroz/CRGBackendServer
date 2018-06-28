@@ -28,5 +28,4 @@ public interface UserRepository extends CrudRepository<Chiraghuser, Integer> {
 	
 	
 	
-	
 }

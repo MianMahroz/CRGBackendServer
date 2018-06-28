@@ -38,10 +38,27 @@ public class PropertySellerDetailDTO {
 	String fax;
 	String poaNumber;
 	String isPoaAccepted;
+	String specificProperty;
+	
+
 
 	public PropertySellerDetailDTO() {
 
 	}
+	
+	
+
+	public String getSpecificProperty() {
+		return specificProperty;
+	}
+
+
+
+	public void setSpecificProperty(String specificProperty) {
+		this.specificProperty = specificProperty;
+	}
+
+
 
 	public String getFirstName() {
 		return firstName;

@@ -130,9 +130,67 @@ public class Chiraghuser implements Serializable {
 	/**
 	 */
 
+	@Column(name = "nationality", length = 25)
+	@Basic(fetch = FetchType.EAGER)
+	String nationality;
+	
+	
+	@Column(name = "id_Card_Number", length = 25)
+	@Basic(fetch = FetchType.EAGER)
+	String idCardNumber;
+	
+	@Column(name = "id_Card_Expiry_Date")
+	@Basic(fetch = FetchType.EAGER)
+	String idCardExpiryDate;
+	
+	
+	@Column(name = "passport_Expiry_Date")
+	@Basic(fetch = FetchType.EAGER)
+	String passportExpiryDate;
+	
+	
+	@Column(name = "passport_Number")
+	@Basic(fetch = FetchType.EAGER)
+	String passportNumber;
+	
+	
+	@Column(name = "phone_Number")
+	@Basic(fetch = FetchType.EAGER)
+	String phoneNumber;
+	
+	@Column(name = "fax")
+	@Basic(fetch = FetchType.EAGER)
+	String fax;
+	
+	@Column(name = "country")
+	@Basic(fetch = FetchType.EAGER)
+	String country;
+	
+	@Column(name = "user_City")
+	@Basic(fetch = FetchType.EAGER)
+	String userCity;
+	
+	
+	@Column(name = "classify_Yourself")
+	@Basic(fetch = FetchType.EAGER)
+	String classifyYourself;
+	
+	@Column(name = "scanned_Passport_Copy_Upload")
+	@Basic(fetch = FetchType.EAGER)
+	String scannedPassportCopyUpload;
+	
+	@Column(name = "scanned_Id_Copy_Upload")
+	@Basic(fetch = FetchType.EAGER)
+	String scannedIdCopyUpload;
+	
+	
+	
+	
+	
 	@Column(name = "profile_Pic_Upload", length = 50)
 	@Basic(fetch = FetchType.EAGER)
 	String profilePicUpload;
+	
 	
 //	@Transient
 //	String errorMsg;
@@ -183,6 +241,23 @@ public class Chiraghuser implements Serializable {
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
+	
+
+	public String getScannedPassportCopyUpload() {
+		return scannedPassportCopyUpload;
+	}
+
+	public void setScannedPassportCopyUpload(String scannedPassportCopyUpload) {
+		this.scannedPassportCopyUpload = scannedPassportCopyUpload;
+	}
+
+	public String getScannedIdCopyUpload() {
+		return scannedIdCopyUpload;
+	}
+
+	public void setScannedIdCopyUpload(String scannedIdCopyUpload) {
+		this.scannedIdCopyUpload = scannedIdCopyUpload;
+	}
 
 	public String getUserName() {
 		return userName;
@@ -198,6 +273,91 @@ public class Chiraghuser implements Serializable {
 
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
+	}
+	
+	
+	
+
+	public String getNationality() {
+		return nationality;
+	}
+
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
+	}
+
+	public String getIdCardNumber() {
+		return idCardNumber;
+	}
+
+	public void setIdCardNumber(String idCardNumber) {
+		this.idCardNumber = idCardNumber;
+	}
+
+	public String getIdCardExpiryDate() {
+		return idCardExpiryDate;
+	}
+
+	public void setIdCardExpiryDate(String idCardExpiryDate) {
+		this.idCardExpiryDate = idCardExpiryDate;
+	}
+
+	public String getPassportExpiryDate() {
+		return passportExpiryDate;
+	}
+
+	public void setPassportExpiryDate(String passportExpiryDate) {
+		this.passportExpiryDate = passportExpiryDate;
+	}
+
+	public String getPassportNumber() {
+		return passportNumber;
+	}
+
+	public void setPassportNumber(String passportNumber) {
+		this.passportNumber = passportNumber;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getFax() {
+		return fax;
+	}
+
+	public void setFax(String fax) {
+		this.fax = fax;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getUserCity() {
+		return userCity;
+	}
+
+	public void setUserCity(String userCity) {
+		this.userCity = userCity;
+	}
+	
+	
+
+	public String getClassifyYourself() {
+		return classifyYourself;
+	}
+
+	public void setClassifyYourself(String classifyYourself) {
+		this.classifyYourself = classifyYourself;
 	}
 
 	public String getUserPassword() {
