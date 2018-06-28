@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -58,6 +59,20 @@ public class PropertyController {
 	private LogUtill logUtill;
 
 
+	@RequestMapping(value = "/getPropertyById/{propertyId}/{userName}", method = RequestMethod.GET)
+	public ResponseEntity getCompleteProperties(@PathVariable(value = "propertyId") int propertyId,@PathVariable(value = "userName") String userName) {
+		if (userName.equals("") || userName == null) {
+			return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session"), HttpStatus.OK);
+		}
+		 Chiraghproperty chiraghproperty=propertyRepository.findByPropertyId(propertyId);
+//		List<Chiraghproperty> propertiesList = chiraghPropertyService.getCompleteProperties();
+		if (chiraghproperty != null) {
+			return new ResponseEntity(chiraghproperty, HttpStatus.OK);
+		} else {
+			return new ResponseEntity(chiraghUtil.getMessageObject("Property Not Found!"), HttpStatus.OK);
+		}
+	}//end of method
+	
 	@RequestMapping(value = "/getCompleteProperties/{userName}", method = RequestMethod.GET)
 	public ResponseEntity getCompleteProperties(@PathVariable(value = "userName") String userName) {
 		if (userName.equals("") || userName == null) {
@@ -71,6 +86,22 @@ public class PropertyController {
 		}
 	}//end of method
 
+	@RequestMapping(value = "/getAdminSellerHomeData/{userName}", method = RequestMethod.GET)
+	public ResponseEntity getAdminSellerHome(@PathVariable(value = "userName") String userName) {
+		if (userName.equals("") || userName == null) {
+			return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session"), HttpStatus.OK);
+		}
+		ModelMapper mapper=new ModelMapper();
+		List<AdminSellerHomeDTO> adminSelelrHomeDtoList=new ArrayList<AdminSellerHomeDTO>();
+		List<Chiraghproperty> propertiesList = chiraghPropertyService.getCompleteProperties();
+	    propertiesList.stream().map(s->adminSelelrHomeDtoList.add(mapper.map(s, AdminSellerHomeDTO.class))).collect(Collectors.toList());
+	    
+		if (propertiesList != null) {
+			return new ResponseEntity(adminSelelrHomeDtoList, HttpStatus.OK);
+		} else {
+			return new ResponseEntity(chiraghUtil.getMessageObject("Property Not Found!"), HttpStatus.OK);
+		}
+	}//end of method
 	@RequestMapping(value = "/getAll/{userName}", method = RequestMethod.GET)
 	public ResponseEntity getPropertyListByUserId(@PathVariable(value = "userName") String userName,
 			HttpServletRequest httpServletRequest) {
