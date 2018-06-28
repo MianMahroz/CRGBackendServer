@@ -6,12 +6,11 @@ import java.io.Serializable;
 import java.lang.StringBuilder;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.Id;
-
-
 
 import com.bestercapitalmedia.chiragh.buyer.details.PropertyBuyerDetails;
 import com.bestercapitalmedia.chiragh.property.auctionprocess.Propertyauctionprocess;
@@ -32,9 +31,7 @@ import javax.persistence.*;
 @Entity
 @Table(catalog = "chiraghdatabase", name = "chiraghproperty")
 public class Chiraghproperty implements Serializable {
-	private static final long serialVersionUID = 1L;
-
-	
+	 static final long serialVersionUID = 1L;
 
 	@Column(name = "property_Id", nullable = false)
 	@Basic(fetch = FetchType.EAGER)
@@ -49,7 +46,7 @@ public class Chiraghproperty implements Serializable {
 
 	String propertyTitle;
 	@Column
-	String area; 
+	String area;
 	/**
 	 */
 
@@ -66,7 +63,7 @@ public class Chiraghproperty implements Serializable {
 	String location;
 	/**
 	 */
- 
+
 	@Column(name = "size_Per_Sqft", precision = 12)
 	@Basic(fetch = FetchType.EAGER)
 
@@ -197,14 +194,12 @@ public class Chiraghproperty implements Serializable {
 	Integer rentalPaymentChecks;
 	/**
 	 */
-	
+
 	@Column(name = "rental_Expiry_Date")
 	@Basic(fetch = FetchType.EAGER)
 
-	 Calendar rentalExpiryDate;
-	
-	
-	
+	Calendar rentalExpiryDate;
+
 	@Column(name = "floor_No")
 	@Basic(fetch = FetchType.EAGER)
 
@@ -222,8 +217,8 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "property_Type")
 	@Basic(fetch = FetchType.EAGER)
 
-	String propertyType;	
-	
+	String propertyType;
+
 	@Column(name = "car_Parks")
 	@Basic(fetch = FetchType.EAGER)
 
@@ -242,12 +237,11 @@ public class Chiraghproperty implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 
 	String balcony;
-	
-	
+
 	@Column(name = "property_Status")
 	@Basic(fetch = FetchType.EAGER)
 
-	String  propertyStatus;
+	String propertyStatus;
 	/**
 	 */
 
@@ -286,7 +280,6 @@ public class Chiraghproperty implements Serializable {
 	/**
 	 */
 
-
 	@Column(name = "central_Air_Conditioning")
 	@Basic(fetch = FetchType.EAGER)
 
@@ -307,15 +300,15 @@ public class Chiraghproperty implements Serializable {
 	String scannedTitleDeed;
 	/**
 	 */
-	
+
 	/**
 	 */
-	
+
 	@Column(name = "map_Location", length = 50)
 	@Basic(fetch = FetchType.EAGER)
 
 	String mapLocation;
-	
+
 	/**
 	 */
 
@@ -474,14 +467,12 @@ public class Chiraghproperty implements Serializable {
 	@Basic(fetch = FetchType.EAGER)
 
 	String maidRoom;
-	
-	
+
 	@Column(name = "built_In_Wardrobes")
 	@Basic(fetch = FetchType.EAGER)
 
 	String builtInWardrobes;
-	
-	
+
 	@Column(name = "property_No", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
@@ -514,7 +505,6 @@ public class Chiraghproperty implements Serializable {
 	float originalPrice;
 	/**
 	 */
-	
 
 	/**
 	 */
@@ -551,7 +541,6 @@ public class Chiraghproperty implements Serializable {
 	/**
 	 */
 
-
 	@Column(name = "morgage_Amount", precision = 12)
 	@Basic(fetch = FetchType.EAGER)
 
@@ -565,7 +554,7 @@ public class Chiraghproperty implements Serializable {
 	float preClosureCharges;
 	/**
 	 */
-	
+
 	@Column(name = "payment_Schedule")
 	@Basic(fetch = FetchType.EAGER)
 
@@ -579,9 +568,9 @@ public class Chiraghproperty implements Serializable {
 	Calendar date;
 	/**
 	 */
-	@Column(name="balance_Amount")
+	@Column(name = "balance_Amount")
 	float balanceAmount;
-	
+
 	@Column(name = "amount")
 	@Basic(fetch = FetchType.EAGER)
 	float amount;
@@ -597,302 +586,286 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "agree_Vat_Commission")
 	@Basic(fetch = FetchType.EAGER)
 	int agreeVatCommission;
-	
+
 	@Column(name = "fully_Fitted_Kitchen")
 	@Basic(fetch = FetchType.EAGER)
 	String fullyFittedKitchen;
-	
+
 	@Column(name = "fully_Furnished")
 	@Basic(fetch = FetchType.EAGER)
 	String fullyFurnished;
 
-
 	@Column(name = "gymnasium")
 	@Basic(fetch = FetchType.EAGER)
 	String gymnasium;
-	
+
 	@Column(name = "intercom")
 	@Basic(fetch = FetchType.EAGER)
 	String intercom;
-	
+
 	@Column(name = "jacuzzi")
 	@Basic(fetch = FetchType.EAGER)
 	String jacuzzi;
-	
+
 	@Column(name = "on_High_Floor")
 	@Basic(fetch = FetchType.EAGER)
 	String onHighFloor;
-	
+
 	@Column(name = "public_Transport")
 	@Basic(fetch = FetchType.EAGER)
 	String publicTransport;
-	
+
 	@Column(name = "restaurants")
 	@Basic(fetch = FetchType.EAGER)
 	String restaurants;
-	
 
 	@Column(name = "recreational_Facilities")
 	@Basic(fetch = FetchType.EAGER)
 	String recreationalFacilities;
-	
 
 	@Column(name = "school")
 	@Basic(fetch = FetchType.EAGER)
 	String school;
-	
 
 	@Column(name = "shopping_Mall")
 	@Basic(fetch = FetchType.EAGER)
 	String shoppingMall;
-	
 
 	@Column(name = "shops")
 	@Basic(fetch = FetchType.EAGER)
 	String shops;
-	
 
 	@Column(name = "sports_Academies")
 	@Basic(fetch = FetchType.EAGER)
 	String sportsAcademies;
-	
 
 	@Column(name = "squash_Courts")
 	@Basic(fetch = FetchType.EAGER)
 	String squashCourts;
-	
 
 	@Column(name = "tennis_Courts")
 	@Basic(fetch = FetchType.EAGER)
 	String tennisCourts;
-	
 
 	@Column(name = "valet_Service")
 	@Basic(fetch = FetchType.EAGER)
 	String valetService;
-	
-	
+
 	@Column(name = "laundry_WashingRoom")
 	@Basic(fetch = FetchType.EAGER)
 	String laundryWashingRoom;
-	
+
 	@Column(name = "walking_Trails")
 	@Basic(fetch = FetchType.EAGER)
 	String walkingTrails;
-	
+
 	@Column(name = "schools_In_Neighbourhood")
 	@Basic(fetch = FetchType.EAGER)
 	String schoolsInNeighbourhood;
-	
+
 	@Column(name = "metros")
 	@Basic(fetch = FetchType.EAGER)
 	String metros;
-	
+
 	@Column(name = "medical_Centers")
 	@Basic(fetch = FetchType.EAGER)
 	String medicalCenters;
-	
+
 	@Column(name = "shopping_Malls")
 	@Basic(fetch = FetchType.EAGER)
 	String shoppingMalls;
-	
+
 	@Column(name = "mosques_In_Neighbourhood")
 	@Basic(fetch = FetchType.EAGER)
 	String mosquesInNeighbourhood;
-	
+
 	@Column(name = "beaches")
 	@Basic(fetch = FetchType.EAGER)
 	String beaches;
-	
+
 	@Column(name = "supermarkets")
 	@Basic(fetch = FetchType.EAGER)
 	String supermarkets;
-	
+
 	@Column(name = "pets_Allowed")
 	@Basic(fetch = FetchType.EAGER)
 	String petsAllowed;
-	
+
 	@Column(name = "marble_Floors")
 	@Basic(fetch = FetchType.EAGER)
 	String marbleFloors;
-	
+
 	@Column(name = "on_Low_Floor")
 	@Basic(fetch = FetchType.EAGER)
 	String onLowFloor;
-	
+
 	@Column(name = "on_Mid_Floor")
 	@Basic(fetch = FetchType.EAGER)
 	String onMidFloor;
-	
+
 	@Column(name = "part_Furnished")
 	@Basic(fetch = FetchType.EAGER)
 	String partFurnished;
-	
+
 	@Column(name = "private_Garage")
 	@Basic(fetch = FetchType.EAGER)
-	String privateGarage;
-	
+	 String privateGarage;
+
 	@Column(name = "satellite_Cable_TV")
 	@Basic(fetch = FetchType.EAGER)
 	String satelliteCableTV;
-	
+
 	@Column(name = "private_Garden")
 	@Basic(fetch = FetchType.EAGER)
 	String privateGarden;
-	
+
 	@Column(name = "sauna")
 	@Basic(fetch = FetchType.EAGER)
 	String sauna;
-	
+
 	@Column(name = "solid_Wood_Floors")
 	@Basic(fetch = FetchType.EAGER)
 	String solidWoodFloors;
-	
-	
+
 	@Column(name = "steam_Room")
 	@Basic(fetch = FetchType.EAGER)
 	String steamRoom;
-	
-	
+
 	@Column(name = "storage_Room")
 	@Basic(fetch = FetchType.EAGER)
 	String storageRoom;
-	
+
 	@Column(name = "study")
 	@Basic(fetch = FetchType.EAGER)
 	String study;
-	
-	
+
 	@Column(name = "upgraded_Interior")
 	@Basic(fetch = FetchType.EAGER)
 	String upgradedInterior;
-	
+
 	@Column(name = "view_Of_Gardens")
 	@Basic(fetch = FetchType.EAGER)
 	String viewOfGardens;
-	
+
 	@Column(name = "view_Of_Golfcourse")
 	@Basic(fetch = FetchType.EAGER)
 	String viewOfGolfcourse;
-	
+
 	@Column(name = "view_Of_Parkland")
 	@Basic(fetch = FetchType.EAGER)
 	String viewOfParkland;
-	
+
 	@Column(name = "view_Of_Sea_Water")
 	@Basic(fetch = FetchType.EAGER)
 	String viewOfSeaWater;
-	
-	
+
 	@Column(name = "laundry_washing_Room")
 	@Basic(fetch = FetchType.EAGER)
 	String laundrywashingRoom;
-	
+
 	@Column(name = "private_Swimming_Pool")
 	@Basic(fetch = FetchType.EAGER)
 	String privateSwimmingPool;
-	
+
 	@Column(name = "shared_Swimming_Pool")
 	@Basic(fetch = FetchType.EAGER)
 	String sharedSwimmingPool;
-	
+
 	@Column(name = "gazebo_And_Outdoor_Entertaining_Area")
 	@Basic(fetch = FetchType.EAGER)
 	String gazeboAndOutdoorEntertainingArea;
-	
+
 	@Column(name = "kitchen_White_Goods")
 	@Basic(fetch = FetchType.EAGER)
 	String kitchenWhiteGoods;
-	
+
 	@Column(name = "landscaped_Garden")
 	@Basic(fetch = FetchType.EAGER)
 	String landscapedGarden;
-	
+
 	@Column(name = "Hours24_Maintenance")
 	@Basic(fetch = FetchType.EAGER)
 	String HoursMaintenance;
-	
+
 	@Column(name = "bank_atm_Facility")
 	@Basic(fetch = FetchType.EAGER)
 	String bankatmFacility;
-	
-	
+
 	@Column(name = "basketball_Court")
 	@Basic(fetch = FetchType.EAGER)
 	String basketballCourt;
-	
+
 	@Column(name = "beach_Access")
 	@Basic(fetch = FetchType.EAGER)
 	String beachAccess;
-	
+
 	@Column(name = "bus_Services")
 	@Basic(fetch = FetchType.EAGER)
 	String busServices;
-	
+
 	@Column(name = "business_Center")
 	@Basic(fetch = FetchType.EAGER)
 	String businessCenter;
-	
+
 	@Column(name = "childrens_Nursery")
 	@Basic(fetch = FetchType.EAGER)
 	String childrenNursery;
-	
+
 	@Column(name = "childrens_Play_Area")
 	@Basic(fetch = FetchType.EAGER)
 	String childrenPlayArea;
-	
+
 	@Column(name = "communal_Gardens")
 	@Basic(fetch = FetchType.EAGER)
 	String communalGardens;
-	
+
 	@Column(name = "clubhouse")
 	@Basic(fetch = FetchType.EAGER)
 	String clubhouse;
-	
+
 	@Column(name = "concierge_Service")
 	@Basic(fetch = FetchType.EAGER)
 	String conciergeService;
-	
+
 	@Column(name = "cycling_Tracks")
 	@Basic(fetch = FetchType.EAGER)
 	String cyclingTracks;
-	
+
 	@Column(name = "fitness_Center")
 	@Basic(fetch = FetchType.EAGER)
 	String fitnessCenter;
-	
+
 	@Column(name = "golf_Club_And_Clubhouse")
 	@Basic(fetch = FetchType.EAGER)
 	String golfClubAndClubhouse;
-	
+
 	@Column(name = "laundry_Service")
 	@Basic(fetch = FetchType.EAGER)
 	String laundryService;
-	
+
 	@Column(name = "marina_Berth")
 	@Basic(fetch = FetchType.EAGER)
 	String marinaBerth;
-	
+
 	@Column(name = "metro_Station")
 	@Basic(fetch = FetchType.EAGER)
 	String metroStation;
-	
+
 	@Column(name = "mosque")
 	@Basic(fetch = FetchType.EAGER)
 	String mosque;
-	
+
 	@Column(name = "polo_Club_And_Clubhouse")
 	@Basic(fetch = FetchType.EAGER)
 	String poloClubAndClubhouse;
-	
+
 	@Column(name = "public_Park")
 	@Basic(fetch = FetchType.EAGER)
 	String publicPark;
-	
+
 	@Column(name = "park")
 	@Basic(fetch = FetchType.EAGER)
 	String park;
-	
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "property_Type_Id", referencedColumnName = "property_Type_Id") })
@@ -904,8 +877,6 @@ public class Chiraghproperty implements Serializable {
 	@JoinColumns({ @JoinColumn(name = "user_Id", referencedColumnName = "user_Id") })
 	@JsonBackReference
 	Chiraghuser chiraghuser;
-	
-	
 	/**
 	 */
 	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
@@ -932,14 +903,42 @@ public class Chiraghproperty implements Serializable {
 	java.util.Set<Propertysellerdetails> propertysellerdetailses;
 	/**
 	 */
-//	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
-//
-//	java.util.Set<PropertyImages> propertyimageses;
+	// @OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
+	//
+	// java.util.Set<PropertyImages> propertyimageses;
 	/**
 	 */
-	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
+//	@OneToMany(mappedBy = "chiraghproperty", fetch = FetchType.LAZY)
+//	java.util.Set<Propertybrokerage> propertybrokerages;
 
-	java.util.Set<Propertybrokerage> propertybrokerages;
+	@Column(name = "last_Action_Performed")
+	 String lastActionPerformed;
+
+	@Column(name = "is_Personal_Details_Verified")
+	 String isPersonalDetailsVerified;
+
+	@Column(name = "is_POA_Details_Verified")
+	 String isPOADetailsVerified;
+
+	@Column(name = "is_Property_Details_Verified")
+	 String isPropertyDetailsVerified;
+
+	@Column(name = "is_Acknowledgement_Call")
+	 String isAcknowledgementCall;
+
+	@Column(name = "date_Received")
+	 Date dateReceived;
+
+	@Column(name = "last_Action")
+	 Calendar lastAction;
+
+	@Column(name = "action_Performed_By")
+	String actionPerformedBy;
+	
+	@Column(name = "seller_User_Name")
+	String sellerUserName;
+	@Column(name="status")
+	String status;
 
 	/**
 	 */
@@ -960,6 +959,14 @@ public class Chiraghproperty implements Serializable {
 
 	public void setPropertyTitle(String propertyTitle) {
 		this.propertyTitle = propertyTitle;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
 	}
 
 	public String getPropertyDescription() {
@@ -1042,8 +1049,6 @@ public class Chiraghproperty implements Serializable {
 		this.isPublished = isPublished;
 	}
 
-	
-
 	public Integer getNoOfBedrooms() {
 		return noOfBedrooms;
 	}
@@ -1092,17 +1097,36 @@ public class Chiraghproperty implements Serializable {
 		this.mortgageYear = mortgageYear;
 	}
 
-	
+	public String getIsRented() {
+		return isRented;
+	}
+
+	public void setIsRented(String isRented) {
+		this.isRented = isRented;
+	}
+
+	public String getIsVacant() {
+		return isVacant;
+	}
+
+	public void setIsVacant(String isVacant) {
+		this.isVacant = isVacant;
+	}
 
 	public Integer getRentalEjariNo() {
 		return rentalEjariNo;
 	}
-	
-
-	
 
 	public void setRentalEjariNo(Integer rentalEjariNo) {
 		this.rentalEjariNo = rentalEjariNo;
+	}
+
+	public float getRentalAnnualRent() {
+		return rentalAnnualRent;
+	}
+
+	public void setRentalAnnualRent(float rentalAnnualRent) {
+		this.rentalAnnualRent = rentalAnnualRent;
 	}
 
 	public Integer getRentalPaymentChecks() {
@@ -1120,9 +1144,54 @@ public class Chiraghproperty implements Serializable {
 	public void setRentalExpiryDate(Calendar rentalExpiryDate) {
 		this.rentalExpiryDate = rentalExpiryDate;
 	}
-	
 
+	public Integer getFloorNo() {
+		return floorNo;
+	}
 
+	public void setFloorNo(Integer floorNo) {
+		this.floorNo = floorNo;
+	}
+
+	public Integer getKitchens() {
+		return kitchens;
+	}
+
+	public void setKitchens(Integer kitchens) {
+		this.kitchens = kitchens;
+	}
+
+	public String getPropertyType() {
+		return propertyType;
+	}
+
+	public void setPropertyType(String propertyType) {
+		this.propertyType = propertyType;
+	}
+
+	public Integer getCarParks() {
+		return carParks;
+	}
+
+	public void setCarParks(Integer carParks) {
+		this.carParks = carParks;
+	}
+
+	public String getPublicParking() {
+		return publicParking;
+	}
+
+	public void setPublicParking(String publicParking) {
+		this.publicParking = publicParking;
+	}
+
+	public String getBalcony() {
+		return balcony;
+	}
+
+	public void setBalcony(String balcony) {
+		this.balcony = balcony;
+	}
 
 	public String getPropertyStatus() {
 		return propertyStatus;
@@ -1130,6 +1199,38 @@ public class Chiraghproperty implements Serializable {
 
 	public void setPropertyStatus(String propertyStatus) {
 		this.propertyStatus = propertyStatus;
+	}
+
+	public String getBasementParking() {
+		return basementParking;
+	}
+
+	public void setBasementParking(String basementParking) {
+		this.basementParking = basementParking;
+	}
+
+	public String getBbqArea() {
+		return bbqArea;
+	}
+
+	public void setBbqArea(String bbqArea) {
+		this.bbqArea = bbqArea;
+	}
+
+	public String getBroadbandReady() {
+		return broadbandReady;
+	}
+
+	public void setBroadbandReady(String broadbandReady) {
+		this.broadbandReady = broadbandReady;
+	}
+
+	public String getCarpets() {
+		return carpets;
+	}
+
+	public void setCarpets(String carpets) {
+		this.carpets = carpets;
 	}
 
 	public Integer getNoOfFloors() {
@@ -1140,6 +1241,21 @@ public class Chiraghproperty implements Serializable {
 		this.noOfFloors = noOfFloors;
 	}
 
+	public String getCentralAirConditioning() {
+		return centralAirConditioning;
+	}
+
+	public void setCentralAirConditioning(String centralAirConditioning) {
+		this.centralAirConditioning = centralAirConditioning;
+	}
+
+	public String getCentralHeating() {
+		return centralHeating;
+	}
+
+	public void setCentralHeating(String centralHeating) {
+		this.centralHeating = centralHeating;
+	}
 
 	public String getScannedTitleDeed() {
 		return scannedTitleDeed;
@@ -1237,6 +1353,13 @@ public class Chiraghproperty implements Serializable {
 		this.noShops = noShops;
 	}
 
+	public String getCommunityView() {
+		return communityView;
+	}
+
+	public void setCommunityView(String communityView) {
+		this.communityView = communityView;
+	}
 
 	public Calendar getLeaseStartDate() {
 		return leaseStartDate;
@@ -1261,14 +1384,13 @@ public class Chiraghproperty implements Serializable {
 	public void setTenantName(String tenantName) {
 		this.tenantName = tenantName;
 	}
-	
 
-	public String getPayementStructure() {
+	public String getPaymentStructure() {
 		return paymentStructure;
 	}
 
-	public void setPayementStructure(String payementStructure) {
-		this.paymentStructure = payementStructure;
+	public void setPaymentStructure(String paymentStructure) {
+		this.paymentStructure = paymentStructure;
 	}
 
 	public String getTenancyContractUpload() {
@@ -1278,7 +1400,23 @@ public class Chiraghproperty implements Serializable {
 	public void setTenancyContractUpload(String tenancyContractUpload) {
 		this.tenancyContractUpload = tenancyContractUpload;
 	}
-   
+
+	public String getCoveredParking() {
+		return coveredParking;
+	}
+
+	public void setCoveredParking(String coveredParking) {
+		this.coveredParking = coveredParking;
+	}
+
+	public String getDriverRoom() {
+		return driverRoom;
+	}
+
+	public void setDriverRoom(String driverRoom) {
+		this.driverRoom = driverRoom;
+	}
+
 	public int getThirdPartyVerification() {
 		return thirdPartyVerification;
 	}
@@ -1301,6 +1439,30 @@ public class Chiraghproperty implements Serializable {
 
 	public void setVerificationHodApproved(int verificationHodApproved) {
 		this.verificationHodApproved = verificationHodApproved;
+	}
+
+	public String getMaidRoom() {
+		return maidRoom;
+	}
+
+	public void setMaidRoom(String maidRoom) {
+		this.maidRoom = maidRoom;
+	}
+
+	public String getBuiltInWardrobes() {
+		return builtInWardrobes;
+	}
+
+	public void setBuiltInWardrobes(String builtInWardrobes) {
+		this.builtInWardrobes = builtInWardrobes;
+	}
+
+	public String getPropertyNo() {
+		return propertyNo;
+	}
+
+	public void setPropertyNo(String propertyNo) {
+		this.propertyNo = propertyNo;
 	}
 
 	public String getValuationReportDocument() {
@@ -1330,16 +1492,6 @@ public class Chiraghproperty implements Serializable {
 	public float getOriginalPrice() {
 		return originalPrice;
 	}
-	
-	
-
-	public String getPropertyType() {
-		return propertyType;
-	}
-
-	public void setPropertyType(String propertyType) {
-		this.propertyType = propertyType;
-	}
 
 	public void setOriginalPrice(float originalPrice) {
 		this.originalPrice = originalPrice;
@@ -1368,7 +1520,6 @@ public class Chiraghproperty implements Serializable {
 	public void setMorgageStatus(String morgageStatus) {
 		this.morgageStatus = morgageStatus;
 	}
-	
 
 	public String getMorgageRegNo() {
 		return morgageRegNo;
@@ -1402,12 +1553,28 @@ public class Chiraghproperty implements Serializable {
 		this.preClosureCharges = preClosureCharges;
 	}
 
+	public String getPaymentSchedule() {
+		return paymentSchedule;
+	}
+
+	public void setPaymentSchedule(String paymentSchedule) {
+		this.paymentSchedule = paymentSchedule;
+	}
+
 	public Calendar getDate() {
 		return date;
 	}
 
 	public void setDate(Calendar date) {
 		this.date = date;
+	}
+
+	public float getBalanceAmount() {
+		return balanceAmount;
+	}
+
+	public void setBalanceAmount(float balanceAmount) {
+		this.balanceAmount = balanceAmount;
 	}
 
 	public float getAmount() {
@@ -1426,239 +1593,12 @@ public class Chiraghproperty implements Serializable {
 		this.morgageNoc = morgageNoc;
 	}
 
-	public Propertytype getPropertytype() {
-		return propertytype;
+	public int getAgreeVatCommission() {
+		return agreeVatCommission;
 	}
 
-	public void setPropertytype(Propertytype propertytype) {
-		this.propertytype = propertytype;
-	}
-
-	public Chiraghuser getChiraghuser() {
-		return chiraghuser;
-	}
-
-	public void setChiraghuser(Chiraghuser chiraghuser) {
-		this.chiraghuser = chiraghuser;
-	}
-
-	public java.util.Set<Propertymarketanalysis> getPropertymarketanalysises() {
-		return propertymarketanalysises;
-	}
-
-	public void setPropertymarketanalysises(java.util.Set<Propertymarketanalysis> propertymarketanalysises) {
-		this.propertymarketanalysises = propertymarketanalysises;
-	}
-
-	public java.util.Set<Propertyauctionprocess> getPropertyauctionprocesses() {
-		return propertyauctionprocesses;
-	}
-
-	public void setPropertyauctionprocesses(java.util.Set<Propertyauctionprocess> propertyauctionprocesses) {
-		this.propertyauctionprocesses = propertyauctionprocesses;
-	}
-
-	public java.util.Set<Propertybidprocess> getPropertybidprocesses() {
-		return propertybidprocesses;
-	}
-
-	public void setPropertybidprocesses(java.util.Set<Propertybidprocess> propertybidprocesses) {
-		this.propertybidprocesses = propertybidprocesses;
-	}
-
-	public java.util.Set<SellerPayments> getSellerpaymentses() {
-		return sellerpaymentses;
-	}
-
-	public void setSellerpaymentses(java.util.Set<SellerPayments> sellerpaymentses) {
-		this.sellerpaymentses = sellerpaymentses;
-	}
-
-	public java.util.Set<Propertysellerdetails> getPropertysellerdetailses() {
-		return propertysellerdetailses;
-	}
-
-	public void setPropertysellerdetailses(java.util.Set<Propertysellerdetails> propertysellerdetailses) {
-		this.propertysellerdetailses = propertysellerdetailses;
-	}
-
-	
-
-	public java.util.Set<Propertybrokerage> getPropertybrokerages() {
-		return propertybrokerages;
-	}
-
-	public void setPropertybrokerages(java.util.Set<Propertybrokerage> propertybrokerages) {
-		this.propertybrokerages = propertybrokerages;
-	}
-
-	
-
-	public void setRentalAnnualRent(float rentalAnnualRent) {
-		this.rentalAnnualRent = rentalAnnualRent;
-	}
-
-	public float getRentalAnnualRent() {
-		return rentalAnnualRent;
-	}
-
-	public Integer getFloor_No() {
-		return floorNo;
-	}
-
-	public void setFloor_No(Integer floor_No) {
-		this.floorNo = floor_No;
-	}
-
-
-
-	public Integer getCarParks() {
-		return carParks;
-	}
-
-	public void setCarParks(Integer carParks) {
-		this.carParks = carParks;
-	}
-
-	
-	
-
-	public Integer getFloorNo() {
-		return floorNo;
-	}
-
-	public void setFloorNo(Integer floorNo) {
-		this.floorNo = floorNo;
-	}
-
-	public String getPaymentStructure() {
-		return paymentStructure;
-	}
-
-	public void setPaymentStructure(String paymentStructure) {
-		this.paymentStructure = paymentStructure;
-	}
-
-	public String getPropertyNo() {
-		return propertyNo;
-	}
-
-	public void setPropertyNo(String propertyNo) {
-		this.propertyNo = propertyNo;
-	}
-
-	
-
-	public String getIsVacant() {
-		return isVacant;
-	}
-
-	public void setIsVacant(String isVacant) {
-		this.isVacant = isVacant;
-	}
-
-	public Integer getKitchens() {
-		return kitchens;
-	}
-
-	public void setKitchens(Integer kitchens) {
-		this.kitchens = kitchens;
-	}
-
-	public String getPublicParking() {
-		return publicParking;
-	}
-
-	public void setPublicParking(String publicParking) {
-		this.publicParking = publicParking;
-	}
-
-	public String getBalcony() {
-		return balcony;
-	}
-
-	public void setBalcony(String balcony) {
-		this.balcony = balcony;
-	}
-
-	public String getBasementParking() {
-		return basementParking;
-	}
-
-	public void setBasementParking(String basementParking) {
-		this.basementParking = basementParking;
-	}
-
-	public String getBbqArea() {
-		return bbqArea;
-	}
-
-	public void setBbqArea(String bbqArea) {
-		this.bbqArea = bbqArea;
-	}
-
-	public String getBroadbandReady() {
-		return broadbandReady;
-	}
-
-	public void setBroadbandReady(String broadbandReady) {
-		this.broadbandReady = broadbandReady;
-	}
-
-	public String getCarpets() {
-		return carpets;
-	}
-
-	public void setCarpets(String carpets) {
-		this.carpets = carpets;
-	}
-
-	public String getCentralAirConditioning() {
-		return centralAirConditioning;
-	}
-
-	public void setCentralAirConditioning(String centralAirConditioning) {
-		this.centralAirConditioning = centralAirConditioning;
-	}
-
-	public String getCentralHeating() {
-		return centralHeating;
-	}
-
-	public void setCentralHeating(String centralHeating) {
-		this.centralHeating = centralHeating;
-	}
-
-	public String getCommunityView() {
-		return communityView;
-	}
-
-	public void setCommunityView(String communityView) {
-		this.communityView = communityView;
-	}
-
-	public String getCoveredParking() {
-		return coveredParking;
-	}
-
-	public void setCoveredParking(String coveredParking) {
-		this.coveredParking = coveredParking;
-	}
-
-	public String getDriverRoom() {
-		return driverRoom;
-	}
-
-	public void setDriverRoom(String driverRoom) {
-		this.driverRoom = driverRoom;
-	}
-
-	public String getMaidRoom() {
-		return maidRoom;
-	}
-
-	public void setMaidRoom(String maidRoom) {
-		this.maidRoom = maidRoom;
+	public void setAgreeVatCommission(int agreeVatCommission) {
+		this.agreeVatCommission = agreeVatCommission;
 	}
 
 	public String getFullyFittedKitchen() {
@@ -1909,14 +1849,7 @@ public class Chiraghproperty implements Serializable {
 		this.partFurnished = partFurnished;
 	}
 
-	public String getPrivateGarage() {
-		return privateGarage;
-	}
-
-	public void setPrivateGarage(String privateGarage) {
-		this.privateGarage = privateGarage;
-	}
-
+	
 	public String getSatelliteCableTV() {
 		return satelliteCableTV;
 	}
@@ -1925,13 +1858,7 @@ public class Chiraghproperty implements Serializable {
 		this.satelliteCableTV = satelliteCableTV;
 	}
 
-	public String getPrivateGarden() {
-		return privateGarden;
-	}
-
-	public void setPrivateGarden(String privateGarden) {
-		this.privateGarden = privateGarden;
-	}
+	
 
 	public String getSauna() {
 		return sauna;
@@ -2021,13 +1948,7 @@ public class Chiraghproperty implements Serializable {
 		this.laundrywashingRoom = laundrywashingRoom;
 	}
 
-	public String getPrivateSwimmingPool() {
-		return privateSwimmingPool;
-	}
-
-	public void setPrivateSwimmingPool(String privateSwimmingPool) {
-		this.privateSwimmingPool = privateSwimmingPool;
-	}
+	
 
 	public String getSharedSwimmingPool() {
 		return sharedSwimmingPool;
@@ -2229,69 +2150,174 @@ public class Chiraghproperty implements Serializable {
 		this.park = park;
 	}
 
-	public float getBalanceAmount() {
-		return balanceAmount;
+	public Propertytype getPropertytype() {
+		return propertytype;
 	}
 
-	public void setBalanceAmount(float balanceAmount) {
-		this.balanceAmount = balanceAmount;
+	public void setPropertytype(Propertytype propertytype) {
+		this.propertytype = propertytype;
 	}
 
-	public String getIsRented() {
-		return isRented;
+	public Chiraghuser getChiraghuser() {
+		return chiraghuser;
 	}
 
-	public void setIsRented(String isRented) {
-		this.isRented = isRented;
+	public void setChiraghuser(Chiraghuser chiraghuser) {
+		this.chiraghuser = chiraghuser;
 	}
 
-	public String getBuiltInWardrobes() {
-		return builtInWardrobes;
+	public java.util.Set<Propertymarketanalysis> getPropertymarketanalysises() {
+		return propertymarketanalysises;
 	}
 
-	public void setBuiltInWardrobes(String builtInWardrobes) {
-		this.builtInWardrobes = builtInWardrobes;
+	public void setPropertymarketanalysises(java.util.Set<Propertymarketanalysis> propertymarketanalysises) {
+		this.propertymarketanalysises = propertymarketanalysises;
 	}
 
-	public String getPaymentSchedule() {
-		return paymentSchedule;
+	public java.util.Set<Propertyauctionprocess> getPropertyauctionprocesses() {
+		return propertyauctionprocesses;
 	}
 
-	public void setPaymentSchedule(String paymentSchedule) {
-		this.paymentSchedule = paymentSchedule;
+	public void setPropertyauctionprocesses(java.util.Set<Propertyauctionprocess> propertyauctionprocesses) {
+		this.propertyauctionprocesses = propertyauctionprocesses;
 	}
 
-	public String getArea() {
-		return area;
+	public java.util.Set<Propertybidprocess> getPropertybidprocesses() {
+		return propertybidprocesses;
 	}
 
-	public void setArea(String area) {
-		this.area = area;
+	public void setPropertybidprocesses(java.util.Set<Propertybidprocess> propertybidprocesses) {
+		this.propertybidprocesses = propertybidprocesses;
 	}
 
-	public int getAgreeVatCommission() {
-		return agreeVatCommission;
+	public java.util.Set<SellerPayments> getSellerpaymentses() {
+		return sellerpaymentses;
 	}
 
-	public void setAgreeVatCommission(int agreeVatCommission) {
-		this.agreeVatCommission = agreeVatCommission;
+	public void setSellerpaymentses(java.util.Set<SellerPayments> sellerpaymentses) {
+		this.sellerpaymentses = sellerpaymentses;
 	}
 
+	public java.util.Set<Propertysellerdetails> getPropertysellerdetailses() {
+		return propertysellerdetailses;
+	}
 
+	public void setPropertysellerdetailses(java.util.Set<Propertysellerdetails> propertysellerdetailses) {
+		this.propertysellerdetailses = propertysellerdetailses;
+	}
+
+	public String getLastActionPerformed() {
+		return lastActionPerformed;
+	}
+
+	public void setLastActionPerformed(String lastActionPerformed) {
+		this.lastActionPerformed = lastActionPerformed;
+	}
+
+	public String getIsPersonalDetailsVerified() {
+		return isPersonalDetailsVerified;
+	}
+
+	public void setIsPersonalDetailsVerified(String isPersonalDetailsVerified) {
+		this.isPersonalDetailsVerified = isPersonalDetailsVerified;
+	}
+
+	public String getIsPOADetailsVerified() {
+		return isPOADetailsVerified;
+	}
+
+	public void setIsPOADetailsVerified(String isPOADetailsVerified) {
+		this.isPOADetailsVerified = isPOADetailsVerified;
+	}
+
+	public String getIsPropertyDetailsVerified() {
+		return isPropertyDetailsVerified;
+	}
+
+	public void setIsPropertyDetailsVerified(String isPropertyDetailsVerified) {
+		this.isPropertyDetailsVerified = isPropertyDetailsVerified;
+	}
+
+	public String getIsAcknowledgementCall() {
+		return isAcknowledgementCall;
+	}
+
+	public void setIsAcknowledgementCall(String isAcknowledgementCall) {
+		this.isAcknowledgementCall = isAcknowledgementCall;
+	}
 
 	
+
+	public Calendar getLastAction() {
+		return lastAction;
+	}
+
+	public void setLastAction(Calendar lastAction) {
+		this.lastAction = lastAction;
+	}
+
 	
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public String getPrivateGarage() {
+		return privateGarage;
+	}
+
+	public void setPrivateGarage(String privateGarage) {
+		this.privateGarage = privateGarage;
+	}
+
+	public String getPrivateGarden() {
+		return privateGarden;
+	}
+
+	public void setPrivateGarden(String privateGarden) {
+		this.privateGarden = privateGarden;
+	}
+
+	public String getPrivateSwimmingPool() {
+		return privateSwimmingPool;
+	}
+
+	public void setPrivateSwimmingPool(String privateSwimmingPool) {
+		this.privateSwimmingPool = privateSwimmingPool;
+	}
+
+	public String getSellerUserName() {
+		return sellerUserName;
+	}
+
+	public void setSellerUserName(String sellerUserName) {
+		this.sellerUserName = sellerUserName;
+	}
+
+	public Date getDateReceived() {
+		return dateReceived;
+	}
+
+	public void setDateReceived(Date dateReceived) {
+		this.dateReceived = dateReceived;
+	}
+
+	public String getActionPerformedBy() {
+		return actionPerformedBy;
+	}
+
+	public void setActionPerformedBy(String actionPerformedBy) {
+		this.actionPerformedBy = actionPerformedBy;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

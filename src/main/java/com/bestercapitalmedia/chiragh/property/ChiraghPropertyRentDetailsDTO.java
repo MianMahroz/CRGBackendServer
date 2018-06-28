@@ -22,6 +22,9 @@ public class ChiraghPropertyRentDetailsDTO {
 	float rentalAnnualRent;
 	Integer rentalPaymentChecks;
 	String paymentStructure;
+	String sellerUserName;
+	Calendar dateReceived;
+	
 	
 	
 	public Calendar getLeaseStartDate() {
@@ -101,6 +104,18 @@ public class ChiraghPropertyRentDetailsDTO {
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	public String getSellerUserName() {
+		return sellerUserName;
+	}
+	public void setSellerUserName(String sellerUserName) {
+		this.sellerUserName = sellerUserName;
+	}
+	public Calendar getDateReceived() {
+		return dateReceived;
+	}
+	public void setDateReceived(Calendar dateReceived) {
+		this.dateReceived = dateReceived;
 	}
 	
 	

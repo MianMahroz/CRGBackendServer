@@ -1,5 +1,9 @@
 package com.bestercapitalmedia.chiragh.property;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.modelmapper.ModelMapper;
@@ -29,6 +33,11 @@ public class ChiraghPropertyService {
 	@Autowired
 	private PropertySellerDetailsService propertySellerDetailsService;
 
+	
+	public List<Chiraghproperty> getCompleteProperties() {
+		 return propertyRepository.findCompleteProperties();	 
+	}//end of method
+	
 	public PropertyDetailFetchDTO getPropertyByRefNo(String refNo) {
 		ModelMapper mapper = new ModelMapper();
 		Chiraghproperty chiraghproperty = propertyRepository.findPropertyByRefNo(refNo);
@@ -110,6 +119,11 @@ public class ChiraghPropertyService {
 			chiraghproperty.setTenancyContractUpload(chiraghPropertyRentDetailsDTO.getTenancyContractUpload());
 			chiraghproperty.setLeaseStartDate(chiraghPropertyRentDetailsDTO.getLeaseStartDate());
 			chiraghproperty.setLeaseExpiryDate(chiraghPropertyRentDetailsDTO.getLeaseExpiryDate());
+			//these two properties i used in admin panel
+			chiraghproperty.setSellerUserName(chiraghPropertyRentDetailsDTO.getUserName());
+			chiraghproperty.setDateReceived(new Date());
+			chiraghproperty.setLastActionPerformed("Not Started");
+			chiraghproperty.setStatus("inprocess");
 			return propertyRepository.save(chiraghproperty);
 		} catch (Exception e) {
 			e.printStackTrace();
