@@ -50,22 +50,39 @@ import com.bestercapitalmedia.chiragh.utill.ValidatedInput;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UserController.
+ */
 @Controller
 // @SessionScope
 @CrossOrigin
 @RequestMapping("/api/user")
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class UserController {
+	
+	/** The user repository. */
 	@Autowired
 	private UserRepository userRepository;
+	
+	/** The chiragh util. */
 	@Autowired
 	private ChiragUtill chiraghUtil;
 
+	/** The log utill. */
 	@Autowired
 	private LogUtill logUtill;
+	
+	/** The chiragh user service. */
 	@Autowired
 	private ChiraghUserService chiraghUserService;
 
+	/**
+	 * Gets the user with complete properties.
+	 *
+	 * @param userName the user name
+	 * @return the user with complete properties
+	 */
 	@RequestMapping(value = "/getUserWithCompleteProperties/{userName}", method = RequestMethod.GET)
 	public List<ChiraghAdminDashboardDTO> getUserWithCompleteProperties(@PathVariable(value = "userName") String userName) {
 		if (userName.equals("") || userName == null) {
@@ -86,6 +103,13 @@ public class UserController {
 //		}
 	}// end of method
 
+	/**
+	 * List.
+	 *
+	 * @param httpServletRequest the http servlet request
+	 * @return the iterable
+	 * @throws JsonProcessingException the json processing exception
+	 */
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	public @ResponseBody Iterable<Chiraghuser> list(HttpServletRequest httpServletRequest)
 			throws JsonProcessingException {
@@ -93,6 +117,14 @@ public class UserController {
 
 	}// end of list method
 
+	/**
+	 * Gets the session user.
+	 *
+	 * @param httpServletRequest the http servlet request
+	 * @param httpServletResponse the http servlet response
+	 * @return the session user
+	 * @throws JsonProcessingException the json processing exception
+	 */
 	@RequestMapping(value = "/getSessionUser", method = RequestMethod.GET)
 	public @ResponseBody String getSessionUser(HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse) throws JsonProcessingException {
@@ -103,6 +135,13 @@ public class UserController {
 		return "";
 	}// end of list method
 
+	/**
+	 * Creates the.
+	 *
+	 * @param data the data
+	 * @param httpServletRequest the http servlet request
+	 * @return the response entity
+	 */
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity create(@Valid @RequestBody UserRegisterationDTO data,
 			HttpServletRequest httpServletRequest) {
@@ -129,6 +168,12 @@ public class UserController {
 		}
 	}
 
+	/**
+	 * Gets the password.
+	 *
+	 * @param password the password
+	 * @return the password
+	 */
 	@RequestMapping(value = "/getPassword/{password}", method = RequestMethod.GET)
 	public String getPassword(@PathVariable(value = "password") String password) {
 		return DigestUtils.md5DigestAsHex(password.getBytes());
@@ -145,11 +190,25 @@ public class UserController {
 	//
 	// }
 
+	/**
+	 * Gets the cookie value.
+	 *
+	 * @param req the req
+	 * @param cookieName the cookie name
+	 * @return the cookie value
+	 */
 	private String getCookieValue(HttpServletRequest req, String cookieName) {
 		return Arrays.stream(req.getCookies()).filter(c -> c.getName().equals(cookieName)).findFirst()
 				.map(Cookie::getValue).orElse(null);
 	}
 
+	/**
+	 * Gets the.
+	 *
+	 * @param userId the user id
+	 * @param httpServletRequest the http servlet request
+	 * @return the response entity
+	 */
 	@RequestMapping(value = "/get/{userId}", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity get(@PathVariable(value = "userId") int userId,
 			HttpServletRequest httpServletRequest) {
@@ -183,10 +242,23 @@ public class UserController {
 		}
 	}
 
+	/**
+	 * Log out.
+	 *
+	 * @param httpServletRequest the http servlet request
+	 */
 	public void logOut(HttpServletRequest httpServletRequest) {
 		httpServletRequest.getSession(false).invalidate();
 	}
 
+	/**
+	 * Login.
+	 *
+	 * @param userLoginDTO the user login DTO
+	 * @param httpServletRequest the http servlet request
+	 * @param httpServletResponse the http servlet response
+	 * @return the response entity
+	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity login(@Valid @RequestBody UserLoginDTO userLoginDTO,
 			HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
@@ -222,6 +294,13 @@ public class UserController {
 		}
 	}// end of method
 
+	/**
+	 * Reset password request.
+	 *
+	 * @param userForgetPasswordDTO the user forget password DTO
+	 * @param httpServletRequest the http servlet request
+	 * @return the response entity
+	 */
 	@RequestMapping(value = "/resetPasswordRequest", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity resetPasswordRequest(
 			@Valid @RequestBody UserForgetPasswordDTO userForgetPasswordDTO, HttpServletRequest httpServletRequest) {
@@ -247,6 +326,13 @@ public class UserController {
 		}
 	}
 
+	/**
+	 * Reset password change post.
+	 *
+	 * @param userNewPasswordDTO the user new password DTO
+	 * @param httpServletRequest the http servlet request
+	 * @return the response entity
+	 */
 	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
 	public ResponseEntity resetPasswordChangePost(@Valid @RequestBody UserNewPasswordDTO userNewPasswordDTO,
 			HttpServletRequest httpServletRequest) {
@@ -272,6 +358,13 @@ public class UserController {
 		}
 	}
 
+	/**
+	 * Confirm email request.
+	 *
+	 * @param userName the user name
+	 * @param httpServletRequest the http servlet request
+	 * @return the response entity
+	 */
 	@RequestMapping(value = "/confirmEmailRequest", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity confirmEmailRequest(@Valid @RequestBody String userName,
 			HttpServletRequest httpServletRequest) {
@@ -289,6 +382,13 @@ public class UserController {
 		}
 	}
 
+	/**
+	 * Check email.
+	 *
+	 * @param token the token
+	 * @param httpServletRequest the http servlet request
+	 * @return the response entity
+	 */
 	@RequestMapping(value = "/confirmEmailByToken", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity checkEmail(@Valid @RequestBody String token,
 			HttpServletRequest httpServletRequest) {
@@ -307,6 +407,13 @@ public class UserController {
 	
 	//   Dashboard Personal info
 	
+	/**
+	 * Gets the personalinfo.
+	 *
+	 * @param userName the user name
+	 * @param httpServletRequest the http servlet request
+	 * @return the personalinfo
+	 */
 	@RequestMapping(value = "/getpersonalinfo/{userName}", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity getpersonalinfo(@PathVariable(value = "userName") String userName,
 			HttpServletRequest httpServletRequest) {
@@ -324,6 +431,14 @@ public class UserController {
 		}
 	}
 	
+	/**
+	 * Change password.
+	 *
+	 * @param userName the user name
+	 * @param userNewPasswordDTO the user new password DTO
+	 * @param httpServletRequest the http servlet request
+	 * @return the response entity
+	 */
 	@RequestMapping(value = "/changePassword/{userName}", method = RequestMethod.PUT)
 	public @ResponseBody ResponseEntity changePassword(@PathVariable(value = "userName") String userName,@Valid @RequestBody ChangePasswordDTO userNewPasswordDTO,
 			HttpServletRequest httpServletRequest) {

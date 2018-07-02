@@ -39,40 +39,74 @@ import com.bestercapitalmedia.chiragh.utill.LogUtill;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PropertyController.
+ */
 @RestController
 @RequestMapping("/api/property/")
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class PropertyController {
+
+	/** The Constant log. */
 	private static final Logger log = LoggerFactory.getLogger(PropertyController.class);
 
+	/** The chiragh util. */
 	@Autowired
 	ChiragUtill chiraghUtil;
+
+	/** The user repository. */
 	@Autowired
 	UserRepository userRepository;
+
+	/** The property type repository. */
 	@Autowired
 	PropertytypeRepository propertyTypeRepository;
+
+	/** The property repository. */
 	@Autowired
 	private PropertyRepository propertyRepository;
+
+	/** The chiragh property service. */
 	@Autowired
 	private ChiraghPropertyService chiraghPropertyService;
+
+	/** The log utill. */
 	@Autowired
 	private LogUtill logUtill;
 
-
+	/**
+	 * Gets the complete properties.
+	 *
+	 * @param propertyId
+	 *            the property id
+	 * @param userName
+	 *            the user name
+	 * @return the complete properties
+	 */
 	@RequestMapping(value = "/getPropertyById/{propertyId}/{userName}", method = RequestMethod.GET)
-	public ResponseEntity getCompleteProperties(@PathVariable(value = "propertyId") int propertyId,@PathVariable(value = "userName") String userName) {
+	public ResponseEntity getCompleteProperties(@PathVariable(value = "propertyId") int propertyId,
+			@PathVariable(value = "userName") String userName) {
 		if (userName.equals("") || userName == null) {
 			return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session"), HttpStatus.OK);
 		}
-		 Chiraghproperty chiraghproperty=propertyRepository.findByPropertyId(propertyId);
-//		List<Chiraghproperty> propertiesList = chiraghPropertyService.getCompleteProperties();
+		Chiraghproperty chiraghproperty = propertyRepository.findByPropertyId(propertyId);
+		// List<Chiraghproperty> propertiesList =
+		// chiraghPropertyService.getCompleteProperties();
 		if (chiraghproperty != null) {
 			return new ResponseEntity(chiraghproperty, HttpStatus.OK);
 		} else {
 			return new ResponseEntity(chiraghUtil.getMessageObject("Property Not Found!"), HttpStatus.OK);
 		}
-	}//end of method
-	
+	}// end of method
+
+	/**
+	 * Gets the complete properties.
+	 *
+	 * @param userName
+	 *            the user name
+	 * @return the complete properties
+	 */
 	@RequestMapping(value = "/getCompleteProperties/{userName}", method = RequestMethod.GET)
 	public ResponseEntity getCompleteProperties(@PathVariable(value = "userName") String userName) {
 		if (userName.equals("") || userName == null) {
@@ -84,24 +118,43 @@ public class PropertyController {
 		} else {
 			return new ResponseEntity(chiraghUtil.getMessageObject("Property Not Found!"), HttpStatus.OK);
 		}
-	}//end of method
+	}// end of method
 
+	/**
+	 * Gets the admin seller home.
+	 *
+	 * @param userName
+	 *            the user name
+	 * @return the admin seller home
+	 */
 	@RequestMapping(value = "/getAdminSellerHomeData/{userName}", method = RequestMethod.GET)
 	public ResponseEntity getAdminSellerHome(@PathVariable(value = "userName") String userName) {
 		if (userName.equals("") || userName == null) {
 			return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session"), HttpStatus.OK);
 		}
-		ModelMapper mapper=new ModelMapper();
-		List<AdminSellerHomeDTO> adminSelelrHomeDtoList=new ArrayList<AdminSellerHomeDTO>();
-		List<Chiraghproperty> propertiesList = chiraghPropertyService.getCompleteProperties();
-	    propertiesList.stream().map(s->adminSelelrHomeDtoList.add(mapper.map(s, AdminSellerHomeDTO.class))).collect(Collectors.toList());
-	    
+		ModelMapper mapper = new ModelMapper();
+		List<AdminSellerHomeDTO> adminSelelrHomeDtoList = new ArrayList<AdminSellerHomeDTO>();
+		List<Chiraghproperty> propertiesList = null;
+		propertiesList = chiraghPropertyService.getCompleteProperties();
+		propertiesList.stream().map(s -> adminSelelrHomeDtoList.add(mapper.map(s, AdminSellerHomeDTO.class)))
+				.collect(Collectors.toList());
+
 		if (propertiesList != null) {
 			return new ResponseEntity(adminSelelrHomeDtoList, HttpStatus.OK);
 		} else {
 			return new ResponseEntity(chiraghUtil.getMessageObject("Property Not Found!"), HttpStatus.OK);
 		}
-	}//end of method
+	}// end of method
+
+	/**
+	 * Gets the property list by user id.
+	 *
+	 * @param userName
+	 *            the user name
+	 * @param httpServletRequest
+	 *            the http servlet request
+	 * @return the property list by user id
+	 */
 	@RequestMapping(value = "/getAll/{userName}", method = RequestMethod.GET)
 	public ResponseEntity getPropertyListByUserId(@PathVariable(value = "userName") String userName,
 			HttpServletRequest httpServletRequest) {
@@ -136,6 +189,17 @@ public class PropertyController {
 
 	}
 
+	/**
+	 * Gets the property details by id.
+	 *
+	 * @param propertyId
+	 *            the property id
+	 * @param userName
+	 *            the user name
+	 * @param httpServletRequest
+	 *            the http servlet request
+	 * @return the property details by id
+	 */
 	@RequestMapping(value = "/getPropertyDetails/{propertyId}/{userName}", method = RequestMethod.GET)
 	public ResponseEntity getPropertyDetailsById(@PathVariable(value = "propertyId") int propertyId,
 			@PathVariable(value = "userName") String userName, HttpServletRequest httpServletRequest) {
@@ -165,6 +229,17 @@ public class PropertyController {
 
 	}
 
+	/**
+	 * Gets the property financial details by id.
+	 *
+	 * @param propertyId
+	 *            the property id
+	 * @param userName
+	 *            the user name
+	 * @param httpServletRequest
+	 *            the http servlet request
+	 * @return the property financial details by id
+	 */
 	@RequestMapping(value = "/getPropertyFinancialDetails/{propertyId}/{userName}", method = RequestMethod.GET)
 	public ResponseEntity getPropertyFinancialDetailsById(@PathVariable(value = "propertyId") int propertyId,
 			@PathVariable(value = "userName") String userName, HttpServletRequest httpServletRequest) {
@@ -196,6 +271,17 @@ public class PropertyController {
 
 	}
 
+	/**
+	 * Gets the property rental details by id.
+	 *
+	 * @param propertyId
+	 *            the property id
+	 * @param userName
+	 *            the user name
+	 * @param httpServletRequest
+	 *            the http servlet request
+	 * @return the property rental details by id
+	 */
 	@RequestMapping(value = "/getPropertyRentalDetails/{propertyId}/{userName}", method = RequestMethod.GET)
 	public ResponseEntity getPropertyRentalDetailsById(@PathVariable(value = "propertyId") int propertyId,
 			@PathVariable(value = "userName") String userName, HttpServletRequest httpServletRequest) {
@@ -227,6 +313,15 @@ public class PropertyController {
 
 	}
 
+	/**
+	 * Update.
+	 *
+	 * @param chiraghPropertyDetailsDTO
+	 *            the chiragh property details DTO
+	 * @param httpServletRequest
+	 *            the http servlet request
+	 * @return the response entity
+	 */
 	@RequestMapping(value = "/updateProperty/Details", method = RequestMethod.PUT)
 	public @ResponseBody ResponseEntity update(@RequestBody ChiraghPropertyDetailsDTO chiraghPropertyDetailsDTO,
 			HttpServletRequest httpServletRequest) {
@@ -262,6 +357,15 @@ public class PropertyController {
 
 	}
 
+	/**
+	 * Update financials.
+	 *
+	 * @param chiraghPropertyFinancialsDTO
+	 *            the chiragh property financials DTO
+	 * @param httpServletRequest
+	 *            the http servlet request
+	 * @return the response entity
+	 */
 	@RequestMapping(value = "/updateProperty/FinancialDetails", method = RequestMethod.PUT)
 	public @ResponseBody ResponseEntity updateFinancials(
 			@RequestBody ChiraghPropertyFinancialsDTO chiraghPropertyFinancialsDTO,
@@ -297,6 +401,15 @@ public class PropertyController {
 
 	}
 
+	/**
+	 * Update rent details.
+	 *
+	 * @param chiraghPropertyRentDetailsDTO
+	 *            the chiragh property rent details DTO
+	 * @param httpServletRequest
+	 *            the http servlet request
+	 * @return the response entity
+	 */
 	@RequestMapping(value = "/updateProperty/rentInfo", method = RequestMethod.PUT)
 	public ResponseEntity updateRentDetails(@RequestBody ChiraghPropertyRentDetailsDTO chiraghPropertyRentDetailsDTO,
 			HttpServletRequest httpServletRequest) {

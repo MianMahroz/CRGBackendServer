@@ -18,26 +18,49 @@ import com.bestercapitalmedia.chiragh.user.Chiraghuser;
 import com.bestercapitalmedia.chiragh.user.UserRepository;
 import com.bestercapitalmedia.chiragh.utill.ChiragUtill;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ChiraghPropertyService.
+ */
 @Service
 public class ChiraghPropertyService {
 
+	/** The property repository. */
 	@Autowired
 	private PropertyRepository propertyRepository;
+	
+	/** The chirag utill. */
 	@Autowired
 	private ChiragUtill chiragUtill;
+	
+	/** The propertytype repository. */
 	@Autowired
 	private PropertytypeRepository propertytypeRepository;
+	
+	/** The user repository. */
 	@Autowired
 	private UserRepository userRepository;
 
+	/** The property seller details service. */
 	@Autowired
 	private PropertySellerDetailsService propertySellerDetailsService;
 
 	
+	/**
+	 * Gets the complete properties.
+	 *
+	 * @return the complete properties
+	 */
 	public List<Chiraghproperty> getCompleteProperties() {
 		 return propertyRepository.findCompleteProperties();	 
 	}//end of method
 	
+	/**
+	 * Gets the property by ref no.
+	 *
+	 * @param refNo the ref no
+	 * @return the property by ref no
+	 */
 	public PropertyDetailFetchDTO getPropertyByRefNo(String refNo) {
 		ModelMapper mapper = new ModelMapper();
 		Chiraghproperty chiraghproperty = propertyRepository.findPropertyByRefNo(refNo);
@@ -46,6 +69,14 @@ public class ChiraghPropertyService {
 		else
 			return null;
 	}
+	
+	/**
+	 * Update property details.
+	 *
+	 * @param chiraghPropertyDetailsDTO the chiragh property details DTO
+	 * @param httpServletRequest the http servlet request
+	 * @return the chiraghproperty
+	 */
 	public Chiraghproperty updatePropertyDetails(ChiraghPropertyDetailsDTO chiraghPropertyDetailsDTO,
 			HttpServletRequest httpServletRequest) {
 		int propertyId = 0;
@@ -73,6 +104,13 @@ public class ChiraghPropertyService {
 
 	}
 
+	/**
+	 * Update property financial details.
+	 *
+	 * @param chiraghPropertyFinancialsDTO the chiragh property financials DTO
+	 * @param httpServletRequest the http servlet request
+	 * @return the chiraghproperty
+	 */
 	public Chiraghproperty updatePropertyFinancialDetails(ChiraghPropertyFinancialsDTO chiraghPropertyFinancialsDTO,
 			HttpServletRequest httpServletRequest) {
 		try {
@@ -104,6 +142,13 @@ public class ChiraghPropertyService {
 		}
 	}
 
+	/**
+	 * Update property rent details.
+	 *
+	 * @param chiraghPropertyRentDetailsDTO the chiragh property rent details DTO
+	 * @param httpServletRequest the http servlet request
+	 * @return the chiraghproperty
+	 */
 	public Chiraghproperty updatePropertyRentDetails(ChiraghPropertyRentDetailsDTO chiraghPropertyRentDetailsDTO,
 			HttpServletRequest httpServletRequest) {
 		try {

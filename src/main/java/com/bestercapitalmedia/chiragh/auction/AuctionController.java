@@ -27,22 +27,43 @@ import com.bestercapitalmedia.chiragh.utill.LogUtill;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AuctionController.
+ */
 @RestController
 @CrossOrigin
 @RequestMapping("/api/auction")
 public class AuctionController {
+	
+	/** The Constant log. */
 	private static final Logger log = LoggerFactory.getLogger(AuctionController.class);
+	
+	/** The auction repository. */
 	@Autowired
 	private AuctionRepository auctionRepository;
+	
+	/** The property repository. */
 	@Autowired
 	private PropertyRepository propertyRepository;
+	
+	/** The auction service. */
 	@Autowired
 	private AuctionService auctionService;
+	
+	/** The chiragh utill. */
 	@Autowired
 	private ChiragUtill chiraghUtill;
+	
+	/** The log utill. */
 	@Autowired
 	private LogUtill logUtill;
 
+	/**
+	 * List.
+	 *
+	 * @return the string
+	 */
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	public String list() {
 		log.info("GET: /api/auction/getAll");
@@ -60,6 +81,13 @@ public class AuctionController {
 		return rtnObject;
 	}// end of list method
 
+	/**
+	 * Creates the.
+	 *
+	 * @param chiraghPropertyAuctionDetailsDTO the chiragh property auction details DTO
+	 * @param httpServletRequest the http servlet request
+	 * @return the response entity
+	 */
 	@RequestMapping(value = "/saveAuction", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity create(
 			@RequestBody ChiraghPropertyAuctionDetailsDTO chiraghPropertyAuctionDetailsDTO,

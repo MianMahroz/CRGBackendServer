@@ -10,9 +10,21 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Document.
+ */
 @Service
 public class Document {
 
+	/**
+	 * Save multipart file.
+	 *
+	 * @param path the path
+	 * @param name the name
+	 * @param file the file
+	 * @return the string
+	 */
 	public static String saveMultipartFile(String path,String name, MultipartFile file) {
 		SimpleDateFormat dateFormat1 = new SimpleDateFormat("ddMMyy-hhmmss");
 		Date date = new Date();

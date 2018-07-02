@@ -18,6 +18,9 @@ import com.bestercapitalmedia.chiragh.user.UserController;
 import com.bestercapitalmedia.chiragh.utill.ChiragUtill;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * The Class PropertytypeController.
+ */
 @RestController
 @RequestMapping("/api/propertytype/")
 public class PropertytypeController {

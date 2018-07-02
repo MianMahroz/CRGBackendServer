@@ -37,25 +37,47 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SellerDashBoardController.
+ */
 @RestController
 @CrossOrigin
 @RequestMapping("/api/userdashboard")
 public class SellerDashBoardController {
 	
+	/** The Constant log. */
 	private static final Logger log = LoggerFactory.getLogger(SellerDashBoardController.class);
+	
+	/** The chiragh utill. */
 	@Autowired
 	private ChiragUtill chiraghUtill;
+	
+	/** The userdashboard service. */
 	@Autowired
 	private SellerDashBoardService userdashboardService;
+	
+	/** The log utill. */
 	@Autowired
 	private LogUtill logUtill;
+	
+	/** The userdashboard repository. */
 	@Autowired
 	private SellerDashBoardRepository userdashboardRepository;
+	
+	/** The property repository. */
 	@Autowired
 	private PropertyRepository propertyRepository;
 
 
 	
+	/**
+	 * Creates the.
+	 *
+	 * @param sellerbuyerdto the sellerbuyerdto
+	 * @param httpServletRequest the http servlet request
+	 * @return the response entity
+	 */
 	@RequestMapping(value = "/post", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity create(@Valid @RequestBody SellingBuyingHistoryDTO sellerbuyerdto,
 			HttpServletRequest httpServletRequest) {

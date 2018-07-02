@@ -10,15 +10,30 @@ import com.bestercapitalmedia.chiragh.systemactivitylogs.Systemactivitylogs;
 import com.bestercapitalmedia.chiragh.user.Chiraghuser;
 import com.bestercapitalmedia.chiragh.user.UserRepository;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LogUtill.
+ */
 @Service
 public class LogUtill {
 
+	/** The system activity log repository. */
 	@Autowired
 	private SystemActivityLogRepository systemActivityLogRepository;
 	
+	/** The user repository. */
 	@Autowired
 	private UserRepository userRepository;
 	
+	/**
+	 * Input log.
+	 *
+	 * @param httpServletRequest the http servlet request
+	 * @param chiraghuser the chiraghuser
+	 * @param api the api
+	 * @param input the input
+	 * @param output the output
+	 */
 	public void inputLog(HttpServletRequest httpServletRequest,Chiraghuser chiraghuser,String api,String input,String  output ) {
 		
 		System.out.println(chiraghuser.getUserId());

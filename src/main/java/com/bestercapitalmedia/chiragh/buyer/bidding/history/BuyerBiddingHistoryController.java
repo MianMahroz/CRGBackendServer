@@ -28,29 +28,55 @@ import com.bestercapitalmedia.chiragh.utill.LogUtill;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BuyerBiddingHistoryController.
+ */
 @RestController
 @CrossOrigin
 @RequestMapping("/api/buyerbiddinghistory")
 public class BuyerBiddingHistoryController {
 
+	/** The user repository. */
 	@Autowired
 	UserRepository userRepository;
+	
+	/** The property repository. */
 	@Autowired
 	private PropertyRepository propertyRepository;
+	
+	/** The buyerbiddinghistoryrepository. */
 	@Autowired
 	private BuyerBiddingHistoryRepository buyerbiddinghistoryrepository;
+	
+	/** The buyerbiddinghistoryservice. */
 	@Autowired
 	private BuyerBiddingHistoryService buyerbiddinghistoryservice;
+	
+	/** The log utill. */
 	@Autowired
 	private LogUtill logUtill;
 
+	/** The Constant log. */
 	private static final Logger log = LoggerFactory.getLogger(PropertyController.class);
 
+	/**
+	 * Ownerlist.
+	 *
+	 * @return the list
+	 */
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	public @ResponseBody List<BuyerBiddingHistoryDTO> ownerlist() {
 		return buyerbiddinghistoryservice.getBuyerBiddingHistoryDTOList();
 	}// end of list method
 
+	/**
+	 * Creates the.
+	 *
+	 * @param data the data
+	 * @param httpServletRequest the http servlet request
+	 * @return the buyer bidding history DTO
+	 */
 	@RequestMapping(value = "/post", method = RequestMethod.POST)
 	public @ResponseBody BuyerBiddingHistoryDTO create(@Valid @RequestBody BuyerBiddingHistoryDTO data,
 			HttpServletRequest httpServletRequest) {

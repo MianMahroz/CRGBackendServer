@@ -19,14 +19,30 @@ import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
  
  
+// TODO: Auto-generated Javadoc
+/**
+ * The Class StorageService.
+ */
 @Service
 public class StorageService {
 	
+	/** The log. */
 	Logger log = LoggerFactory.getLogger(this.getClass().getName());
+	
+	/** The env. */
 	@Autowired
 	Environment env;
+	
+	/** The root location. */
 	private  Path rootLocation;
  
+	/**
+	 * Store.
+	 *
+	 * @param file the file
+	 * @param path the path
+	 * @param fileName the file name
+	 */
 	public void store(MultipartFile file,String path,String fileName){
 		try {
 			rootLocation= Paths.get(env.getProperty("ImagePath")+path);
@@ -38,6 +54,13 @@ public class StorageService {
         }
 	}
  
+    /**
+     * Load file.
+     *
+     * @param path the path
+     * @param filename the filename
+     * @return the resource
+     */
     public Resource loadFile(String path,String filename) {
         try {
         	rootLocation= Paths.get(env.getProperty("ImagePath")+path);
@@ -53,10 +76,16 @@ public class StorageService {
         }
     }
     
+    /**
+     * Delete all.
+     */
     public void deleteAll() {
         FileSystemUtils.deleteRecursively(rootLocation.toFile());
     }
  
+    /**
+     * Inits the.
+     */
     public void init() {
         try {
         	

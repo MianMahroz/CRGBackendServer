@@ -31,16 +31,31 @@ import com.bestercapitalmedia.chiragh.oauth.model.User;
 import com.bestercapitalmedia.chiragh.user.Chiraghuser;
 import com.bestercapitalmedia.chiragh.user.UserRepository;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ChiragUtill.
+ */
 @Service
 public class ChiragUtill {
 
+	/** The application secret. */
 	@Value("${app.secret}")
 	private String applicationSecret;
+	
+	/** The user repository. */
 	@Autowired
 	private UserRepository userRepository;
+	
+	/** The user dao. */
 	@Autowired
 	UserDao userDao;
 
+	/**
+	 * Check mine type.
+	 *
+	 * @param file the file
+	 * @return true, if successful
+	 */
 	public boolean checkMineType(MultipartFile file) {
 		MediaType mediaType = MediaType.parseMediaType(file.getContentType());
         String mineType=mediaType.getType();
@@ -50,21 +65,45 @@ public class ChiragUtill {
         	return false;
 	}
 
+	/**
+	 * Gets the message object.
+	 *
+	 * @param msg the msg
+	 * @return the message object
+	 */
 	public ChiraghMessage getMessageObject(String msg) {
 		ChiraghMessage chiraghMessage = new ChiraghMessage();
 		chiraghMessage.setMsg(msg);
 		return chiraghMessage;
 	}
 
+	/**
+	 * Genearte random no.
+	 *
+	 * @param prefix the prefix
+	 * @return the string
+	 */
 	public String genearteRandomNo(String prefix) {
 		return prefix + "-" + RandomStringUtils.randomNumeric(6) + "-"
 				+ RandomStringUtils.randomAlphabetic(3).toUpperCase();
 	}
 
+	/**
+	 * Gets the session user.
+	 *
+	 * @param httpServletRequest the http servlet request
+	 * @return the session user
+	 */
 	public Chiraghuser getSessionUser(HttpServletRequest httpServletRequest) {
 		return (Chiraghuser) httpServletRequest.getSession(false).getAttribute("user");
 	}
 
+	/**
+	 * Checks if is valid session.
+	 *
+	 * @param httpServletRequest the http servlet request
+	 * @return true, if is valid session
+	 */
 	public boolean isValidSession(HttpServletRequest httpServletRequest) {
 		boolean status = false;
 		try {
@@ -81,6 +120,12 @@ public class ChiragUtill {
 		return status;
 	}
 
+	/**
+	 * Checks if is valid chiragh session.
+	 *
+	 * @param httpServletRequest the http servlet request
+	 * @return true, if is valid chiragh session
+	 */
 	public boolean isValidChiraghSession(HttpServletRequest httpServletRequest) {
 		Principal principal = httpServletRequest.getUserPrincipal();
 		System.out.println(principal.getName());
@@ -92,6 +137,12 @@ public class ChiragUtill {
 		}
 	}
 
+	/**
+	 * Validate password.
+	 *
+	 * @param password the password
+	 * @return the string
+	 */
 	public String validatePassword(String password) {
 		String status = "";
 		// total score of passwords
@@ -140,6 +191,13 @@ public class ChiragUtill {
 
 	}// end of method
 
+	/**
+	 * Creates the activation token.
+	 *
+	 * @param user the user
+	 * @param save the save
+	 * @return the string
+	 */
 	public String createActivationToken(Chiraghuser user, Boolean save) {
 		String activationToken = DigestUtils.md5DigestAsHex(user.getUserName().getBytes());
 		if (save) {
@@ -149,6 +207,12 @@ public class ChiragUtill {
 		return activationToken;
 	}
 
+	/**
+	 * Gets the date.
+	 *
+	 * @param date1 the date 1
+	 * @return the date
+	 */
 	public Calendar getDate(String date1) {
 		System.out.println("Date" + date1);
 		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -167,19 +231,44 @@ public class ChiragUtill {
 	// return passwordEncoder.encode(password);
 	// }
 
+	/**
+	 * Gets the encoded user password for reset.
+	 *
+	 * @param password the password
+	 * @return the encoded user password for reset
+	 */
 	public String getencodedUserPasswordForReset(String password) {
 		return DigestUtils.md5DigestAsHex(password.getBytes());
 	}
 
+	/**
+	 * Gets the b crypt endoded password.
+	 *
+	 * @param password the password
+	 * @return the b crypt endoded password
+	 */
 	public String getBCryptEndodedPassword(String password) {
 		return new BCryptPasswordEncoder().encode(password);
 	}
 	
 
+	/**
+	 * Gets the encoded user password.
+	 *
+	 * @param password the password
+	 * @return the encoded user password
+	 */
 	public String getencodedUserPassword(String password) {
 		return DigestUtils.md5DigestAsHex(password.getBytes());
 	}
 
+	/**
+	 * Creates the reset password token.
+	 *
+	 * @param user the user
+	 * @param save the save
+	 * @return the string
+	 */
 	public String createResetPasswordToken(Chiraghuser user, Boolean save) {
 		String resetToken = "";
 		if (save) {
@@ -197,6 +286,12 @@ public class ChiragUtill {
 	 * one special character.
 	 */
 
+	/**
+	 * Text input validation.
+	 *
+	 * @param input the input
+	 * @return the string
+	 */
 	public String textInputValidation(String input) {
 
 		String upperCaseChars = "[a-zA-Z_]+";
@@ -207,6 +302,12 @@ public class ChiragUtill {
 
 	}// end of method
 
+	/**
+	 * Validate email address.
+	 *
+	 * @param emailAddress the email address
+	 * @return the string
+	 */
 	public String validateEmailAddress(String emailAddress) {
 
 		Pattern regexPattern = Pattern.compile("^[(a-zA-Z-0-9-\\_\\+\\.)]+@[(a-z-A-z)]+\\.[(a-zA-z)]{2,3}$");

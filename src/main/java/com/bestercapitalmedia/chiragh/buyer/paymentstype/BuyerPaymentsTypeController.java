@@ -21,15 +21,27 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BuyerPaymentsTypeController.
+ */
 @RestController
 @RequestMapping("/api/buyerpaymentstype/")
 
  public class BuyerPaymentsTypeController {
 	
+	/** The Constant log. */
 	private static final Logger log = LoggerFactory.getLogger(BuyerPaymentsTypeController.class);
+	
+	/** The buyerpaymentstype repository. */
 	@Autowired
 	private BuyerPaymentsTypeRepository buyerpaymentstypeRepository;
 	
+	/**
+	 * List.
+	 *
+	 * @return the string
+	 */
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	public String list() {
 		log.info("GET: /api/buyerpaymentstype/getAll");
@@ -48,11 +60,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 		return rtnObject;
 	}// end of list method
 	
+	/**
+	 * Gets the msg.
+	 *
+	 * @return the msg
+	 */
 	@RequestMapping(value = "/hello")
 	public String getMsg() {
 		return DigestUtils.md5DigestAsHex("123".getBytes());
 	}
      
+	/**
+	 * Creates the.
+	 *
+	 * @param data the data
+	 * @return the string
+	 */
 	@RequestMapping(value = "/post")
 	public String create(@RequestBody String data) {
 		log.info("Post: /api/buyerpaymentstype/post");
@@ -92,6 +115,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
   }
 	
 	
+	/**
+	 * Update.
+	 *
+	 * @param data the data
+	 * @return the string
+	 */
 	@RequestMapping(value = "/put/{id}", method = RequestMethod.PUT)
 	public String update(@RequestBody String data) {
 		log.info("Post: /api/buyerpaymentstype/post");
@@ -129,11 +158,23 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 	}
 	
   }
+	
+	/**
+	 * Delete.
+	 *
+	 * @param id the id
+	 */
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable(value = "id") int id) {
 		buyerpaymentstypeRepository.deleteById(id);
 	}
 
+	/**
+	 * Gets the.
+	 *
+	 * @param id the id
+	 * @return the optional
+	 */
 	@RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
 	public Optional<BuyerPaymentsType> get(@PathVariable(value = "id") int id) {
 		return buyerpaymentstypeRepository.findById(id);

@@ -20,40 +20,72 @@ import org.springframework.web.filter.CorsFilter;
 
 import javax.annotation.Resource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SecurityConfig.
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+	/** The user details service. */
 	@Resource(name = "userService")
 	private UserDetailsService userDetailsService;
 
+	/* (non-Javadoc)
+	 * @see org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter#authenticationManagerBean()
+	 */
 	@Override
 	@Bean
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
 
+	/**
+	 * Global user details.
+	 *
+	 * @param auth the auth
+	 * @throws Exception the exception
+	 */
 	@Autowired
 	public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
 	}
 
+	/* (non-Javadoc)
+	 * @see org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter#configure(org.springframework.security.config.annotation.web.builders.HttpSecurity)
+	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().anonymous().disable().authorizeRequests().antMatchers("/api-docs/**").permitAll();
 	}
 
+	/**
+	 * Token store.
+	 *
+	 * @return the token store
+	 */
 	@Bean
 	public TokenStore tokenStore() {
 		return new InMemoryTokenStore();
 	}
 
+	/**
+	 * Encoder.
+	 *
+	 * @return the b crypt password encoder
+	 */
 	@Bean
 	public BCryptPasswordEncoder encoder() {
 		return new BCryptPasswordEncoder();
 	}
 
+	/**
+	 * Cors filter.
+	 *
+	 * @return the filter registration bean
+	 */
 	@SuppressWarnings("rawtypes")
 	@Bean
 	public FilterRegistrationBean corsFilter() {

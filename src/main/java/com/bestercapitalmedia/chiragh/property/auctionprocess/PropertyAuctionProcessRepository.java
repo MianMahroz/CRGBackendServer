@@ -5,6 +5,9 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
 
+/**
+ * The Interface PropertyAuctionProcessRepository.
+ */
 public interface PropertyAuctionProcessRepository extends CrudRepository<Propertyauctionprocess, Integer> {
 	
 	

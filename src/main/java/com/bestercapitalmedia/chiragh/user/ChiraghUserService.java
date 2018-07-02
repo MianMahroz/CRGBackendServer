@@ -39,26 +39,50 @@ import com.monitorjbl.json.Match;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ChiraghUserService.
+ */
 @Service
 public class ChiraghUserService {
 
+	/** The user repository. */
 	@Autowired
 	private UserRepository userRepository;
+	
+	/** The validated input. */
 	@Autowired
 	private ValidatedInput validatedInput;
+	
+	/** The chirag utill. */
 	@Autowired
 	private ChiragUtill chiragUtill;
+	
+	/** The mail service. */
 	@Autowired
 	private MailService mailService;
+	
+	/** The user dao. */
 	@Autowired
 	private UserDao userDao;
 
 	
 	
+	/**
+	 * Gets the user with complete properties.
+	 *
+	 * @return the user with complete properties
+	 */
 	public List<Chiraghuser> getUserWithCompleteProperties(){
 		return userRepository.findUserWithCompleteProperties();
 	}
 	
+	/**
+	 * Gets the user by user id.
+	 *
+	 * @param userId the user id
+	 * @return the user by user id
+	 */
 	public UserRegisterationDTO getUserByUserId(int userId) {
 		ModelMapper mapper = new ModelMapper();
 		Chiraghuser chiraghuser = userRepository.findByUserId(userId);
@@ -68,6 +92,12 @@ public class ChiraghUserService {
 			return null;
 	}
 
+	/**
+	 * Gets the user by name.
+	 *
+	 * @param name the name
+	 * @return the user by name
+	 */
 	public UserRegisterationDTO getUserByName(String name) {
 		ModelMapper mapper = new ModelMapper();
 		Chiraghuser chiraghuser = userRepository.findByUserName(name);
@@ -77,6 +107,12 @@ public class ChiraghUserService {
 			return null;
 	}
 
+	/**
+	 * Save.
+	 *
+	 * @param userRegisterationDTO the user registeration DTO
+	 * @return the user registeration DTO
+	 */
 	public UserRegisterationDTO save(UserRegisterationDTO userRegisterationDTO) {
 		ModelMapper mapper = new ModelMapper();
 		try {
@@ -96,7 +132,14 @@ public class ChiraghUserService {
 		}
 	}
 
-	public UserLoginDTO login(UserLoginDTO userLoginDTO) throws ParseException {
+
+	/**
+	 * Login.
+	 *
+	 * @param userLoginDTO the user login DTO
+	 * @return the user login DTO
+	 */
+	public UserLoginDTO login(UserLoginDTO userLoginDTO) {
 		ModelMapper mapper = new ModelMapper();
 		Chiraghuser u1 = userRepository.findByUserName(userLoginDTO.getUserName());
 		System.out.println(u1.getUserName());
@@ -147,6 +190,12 @@ public class ChiraghUserService {
 
 	}
 
+	/**
+	 * Reset password request.
+	 *
+	 * @param userForgetPasswordDTO the user forget password DTO
+	 * @return the chiraghuser
+	 */
 	public Chiraghuser resetPasswordRequest(UserForgetPasswordDTO userForgetPasswordDTO) {
 		Chiraghuser chiraghuser = userRepository.findByEmail(userForgetPasswordDTO.getUserEmail());
 		if (chiraghuser == null) {
@@ -159,6 +208,12 @@ public class ChiraghUserService {
 
 	}
 
+	/**
+	 * On confirm.
+	 *
+	 * @param userNewPasswordDTO the user new password DTO
+	 * @return the chiraghuser
+	 */
 	public Chiraghuser onConfirm(UserNewPasswordDTO userNewPasswordDTO) {
 		if (userNewPasswordDTO.getUserPassword().equals(userNewPasswordDTO.getConfirmPassword())) {
 			Chiraghuser chiraghuser = userRepository.findByToken(userNewPasswordDTO.getToken());
@@ -172,6 +227,12 @@ public class ChiraghUserService {
 		return null;
 	}
 
+	/**
+	 * Reset password.
+	 *
+	 * @param userNewPasswordDTO the user new password DTO
+	 * @return the chiraghuser
+	 */
 	public Chiraghuser resetPassword(UserNewPasswordDTO userNewPasswordDTO) {
 		if (userNewPasswordDTO.getUserPassword().equals(userNewPasswordDTO.getConfirmPassword())) {
 			Chiraghuser chiraghuser = userRepository.findByToken(userNewPasswordDTO.getToken());
@@ -185,6 +246,13 @@ public class ChiraghUserService {
 		return null;
 	}
 
+	/**
+	 * Change password.
+	 *
+	 * @param userName the user name
+	 * @param changepasswordDTO the changepassword DTO
+	 * @return the string
+	 */
 	public String changePassword(String userName,ChangePasswordDTO changepasswordDTO) {
     String msg="";
 		if (changepasswordDTO.getUserPassword().equals(changepasswordDTO.getConfirmPassword())) {
@@ -220,6 +288,12 @@ public class ChiraghUserService {
 		return msg;
 	}
 	
+	/**
+	 * Confirm email.
+	 *
+	 * @param userName the user name
+	 * @return the chiraghuser
+	 */
 	public Chiraghuser confirmEmail(String userName) {
 		Chiraghuser chiraghuser = userRepository.findByUserName(userName);
 		if (chiraghuser == null) {
@@ -232,6 +306,12 @@ public class ChiraghUserService {
 
 	}
 
+	/**
+	 * Confirm email by token.
+	 *
+	 * @param token the token
+	 * @return the chiraghuser
+	 */
 	public Chiraghuser confirmEmailByToken(String token) {
 		Chiraghuser chiraghuser = userRepository.findByToken(token);
 		if (chiraghuser != null) {

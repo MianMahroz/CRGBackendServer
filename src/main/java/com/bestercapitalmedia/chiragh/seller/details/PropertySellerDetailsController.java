@@ -32,30 +32,58 @@ import com.bestercapitalmedia.chiragh.utill.Document;
 import com.bestercapitalmedia.chiragh.utill.LogUtill;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PropertySellerDetailsController.
+ */
 @RestController
 @CrossOrigin
 @SuppressWarnings({ "unchecked", "rawtypes" })
 @RequestMapping("/api/Propertysellerdetails")
 public class PropertySellerDetailsController {
 
+	/** The property seller details repository. */
 	@Autowired
 	private PropertySellerDetailsRepository propertySellerDetailsRepository;
+	
+	/** The property repository. */
 	@Autowired
 	private PropertyRepository propertyRepository;
+	
+	/** The property type repository. */
 	@Autowired
 	private PropertytypeRepository propertyTypeRepository;
+	
+	/** The user repository. */
 	@Autowired
 	private UserRepository userRepository;
+	
+	/** The property seller details service. */
 	@Autowired
 	private PropertySellerDetailsService propertySellerDetailsService;
+	
+	/** The new property. */
 	private Chiraghproperty newProperty;
+	
+	/** The log utill. */
 	@Autowired
 	private LogUtill logUtill;
+	
+	/** The chiragh util. */
 	@Autowired
 	private ChiragUtill chiraghUtil;
+    
+    /** The document. */
     @Autowired
 	private Document document;
 	
+    /**
+     * Creates the.
+     *
+     * @param propertySellerDetailDTO the property seller detail DTO
+     * @param httpServletRequest the http servlet request
+     * @return the response entity
+     */
     @RequestMapping(value = "/post",method=RequestMethod.POST)
 	public ResponseEntity create(@RequestBody PropertySellerDetailDTO propertySellerDetailDTO,
 			HttpServletRequest httpServletRequest) {
@@ -86,6 +114,14 @@ public class PropertySellerDetailsController {
 		return new ResponseEntity(newPropertySellerDetailDTO.getPropertySellerId(), HttpStatus.OK);
 //		return newPropertySellerDetailDTO.getPropertySellerId();
 	}
+    
+    /**
+     * Update.
+     *
+     * @param propertySellerDetailDTO the property seller detail DTO
+     * @param httpServletRequest the http servlet request
+     * @return the response entity
+     */
     @RequestMapping(value = "/updateOwner",method=RequestMethod.PUT)
 	public ResponseEntity update(@RequestBody PropertySellerDetailDTO propertySellerDetailDTO,
 			HttpServletRequest httpServletRequest) {
@@ -116,6 +152,14 @@ public class PropertySellerDetailsController {
 		return new ResponseEntity(newPropertySellerDetailDTO.getPropertySellerId(), HttpStatus.OK);
 		
 	}
+	
+	/**
+	 * Creates the angular.
+	 *
+	 * @param userName the user name
+	 * @param httpServletRequest the http servlet request
+	 * @return the response entity
+	 */
 	@RequestMapping(value = "/createProperty",method=RequestMethod.POST)
 	public ResponseEntity createAngular(@RequestBody String userName,HttpServletRequest httpServletRequest) {
 		System.out.println("User Name:"+userName);
@@ -136,6 +180,14 @@ public class PropertySellerDetailsController {
 	
 	}
 	
+	/**
+	 * Gets the owners.
+	 *
+	 * @param propertyId the property id
+	 * @param userName the user name
+	 * @param httpServletRequest the http servlet request
+	 * @return the owners
+	 */
 	@RequestMapping(value = "/getOwners/{propertyId}/{userName}",method=RequestMethod.GET)
 	public ResponseEntity getOwners(@PathVariable(value = "propertyId") int propertyId,@PathVariable(value = "userName") String userName,
 			HttpServletRequest httpServletRequest) {
@@ -162,6 +214,14 @@ ObjectMapper mapper=new ObjectMapper();
 		
 	}//end of getOwners
 
+	/**
+	 * Gets the poa.
+	 *
+	 * @param propertyId the property id
+	 * @param userName the user name
+	 * @param httpServletRequest the http servlet request
+	 * @return the poa
+	 */
 	@RequestMapping(value = "/getPoas/{propertyId}/{userName}",method=RequestMethod.GET)
 	public ResponseEntity getPoa(@PathVariable(value = "propertyId") int propertyId,@PathVariable(value = "userName") String userName,
 			HttpServletRequest httpServletRequest) {
@@ -187,6 +247,16 @@ ObjectMapper mapper=new ObjectMapper();
 
 	}//end of getOwners
 	
+	/**
+	 * Save document.
+	 *
+	 * @param path the path
+	 * @param name the name
+	 * @param userName the user name
+	 * @param file the file
+	 * @param httpServletRequest the http servlet request
+	 * @return the response entity
+	 */
 	@RequestMapping(value = "/saveDocument/{path}/{name}/{userName}",method=RequestMethod.POST)
 	public ResponseEntity saveDocument(@PathVariable(value = "path") String path,@PathVariable(value = "name") String name,@PathVariable(value = "userName") String userName,
 			@RequestParam("file") MultipartFile file,
@@ -197,7 +267,7 @@ ObjectMapper mapper=new ObjectMapper();
 		
 		ObjectMapper mapper=new ObjectMapper();
 //		/C://upload-dir/
-		String fileName= document.saveMultipartFile("../ChiraghDocuments/"+path, name, file);
+		String fileName= document.saveMultipartFile("/ChiraghDocuments/"+path, name, file);
 	     if(fileName.equals("")||fileName.equals(null))
 	    	 return null;
 

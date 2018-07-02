@@ -16,16 +16,19 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class Auction.
  */
 
 @Entity
 @Table(catalog = "chiraghdatabase", name = "auction")
 public class Auction implements Serializable {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 */
+	/** The auction duration id. */
 
 	@Column(name = "auction_Duration_Id", nullable = false)
 	@Basic(fetch = FetchType.EAGER)
@@ -33,32 +36,32 @@ public class Auction implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	Integer auctionDurationId;
-	/**
-	 */
+	
+	/** The auction duration. */
 
 	@Column(name = "auction_Duration", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
 	
 	String auctionDuration;
-	/**
-	 */
+	
+	/** The auction cost. */
 
 	@Column(name = "auction_Cost", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
 	
 	String auctionCost;
-	/**
-	 */
+	
+	/** The is published. */
 
 	@Column(name = "is_Published", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
 	
 	String isPublished;
-	/**
-	 */
+	
+	/** The security deposit. */
 
 	@Column(name = "security_Deposit", length = 25)
 	@Basic(fetch = FetchType.EAGER)
@@ -66,107 +69,150 @@ public class Auction implements Serializable {
 	
 	String securityDeposit;
 	
+	/** The auction start date. */
 	@Temporal(TemporalType.TIMESTAMP)
 	@Basic(fetch = FetchType.EAGER)
 	@Column(name="auction_Start_Date")
 	Calendar auctionStartDate;
 	
+	/** The auction end date. */
 	@Column(name="auction_End_Date")
 	Calendar auctionEndDate;
 	
 
-	/**
-	 */
+	/** The chiraghproperty. */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "property_Id", referencedColumnName = "property_Id") })
 	@JsonBackReference
 	Chiraghproperty chiraghproperty;
-	/**
-	 */
+	
+	/** The propertyauctionprocesses. */
 	@OneToMany(mappedBy = "auction", fetch = FetchType.LAZY)
 
 	
 	java.util.Set<Propertyauctionprocess> propertyauctionprocesses;
 
 	/**
+	 * Sets the auction duration id.
+	 *
+	 * @param auctionDurationId the new auction duration id
 	 */
 	public void setAuctionDurationId(Integer auctionDurationId) {
 		this.auctionDurationId = auctionDurationId;
 	}
 
 	/**
+	 * Gets the auction duration id.
+	 *
+	 * @return the auction duration id
 	 */
 	public Integer getAuctionDurationId() {
 		return this.auctionDurationId;
 	}
 
 	/**
+	 * Sets the auction duration.
+	 *
+	 * @param auctionDuration the new auction duration
 	 */
 	public void setAuctionDuration(String auctionDuration) {
 		this.auctionDuration = auctionDuration;
 	}
 
 	/**
+	 * Gets the auction duration.
+	 *
+	 * @return the auction duration
 	 */
 	public String getAuctionDuration() {
 		return this.auctionDuration;
 	}
 
 	/**
+	 * Sets the auction cost.
+	 *
+	 * @param auctionCost the new auction cost
 	 */
 	public void setAuctionCost(String auctionCost) {
 		this.auctionCost = auctionCost;
 	}
 
 	/**
+	 * Gets the auction cost.
+	 *
+	 * @return the auction cost
 	 */
 	public String getAuctionCost() {
 		return this.auctionCost;
 	}
 
 	/**
+	 * Sets the checks if is published.
+	 *
+	 * @param isPublished the new checks if is published
 	 */
 	public void setIsPublished(String isPublished) {
 		this.isPublished = isPublished;
 	}
 
 	/**
+	 * Gets the checks if is published.
+	 *
+	 * @return the checks if is published
 	 */
 	public String getIsPublished() {
 		return this.isPublished;
 	}
 
 	/**
+	 * Sets the security deposit.
+	 *
+	 * @param securityDeposit the new security deposit
 	 */
 	public void setSecurityDeposit(String securityDeposit) {
 		this.securityDeposit = securityDeposit;
 	}
 
 	/**
+	 * Gets the security deposit.
+	 *
+	 * @return the security deposit
 	 */
 	public String getSecurityDeposit() {
 		return this.securityDeposit;
 	}
 
 	/**
+	 * Sets the chiraghproperty.
+	 *
+	 * @param chiraghproperty the new chiraghproperty
 	 */
 	public void setChiraghproperty(Chiraghproperty chiraghproperty) {
 		this.chiraghproperty = chiraghproperty;
 	}
 
 	/**
+	 * Gets the chiraghproperty.
+	 *
+	 * @return the chiraghproperty
 	 */
 	public Chiraghproperty getChiraghproperty() {
 		return chiraghproperty;
 	}
 
 	/**
+	 * Sets the propertyauctionprocesses.
+	 *
+	 * @param propertyauctionprocesses the new propertyauctionprocesses
 	 */
 	public void setPropertyauctionprocesses(Set<Propertyauctionprocess> propertyauctionprocesses) {
 		this.propertyauctionprocesses = propertyauctionprocesses;
 	}
 
 	/**
+	 * Gets the propertyauctionprocesses.
+	 *
+	 * @return the propertyauctionprocesses
 	 */
 	public Set<Propertyauctionprocess> getPropertyauctionprocesses() {
 		if (propertyauctionprocesses == null) {
@@ -176,6 +222,7 @@ public class Auction implements Serializable {
 	}
 
 	/**
+	 * Instantiates a new auction.
 	 */
 	public Auction() {
 	}
@@ -183,6 +230,7 @@ public class Auction implements Serializable {
 	/**
 	 * Copies the contents of the specified bean into this bean.
 	 *
+	 * @param that the that
 	 */
 	public void copy(Auction that) {
 		setAuctionDurationId(that.getAuctionDurationId());
@@ -197,6 +245,7 @@ public class Auction implements Serializable {
 	/**
 	 * Returns a textual representation of a bean.
 	 *
+	 * @return the string
 	 */
 	public String toString() {
 
@@ -211,7 +260,8 @@ public class Auction implements Serializable {
 		return buffer.toString();
 	}
 
-	/**
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
@@ -221,7 +271,8 @@ public class Auction implements Serializable {
 		return result;
 	}
 
-	/**
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	public boolean equals(Object obj) {
 		if (obj == this)
@@ -236,18 +287,38 @@ public class Auction implements Serializable {
 		return true;
 	}
 
+	/**
+	 * Gets the auction start date.
+	 *
+	 * @return the auction start date
+	 */
 	public Calendar getAuctionStartDate() {
 		return auctionStartDate;
 	}
 
+	/**
+	 * Sets the auction start date.
+	 *
+	 * @param auctionStartDate the new auction start date
+	 */
 	public void setAuctionStartDate(Calendar auctionStartDate) {
 		this.auctionStartDate = auctionStartDate;
 	}
 
+	/**
+	 * Gets the auction end date.
+	 *
+	 * @return the auction end date
+	 */
 	public Calendar getAuctionEndDate() {
 		return auctionEndDate;
 	}
 
+	/**
+	 * Sets the auction end date.
+	 *
+	 * @param auctionEndDate the new auction end date
+	 */
 	public void setAuctionEndDate(Calendar auctionEndDate) {
 		this.auctionEndDate = auctionEndDate;
 	}

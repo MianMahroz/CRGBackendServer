@@ -23,27 +23,51 @@ import com.bestercapitalmedia.chiragh.user.UserRepository;
 import com.bestercapitalmedia.chiragh.utill.ChiragUtill;
 import com.bestercapitalmedia.chiragh.utill.LogUtill;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SellerPaymentsService.
+ */
 @Service
 public class SellerPaymentsService {
 	
+	/** The sellerpayments repository. */
 	@Autowired
 	private SellerPaymentsRepository sellerpaymentsRepository;
+	
+	/** The chiragh utill. */
 	@Autowired
 	private ChiragUtill chiraghUtill;
+	
+	/** The user repository. */
 	@Autowired
 	private UserRepository userRepository;
+	
+	/** The chiraghroperty repository. */
 	@Autowired
 	private PropertyRepository chiraghropertyRepository;
+	
+	/** The sellerpaymentstype repository. */
 	@Autowired
 	private SellerPaymentsTypeRepositrory sellerpaymentstypeRepository;
+	
+	/** The log utill. */
 	@Autowired
 	private LogUtill logUtill;
+	
+	/** The chiraghpropertygateways repository. */
 	@Autowired
 	private ChiraghPropertyGatewaysRepository chiraghpropertygatewaysRepository;
 
 	
 	
 	
+	/**
+	 * Save.
+	 *
+	 * @param sellerpaymentsDTO the sellerpayments DTO
+	 * @param httpServletRequest the http servlet request
+	 * @return the seller payments DTO
+	 */
 	public SellerPaymentsDTO save(SellerPaymentsDTO  sellerpaymentsDTO,
 			HttpServletRequest httpServletRequest) {
 

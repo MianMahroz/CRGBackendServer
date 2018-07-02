@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package com.bestercapitalmedia.chiragh.CRGBackendServer;
 
 import java.util.Collections;
@@ -24,22 +27,41 @@ import org.springframework.web.filter.CorsFilter;
 
 import com.bestercapitalmedia.chiragh.utill.ChiragUtill;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CrgBackendServerApplication.
+ */
 @SpringBootApplication(scanBasePackages = { "com.bestercapitalmedia" })
 @EnableJpaRepositories("com.bestercapitalmedia")
 @EntityScan("com.bestercapitalmedia")
 @PropertySource(value = { "classpath:application.properties" })
 public class CrgBackendServerApplication extends SpringBootServletInitializer {
+	
+	/* (non-Javadoc)
+	 * @see org.springframework.boot.web.servlet.support.SpringBootServletInitializer#configure(org.springframework.boot.builder.SpringApplicationBuilder)
+	 */
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 	        return application.sources(CrgBackendServerApplication.class);
 	    }
 
-	    public static void main(String[] args) throws Exception {
+	    /**
+    	 * The main method.
+    	 *
+    	 * @param args the arguments
+    	 * @throws Exception the exception
+    	 */
+    	public static void main(String[] args) throws Exception {
 	        SpringApplication.run(CrgBackendServerApplication.class, args);
 	    }
 
 //	public static void main(String[] args) {
 //		SpringApplication.run(CrgBackendServerApplication.class, args);
+/**
+ * Simple cors filter.
+ *
+ * @return the filter registration bean
+ */
 //	}
 	@Bean
 	public FilterRegistrationBean simpleCorsFilter() {
