@@ -12,17 +12,32 @@ import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
 import com.bestercapitalmedia.chiragh.property.PropertyRepository;
 import com.bestercapitalmedia.chiragh.seller.details.PropertySellerDetailsService;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AuctionService.
+ */
 @Service
 public class AuctionService {
 
+	/** The property seller details service. */
 	@Autowired
 	private PropertySellerDetailsService propertySellerDetailsService;
 
+	/** The property repository. */
 	@Autowired
 	private PropertyRepository propertyRepository;
+	
+	/** The auction repository. */
 	@Autowired
 	private AuctionRepository auctionRepository;
 
+	/**
+	 * Save auction.
+	 *
+	 * @param chiraghPropertyAuctionDetailsDTO the chiragh property auction details DTO
+	 * @param httpServletRequest the http servlet request
+	 * @return the auction
+	 */
 	public Auction saveAuction(ChiraghPropertyAuctionDetailsDTO chiraghPropertyAuctionDetailsDTO,
 			HttpServletRequest httpServletRequest) {
 		try {

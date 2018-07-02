@@ -17,15 +17,27 @@ import com.bestercapitalmedia.chiragh.user.Chiraghuser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PropertyAuctionProcessController.
+ */
 @RestController
 @CrossOrigin
 @RequestMapping("/api/propertyactionprocess")
 public class PropertyAuctionProcessController {
+	
+	/** The Constant log. */
 	private static final Logger log = LoggerFactory.getLogger(PropertyAuctionProcessController.class);
 
+	/** The property auction process repository. */
 	@Autowired
 	private PropertyAuctionProcessRepository propertyAuctionProcessRepository;
 
+	/**
+	 * List.
+	 *
+	 * @return the iterable
+	 */
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	public Iterable<Propertyauctionprocess>list() {
 		log.info("GET: /api/propertyactionprocess/getAll");
@@ -35,6 +47,12 @@ public class PropertyAuctionProcessController {
 		return propertyauctionprocessList;
 	}// end of list method
 
+	/**
+	 * Creates the.
+	 *
+	 * @param data the data
+	 * @return the string
+	 */
 	@RequestMapping(value = "/post", method = RequestMethod.POST)
 	public String create(@RequestBody String data) {
 		log.info("Post: /api/Users/post");

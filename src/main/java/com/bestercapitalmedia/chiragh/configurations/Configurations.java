@@ -9,17 +9,20 @@ import java.lang.StringBuilder;
 
 import javax.persistence.*;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class Configurations.
  */
 
 @Entity
 @Table(catalog = "chiraghdatabase", name = "configurations")
 
 public class Configurations implements Serializable {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 */
+	/** The configurations id. */
 
 	@Column(name = "configurations_Id", nullable = false)
 	@Basic(fetch = FetchType.EAGER)
@@ -28,16 +31,16 @@ public class Configurations implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	
 	Integer configurationsId;
-	/**
-	 */
+	
+	/** The key name. */
 
 	@Column(name = "key_Name", length = 25)
 	@Basic(fetch = FetchType.EAGER)
 
 	
 	String keyName;
-	/**
-	 */
+	
+	/** The key value. */
 
 	@Column(name = "key_Value", length = 25)
 	@Basic(fetch = FetchType.EAGER)
@@ -46,42 +49,61 @@ public class Configurations implements Serializable {
 	String keyValue;
 
 	/**
+	 * Sets the configurations id.
+	 *
+	 * @param configurationsId the new configurations id
 	 */
 	public void setConfigurationsId(Integer configurationsId) {
 		this.configurationsId = configurationsId;
 	}
 
 	/**
+	 * Gets the configurations id.
+	 *
+	 * @return the configurations id
 	 */
 	public Integer getConfigurationsId() {
 		return this.configurationsId;
 	}
 
 	/**
+	 * Sets the key name.
+	 *
+	 * @param keyName the new key name
 	 */
 	public void setKeyName(String keyName) {
 		this.keyName = keyName;
 	}
 
 	/**
+	 * Gets the key name.
+	 *
+	 * @return the key name
 	 */
 	public String getKeyName() {
 		return this.keyName;
 	}
 
 	/**
+	 * Sets the key value.
+	 *
+	 * @param keyValue the new key value
 	 */
 	public void setKeyValue(String keyValue) {
 		this.keyValue = keyValue;
 	}
 
 	/**
+	 * Gets the key value.
+	 *
+	 * @return the key value
 	 */
 	public String getKeyValue() {
 		return this.keyValue;
 	}
 
 	/**
+	 * Instantiates a new configurations.
 	 */
 	public Configurations() {
 	}
@@ -89,6 +111,7 @@ public class Configurations implements Serializable {
 	/**
 	 * Copies the contents of the specified bean into this bean.
 	 *
+	 * @param that the that
 	 */
 	public void copy(Configurations that) {
 		setConfigurationsId(that.getConfigurationsId());
@@ -99,6 +122,7 @@ public class Configurations implements Serializable {
 	/**
 	 * Returns a textual representation of a bean.
 	 *
+	 * @return the string
 	 */
 	public String toString() {
 
@@ -111,7 +135,8 @@ public class Configurations implements Serializable {
 		return buffer.toString();
 	}
 
-	/**
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
@@ -121,7 +146,8 @@ public class Configurations implements Serializable {
 		return result;
 	}
 
-	/**
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	public boolean equals(Object obj) {
 		if (obj == this)

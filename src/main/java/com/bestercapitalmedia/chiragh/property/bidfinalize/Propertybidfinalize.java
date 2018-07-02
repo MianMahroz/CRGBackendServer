@@ -16,7 +16,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class Propertybidfinalize.
  */
 
 @Entity
@@ -24,10 +26,11 @@ import javax.persistence.*;
 
 
 public class Propertybidfinalize implements Serializable {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 */
+	/** The bid finalize id. */
 
 	@Column(name = "bid_Finalize_Id", nullable = false)
 	@Basic(fetch = FetchType.EAGER)
@@ -36,24 +39,24 @@ public class Propertybidfinalize implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	
 	Integer bidFinalizeId;
-	/**
-	 */
+	
+	/** The brokerage mou document. */
 
 	@Column(name = "brokerage_Mou_Document", length = 225)
 	@Basic(fetch = FetchType.EAGER)
 
 	
 	String brokerageMouDocument;
-	/**
-	 */
+	
+	/** The is commission payment. */
 
 	@Column(name = "is_Commission_Payment", length = 225)
 	@Basic(fetch = FetchType.EAGER)
 
 	
 	String isCommissionPayment;
-	/**
-	 */
+	
+	/** The is final payment. */
 
 	@Column(name = "is_Final_Payment", length = 225)
 	@Basic(fetch = FetchType.EAGER)
@@ -61,74 +64,104 @@ public class Propertybidfinalize implements Serializable {
 	
 	String isFinalPayment;
 
-	/**
-	 */
+	/** The propertybidprocess. */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({ @JoinColumn(name = "bid_Id", referencedColumnName = "bid_Id") })
 	@JsonBackReference
 	Propertybidprocess propertybidprocess;
 
 	/**
+	 * Sets the bid finalize id.
+	 *
+	 * @param bidFinalizeId the new bid finalize id
 	 */
 	public void setBidFinalizeId(Integer bidFinalizeId) {
 		this.bidFinalizeId = bidFinalizeId;
 	}
 
 	/**
+	 * Gets the bid finalize id.
+	 *
+	 * @return the bid finalize id
 	 */
 	public Integer getBidFinalizeId() {
 		return this.bidFinalizeId;
 	}
 
 	/**
+	 * Sets the brokerage mou document.
+	 *
+	 * @param brokerageMouDocument the new brokerage mou document
 	 */
 	public void setBrokerageMouDocument(String brokerageMouDocument) {
 		this.brokerageMouDocument = brokerageMouDocument;
 	}
 
 	/**
+	 * Gets the brokerage mou document.
+	 *
+	 * @return the brokerage mou document
 	 */
 	public String getBrokerageMouDocument() {
 		return this.brokerageMouDocument;
 	}
 
 	/**
+	 * Sets the checks if is commission payment.
+	 *
+	 * @param isCommissionPayment the new checks if is commission payment
 	 */
 	public void setIsCommissionPayment(String isCommissionPayment) {
 		this.isCommissionPayment = isCommissionPayment;
 	}
 
 	/**
+	 * Gets the checks if is commission payment.
+	 *
+	 * @return the checks if is commission payment
 	 */
 	public String getIsCommissionPayment() {
 		return this.isCommissionPayment;
 	}
 
 	/**
+	 * Sets the checks if is final payment.
+	 *
+	 * @param isFinalPayment the new checks if is final payment
 	 */
 	public void setIsFinalPayment(String isFinalPayment) {
 		this.isFinalPayment = isFinalPayment;
 	}
 
 	/**
+	 * Gets the checks if is final payment.
+	 *
+	 * @return the checks if is final payment
 	 */
 	public String getIsFinalPayment() {
 		return this.isFinalPayment;
 	}
 
 	/**
+	 * Sets the propertybidprocess.
+	 *
+	 * @param propertybidprocess the new propertybidprocess
 	 */
 	public void setPropertybidprocess(Propertybidprocess propertybidprocess) {
 		this.propertybidprocess = propertybidprocess;
 	}
 
 	/**
+	 * Gets the propertybidprocess.
+	 *
+	 * @return the propertybidprocess
 	 */
 	public Propertybidprocess getPropertybidprocess() {
 		return propertybidprocess;
 	}
 
 	/**
+	 * Instantiates a new propertybidfinalize.
 	 */
 	public Propertybidfinalize() {
 	}
@@ -136,6 +169,7 @@ public class Propertybidfinalize implements Serializable {
 	/**
 	 * Copies the contents of the specified bean into this bean.
 	 *
+	 * @param that the that
 	 */
 	public void copy(Propertybidfinalize that) {
 		setBidFinalizeId(that.getBidFinalizeId());
@@ -148,6 +182,7 @@ public class Propertybidfinalize implements Serializable {
 	/**
 	 * Returns a textual representation of a bean.
 	 *
+	 * @return the string
 	 */
 	public String toString() {
 
@@ -161,7 +196,8 @@ public class Propertybidfinalize implements Serializable {
 		return buffer.toString();
 	}
 
-	/**
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
@@ -171,7 +207,8 @@ public class Propertybidfinalize implements Serializable {
 		return result;
 	}
 
-	/**
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	public boolean equals(Object obj) {
 		if (obj == this)

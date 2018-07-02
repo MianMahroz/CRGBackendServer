@@ -15,19 +15,34 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PropertyBuyerCurrentAuctionController.
+ */
 @RestController
 @RequestMapping("/api/buyerlisting/")
 public class PropertyBuyerCurrentAuctionController {
 	
+	/** The Constant log. */
 	private static final Logger log = LoggerFactory.getLogger(PropertyController.class);
 
+	/** The chiragh util. */
 	@Autowired
 	ChiragUtill chiraghUtil;
+	
+	/** The property repository. */
 	@Autowired
 	PropertyRepository propertyRepository;
+	
+	/** The propertybidprocess repository. */
 	@Autowired
 	PropertybidprocessRepository propertybidprocessRepository;
 	
+	/**
+	 * List.
+	 *
+	 * @return the iterable
+	 */
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	public Iterable<PropertyBuyerCurrentAuctionDTO> list() {
 		Iterable<PropertyBuyerCurrentAuctionDTO> buyerListing = propertyRepository.findBuyerPropertylisting();

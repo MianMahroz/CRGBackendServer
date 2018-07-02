@@ -19,25 +19,44 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MailService.
+ */
 @Service
 public class MailService {
+	
+	/** The from email. */
 	@Value("${app.email.from}")
 	private String fromEmail;
 
+	/** The app url. */
 	@Value("${app.url}")
 	private String appUrl;
 
+	/** The reset password url. */
 	@Value("${resetPassword.url}")
 	private String resetPasswordUrl;
 
+	/** The support email. */
 	@Value("${app.email.support}")
 	private String supportEmail;
 
+	/** The mail sender. */
 	@Autowired
 	private MailSender mailSender;
+	
+	/** The java mail sender. */
 	@Autowired
 	private JavaMailSender javaMailSender;
 
+	/**
+	 * Send mail 1.
+	 *
+	 * @param to the to
+	 * @param subject the subject
+	 * @param text the text
+	 */
 	public void sendMail1(String to, String subject, String text) {
 		try {
 			SimpleMailMessage email = new SimpleMailMessage();
@@ -52,6 +71,13 @@ public class MailService {
 		}
 	}
 
+	/**
+	 * Send mail.
+	 *
+	 * @param to the to
+	 * @param subject the subject
+	 * @param body the body
+	 */
 	public void sendMail(String to, String subject, String body) {
 		 final String username = "mianmahroz@gmail.com";
 	        final String password = "mianmian";
@@ -89,6 +115,12 @@ public class MailService {
 
 	}
 
+	/**
+	 * Send reset password.
+	 *
+	 * @param to the to
+	 * @param token the token
+	 */
 	public void sendResetPassword(String to, String token) {
 		String url = resetPasswordUrl + token;
 		String subject = "Chiragh Reset Password";
@@ -96,6 +128,12 @@ public class MailService {
 		sendMail(to, subject, text);
 	}
 
+	/**
+	 * Send new registration.
+	 *
+	 * @param to the to
+	 * @param token the token
+	 */
 	public void sendNewRegistration(String to, String token) {
 		String url = appUrl + token;
 		String subject = "Please activate your account";

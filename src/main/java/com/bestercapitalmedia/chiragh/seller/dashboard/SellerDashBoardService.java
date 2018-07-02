@@ -23,20 +23,40 @@ import com.bestercapitalmedia.chiragh.user.Chiraghuser;
 
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SellerDashBoardService.
+ */
 @Service
 public class SellerDashBoardService {
 	
+	/** The propertybidprocess repository. */
 	@Autowired
 	PropertybidprocessRepository propertybidprocessRepository;
+	
+	/** The buyerbiddinghistory repository. */
 	@Autowired
 	BuyerBiddingHistoryRepository buyerbiddinghistoryRepository;
+	
+	/** The propertybuyerdetails repository. */
 	@Autowired
 	PropertyBuyerDetailsRepository propertybuyerdetailsRepository;
+	
+	/** The propertysellerdetails repository. */
 	@Autowired
 	PropertySellerDetailsRepository propertysellerdetailsRepository;
+	
+	/** The userdashboard repository. */
 	@Autowired
 	SellerDashBoardRepository userdashboardRepository;
 	
+	/**
+	 * Savehistory.
+	 *
+	 * @param sellerbuyerDTO the sellerbuyer DTO
+	 * @param httpServletRequest the http servlet request
+	 * @return the selling buying history DTO
+	 */
 	public SellingBuyingHistoryDTO savehistory(SellingBuyingHistoryDTO sellerbuyerDTO,
 			HttpServletRequest httpServletRequest) {
 		

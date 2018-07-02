@@ -22,30 +22,56 @@ import com.bestercapitalmedia.chiragh.user.UserRepository;
 import com.bestercapitalmedia.chiragh.utill.ChiragUtill;
 import com.bestercapitalmedia.chiragh.utill.LogUtill;
 import com.fasterxml.jackson.databind.ObjectMapper;
+// TODO: Auto-generated Javadoc
+
+/**
+ * The Class SellerPaymentsController.
+ */
 @RestController
 @RequestMapping("/api/sellerpayments")
 
 public class SellerPaymentsController {
 	
+	/** The Constant log. */
 	private static final Logger log = LoggerFactory.getLogger(SellerPaymentsController.class);
+	
+	/** The sellerpayments repository. */
 	@Autowired
 	private SellerPaymentsRepository sellerpaymentsRepository;
+	
+	/** The chiragh utill. */
 	@Autowired
 	private ChiragUtill chiraghUtill;
+	
+	/** The user repository. */
 	@Autowired
 	private UserRepository userRepository;
+	
+	/** The chiraghroperty repository. */
 	@Autowired
 	private PropertyRepository chiraghropertyRepository;
+	
+	/** The sellerpaymentstype repository. */
 	@Autowired
 	private SellerPaymentsTypeRepositrory sellerpaymentstypeRepository;
+	
+	/** The log utill. */
 	@Autowired
 	private LogUtill logUtill;
+	
+	/** The sellerpayments service. */
 	@Autowired
 	private SellerPaymentsService sellerpaymentsService;
 	
 	
 	
 
+	/**
+	 * Gets the all.
+	 *
+	 * @param httpServletRequest the http servlet request
+	 * @return the all
+	 */
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity getAll(HttpServletRequest httpServletRequest) {
 		
@@ -73,6 +99,13 @@ public class SellerPaymentsController {
 		
 	}// end of list method*/
 
+	/**
+	 * Creates the.
+	 *
+	 * @param sellerpaymentsdto the sellerpaymentsdto
+	 * @param httpServletRequest the http servlet request
+	 * @return the response entity
+	 */
 	@RequestMapping(value = "/post", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity create(@Valid @RequestBody SellerPaymentsDTO  sellerpaymentsdto,
 			HttpServletRequest httpServletRequest) {

@@ -4,16 +4,38 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ValidatedInput.
+ */
 @Service
 public class ValidatedInput {
+	
+	/** The valid. */
 	private Boolean valid = true;
+	
+	/** The validation messages. */
 	private ArrayList<String> validationMessages = new ArrayList<>();
+	
+	/** The label. */
 	// private String string;
 	private String label;
 
+	/**
+	 * Instantiates a new validated input.
+	 */
 	public ValidatedInput() {
 	}
 
+	/**
+	 * Validate text input.
+	 *
+	 * @param input the input
+	 * @param min the min
+	 * @param max the max
+	 * @param required the required
+	 * @return true, if successful
+	 */
 	public boolean validateTextInput(String input, int min, int max, boolean required) {
 
 		if (required)
@@ -24,12 +46,29 @@ public class ValidatedInput {
 		return valid;
 	}
 
+	/**
+	 * Validate user name.
+	 *
+	 * @param input the input
+	 * @param min the min
+	 * @param max the max
+	 * @return true, if successful
+	 */
 	public boolean validateUserName(String input, int min, int max) {
 		required(input);
 		min_length(input, min);
 		max_length(input, max);
 		return valid;
 	}
+	
+	/**
+	 * Validate mobile no.
+	 *
+	 * @param input the input
+	 * @param min the min
+	 * @param max the max
+	 * @return true, if successful
+	 */
 	public boolean validateMobileNo(String input, int min, int max) {
 		required(input);
 		 integer(input);
@@ -40,6 +79,12 @@ public class ValidatedInput {
 	
 	
 
+	/**
+	 * Validate email.
+	 *
+	 * @param input the input
+	 * @return true, if successful
+	 */
 	public boolean validateEmail(String input) {
 		required(input);
 		email(input);
@@ -49,6 +94,12 @@ public class ValidatedInput {
 	
 
 	
+	/**
+	 * Check case.
+	 *
+	 * @param validationCase the validation case
+	 * @param errorMessage the error message
+	 */
 	private void checkCase(Boolean validationCase, String errorMessage) {
 		if (!validationCase) {
 			this.valid = false;
@@ -57,8 +108,9 @@ public class ValidatedInput {
 	}
 
 	/**
-	 * Checks if the string has at least 1 character
-	 * 
+	 * Checks if the string has at least 1 character.
+	 *
+	 * @param input the input
 	 * @return ValidatedInput instance with updated properties
 	 */
 	public ValidatedInput required(String input) {
@@ -67,8 +119,9 @@ public class ValidatedInput {
 	}
 
 	/**
-	 * Checks if the string contains only upper or lower case letters or numbers
-	 * 
+	 * Checks if the string contains only upper or lower case letters or numbers.
+	 *
+	 * @param input the input
 	 * @return ValidatedInput instance with updated properties
 	 */
 	public ValidatedInput alphanum(String input) {
@@ -77,8 +130,9 @@ public class ValidatedInput {
 	}
 
 	/**
-	 * Checks if the string contains only upper or lower case letters
-	 * 
+	 * Checks if the string contains only upper or lower case letters.
+	 *
+	 * @param input the input
 	 * @return ValidatedInput instance with updated properties
 	 */
 	public ValidatedInput alpha(String input) {
@@ -87,8 +141,9 @@ public class ValidatedInput {
 	}
 
 	/**
-	 * Checks if the string contains only numbers
-	 * 
+	 * Checks if the string contains only numbers.
+	 *
+	 * @param input the input
 	 * @return ValidatedInput instance with updated properties
 	 */
 	public ValidatedInput integer(String input) {
@@ -97,10 +152,10 @@ public class ValidatedInput {
 	}
 
 	/**
-	 * Checks if the string length is more than given length
-	 * 
-	 * @param length
-	 *            length to be used in the validation
+	 * Checks if the string length is more than given length.
+	 *
+	 * @param input the input
+	 * @param length            length to be used in the validation
 	 * @return ValidatedInput instance with updated properties
 	 */
 	public ValidatedInput min_length(String input, Integer length) {
@@ -109,10 +164,10 @@ public class ValidatedInput {
 	}
 
 	/**
-	 * Checks if the string length is less than the given length
-	 * 
-	 * @param length
-	 *            length to be used in the validation
+	 * Checks if the string length is less than the given length.
+	 *
+	 * @param input the input
+	 * @param length            length to be used in the validation
 	 * @return ValidatedInput instance with updated properties
 	 */
 	public ValidatedInput max_length(String input, Integer length) {
@@ -121,8 +176,9 @@ public class ValidatedInput {
 	}
 
 	/**
-	 * Checks if the string is a valid email (beta)
-	 * 
+	 * Checks if the string is a valid email (beta).
+	 *
+	 * @param input the input
 	 * @return ValidatedInput instance with updated properties
 	 */
 	public ValidatedInput email(String input) {
@@ -132,8 +188,8 @@ public class ValidatedInput {
 	}
 
 	/**
-	 * Tells if the string meets the validations or not
-	 * 
+	 * Tells if the string meets the validations or not.
+	 *
 	 * @return true if all validations have passed successfully and false otherwise
 	 */
 	public Boolean isValid() {
@@ -141,8 +197,8 @@ public class ValidatedInput {
 	}
 
 	/**
-	 * Gives all validation error messages
-	 * 
+	 * Gives all validation error messages.
+	 *
 	 * @return ArrayList of validation error messages
 	 */
 	public ArrayList<String> getValidationMessages() {

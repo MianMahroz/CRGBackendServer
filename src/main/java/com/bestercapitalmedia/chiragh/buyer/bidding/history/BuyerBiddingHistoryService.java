@@ -15,20 +15,36 @@ import com.bestercapitalmedia.chiragh.user.Chiraghuser;
 import com.bestercapitalmedia.chiragh.user.UserRepository;
 import com.bestercapitalmedia.chiragh.utill.ChiragUtill;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BuyerBiddingHistoryService.
+ */
 @Service
 public class BuyerBiddingHistoryService {
 
+	/** The user repository. */
 	@Autowired
 	UserRepository userRepository;
+	
+	/** The property repository. */
 	@Autowired
 	private PropertyRepository propertyRepository;
+	
+	/** The buyerbiddinghistoryrepository. */
 	@Autowired
 	private BuyerBiddingHistoryRepository buyerbiddinghistoryrepository;
+	
+	/** The chiraghutil. */
 	@Autowired
 	private  ChiragUtill chiraghutil;
 	
 	
 	
+	/**
+	 * Gets the buyer bidding history DTO list.
+	 *
+	 * @return the buyer bidding history DTO list
+	 */
 	public List<BuyerBiddingHistoryDTO> getBuyerBiddingHistoryDTOList() {
 		ModelMapper modelMapper = new ModelMapper();
 		return buyerbiddinghistoryrepository.getAll().stream()
@@ -37,6 +53,12 @@ public class BuyerBiddingHistoryService {
 	}
 	
 	
+	/**
+	 * Save.
+	 *
+	 * @param buyerbidddinghistoryDTO the buyerbidddinghistory DTO
+	 * @return the buyer bidding history
+	 */
 	public BuyerBiddingHistory save(BuyerBiddingHistoryDTO buyerbidddinghistoryDTO) {
 		
 		ModelMapper mapper = new ModelMapper();

@@ -23,22 +23,39 @@ import com.bestercapitalmedia.chiragh.user.UserRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BuyerPaymentsController.
+ */
 @RestController
 @RequestMapping("/api/buyerpayments/")
 
 public class BuyerPaymentsController {
 
+	/** The Constant log. */
 	private static final Logger log = LoggerFactory.getLogger(BuyerPaymentsController.class);
+	
+	/** The buyerpayments repository. */
 	@Autowired
 	private BuyerPaymentsRepository buyerpaymentsRepository;
 
+	/** The user repository. */
 	@Autowired
 	private UserRepository userRepository;
+	
+	/** The chiraghroperty repository. */
 	@Autowired
 	private PropertyRepository chiraghropertyRepository;
+	
+	/** The buyerpaymentstype repository. */
 	@Autowired
 	private BuyerPaymentsTypeRepository buyerpaymentstypeRepository;
 
+	/**
+	 * List.
+	 *
+	 * @return the string
+	 */
 	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
 	public String list() {
 		log.info("GET: /api/buyerpayments/getAll");
@@ -58,6 +75,12 @@ public class BuyerPaymentsController {
 	}// end of list method
 
 
+	/**
+	 * Creates the.
+	 *
+	 * @param data the data
+	 * @return the string
+	 */
 	@RequestMapping(value = "/post")
 	public String create(@RequestBody String data) {
 		log.info("Post: /api/buyerpayments/post");
@@ -105,6 +128,12 @@ public class BuyerPaymentsController {
 		}
 	}
 
+	/**
+	 * Update.
+	 *
+	 * @param data the data
+	 * @return the string
+	 */
 	@RequestMapping(value = "/put/{id}", method = RequestMethod.PUT)
 	public String update(@RequestBody String data) {
 		log.info("Post: /api/buyerpayments/post");
@@ -151,11 +180,22 @@ public class BuyerPaymentsController {
 		}
 	}
 
+	/**
+	 * Delete.
+	 *
+	 * @param id the id
+	 */
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public void delete(@PathVariable(value = "id") int id) {
 		buyerpaymentsRepository.deleteById(id);
 	}
 
+	/**
+	 * Gets the.
+	 *
+	 * @param id the id
+	 * @return the optional
+	 */
 	@RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
 	public Optional<BuyerPayments> get(@PathVariable(value = "id") int id) {
 		return buyerpaymentsRepository.findById(id);

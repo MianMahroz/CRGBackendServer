@@ -20,22 +20,46 @@ import com.bestercapitalmedia.chiragh.user.Chiraghuser;
 import com.bestercapitalmedia.chiragh.user.UserRepository;
 import com.bestercapitalmedia.chiragh.utill.ChiragUtill;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PropertySellerDetailsService.
+ */
 @Service
 public class PropertySellerDetailsService {
 
+	/** The property seller details repository. */
 	@Autowired
 	private PropertySellerDetailsRepository propertySellerDetailsRepository;
+	
+	/** The property repository. */
 	@Autowired
 	private PropertyRepository propertyRepository;
+	
+	/** The chirag utill. */
 	@Autowired
 	private ChiragUtill chiragUtill;
+	
+	/** The propertytype repository. */
 	@Autowired
 	private PropertytypeRepository propertytypeRepository;
+	
+	/** The storage service. */
 	@Autowired
 	private StorageService storageService;
+	
+	/** The user repository. */
 	@Autowired
 	private UserRepository userRepository;
 
+	/**
+	 * Validate multipart files.
+	 *
+	 * @param idcard the idcard
+	 * @param passport the passport
+	 * @param scannedNotorizedPoa the scanned notorized poa
+	 * @param ownerType the owner type
+	 * @return true, if successful
+	 */
 	public boolean validateMultipartFiles(MultipartFile idcard, MultipartFile passport,
 			MultipartFile scannedNotorizedPoa, String ownerType) {
 		if (ownerType.equals("owner") && idcard != null && passport != null && chiragUtill.checkMineType(idcard)
@@ -49,6 +73,13 @@ public class PropertySellerDetailsService {
 			return false;
 	}
 
+	/**
+	 * Save property seller details.
+	 *
+	 * @param httpServletRequest the http servlet request
+	 * @param propertySellerDetailDTO the property seller detail DTO
+	 * @return the property seller detail DTO
+	 */
 	public PropertySellerDetailDTO savePropertySellerDetails(HttpServletRequest httpServletRequest,
 			PropertySellerDetailDTO propertySellerDetailDTO) {
 		try {
@@ -83,6 +114,12 @@ public class PropertySellerDetailsService {
 
 	}
 
+	/**
+	 * Gets the property id from session.
+	 *
+	 * @param httpServletRequest the http servlet request
+	 * @return the property id from session
+	 */
 	public int getPropertyIdFromSession(HttpServletRequest httpServletRequest) {
 		try {
 			return Integer.parseInt(httpServletRequest.getSession(false).getAttribute("propertyId").toString());
@@ -91,6 +128,12 @@ public class PropertySellerDetailsService {
 		}
 	}
 
+	/**
+	 * Creates the new property.
+	 *
+	 * @param httpServletRequest the http servlet request
+	 * @return the chiraghproperty
+	 */
 	public Chiraghproperty createNewProperty(HttpServletRequest httpServletRequest) {
 		try {
 			Chiraghuser chiraghuser = chiragUtill.getSessionUser(httpServletRequest);
@@ -110,6 +153,12 @@ public class PropertySellerDetailsService {
 
 	}
 
+	/**
+	 * Creates the new property angular.
+	 *
+	 * @param userName the user name
+	 * @return the chiraghproperty
+	 */
 	public Chiraghproperty createNewPropertyAngular(String userName) {
 		try {
 			Chiraghuser chiraghuser = userRepository.findByUserName(userName);

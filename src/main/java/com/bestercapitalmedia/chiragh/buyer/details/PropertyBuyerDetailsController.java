@@ -45,46 +45,91 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.bestercapitalmedia.chiragh.buyer.bidding.history.BuyerBiddingHistoryRepository;
 import com.bestercapitalmedia.chiragh.buyer.details.PropertyBuyerDetailsRepository;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PropertyBuyerDetailsController.
+ */
 @RestController
 @CrossOrigin
 @RequestMapping("/api/buyerdetails")
 public class PropertyBuyerDetailsController {
 
+	/** The Constant log. */
 	private static final Logger log = LoggerFactory.getLogger(PropertyBuyerDetailsController.class);
+	
+	/** The buyerdetail repository. */
 	@Autowired
 	private PropertyBuyerDetailsRepository buyerdetailRepository;
+	
+	/** The chiragh util. */
 	@Autowired
 	private ChiragUtill chiraghUtil;
+	
+	/** The mail service. */
 	@Autowired
 	private MailService mailService;
+	
+	/** The property repository. */
 	@Autowired
 	private PropertyRepository propertyRepository;
+	
+	/** The user repository. */
 	@Autowired
 	private UserRepository userRepository;
+	
+	/** The propertybuyerdetailsservice. */
 	@Autowired
 	private PropertyBuyerDetailsService propertybuyerdetailsservice;
+	
+	/** The log utill. */
 	@Autowired
 	private LogUtill logUtill;
+	
+	/** The buyer bidding history. */
 	@Autowired
      private BuyerBiddingHistoryRepository buyerBiddingHistory;
+	
+	/** The files. */
 	List<String> files = new ArrayList<String>();
 	
 
+	/**
+	 * Ownerlist.
+	 *
+	 * @return the list
+	 */
 	@RequestMapping(value = "ownerdetails/getAll", method = RequestMethod.GET)
 	public @ResponseBody List<PropertyOwnerDetailsDTO> ownerlist() {
 		return propertybuyerdetailsservice.getPropertyOwnerDetailsList();
 	}// end of list method
 
+	/**
+	 * Poalist.
+	 *
+	 * @return the list
+	 */
 	@RequestMapping(value = "poadetails/getAll", method = RequestMethod.GET)
 	public @ResponseBody List<PropertyPOADetailsDTO> poalist() {
 		return propertybuyerdetailsservice.getPropertyPOADetailsList();
 	}// end of list method
 
+	/**
+	 * Gets the msg.
+	 *
+	 * @return the msg
+	 */
 	@RequestMapping(value = "/hello")
 	public String getMsg() {
 		return DigestUtils.md5DigestAsHex("123".getBytes());
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param data the data
+	 * @param httpServletRequest the http servlet request
+	 * @return the property owner details DTO
+	 */
 	@RequestMapping(value = "/ownerdetails/post", method = RequestMethod.POST)
 	public @ResponseBody PropertyOwnerDetailsDTO create(@Valid @RequestBody PropertyOwnerDetailsDTO data,
 			HttpServletRequest httpServletRequest) {
@@ -101,6 +146,13 @@ public class PropertyBuyerDetailsController {
 		return propertyownerdetailsDTO;
 	}
 	
+	/**
+	 * Creates the.
+	 *
+	 * @param data the data
+	 * @param httpServletRequest the http servlet request
+	 * @return the property POA details DTO
+	 */
 	@RequestMapping(value = "/poadetails/put", method = RequestMethod.PUT)
 	public @ResponseBody PropertyPOADetailsDTO create(@Valid @RequestBody PropertyPOADetailsDTO data,
 			HttpServletRequest httpServletRequest) {
@@ -117,26 +169,51 @@ public class PropertyBuyerDetailsController {
 		return propertypoadetailsDTO;
 	}
 
+	/**
+	 * Delete owner.
+	 *
+	 * @param id the id
+	 */
 	@RequestMapping(value = "ownerdetails/deleteOwner/{id}", method = RequestMethod.DELETE)
 	public void deleteOwner(@PathVariable(value = "id") int id) {
 		buyerdetailRepository.deleteById(id);
 	}
 	
+	/**
+	 * Delete POA.
+	 *
+	 * @param id the id
+	 */
 	@RequestMapping(value = "poadetails/deletePOA/{id}", method = RequestMethod.DELETE)
 	public void deletePOA(@PathVariable(value = "id") int id) {
 		buyerdetailRepository.deleteById(id);
 	}
 
+	/**
+	 * Gets the owner.
+	 *
+	 * @param id the id
+	 * @return the owner
+	 */
 	@RequestMapping(value = "ownerdetails/getOwner/{id}", method = RequestMethod.GET)
 	public Optional<PropertyBuyerDetails> getOwner(@PathVariable(value = "id") int id) {
 		return buyerdetailRepository.findById(id);
 	}
 
+	/**
+	 * Gets the poa.
+	 *
+	 * @param id the id
+	 * @return the poa
+	 */
 	@RequestMapping(value = "poadetails/ getPOA/{id}", method = RequestMethod.GET)
 	public Optional<PropertyBuyerDetails> getPOA(@PathVariable(value = "id") int id) {
 		return buyerdetailRepository.findById(id);
 	}
 
+	/**
+	 * Delete all owners.
+	 */
 	@RequestMapping(value = "ownerdetails/deleteAllOwner", method = RequestMethod.DELETE)
 	public void deleteAllOwners() {
 		log.info("GET: /api/buyerdetails/ownerdetails/DeleteAllOwner");
@@ -144,6 +221,9 @@ public class PropertyBuyerDetailsController {
 
 	}
 	
+	/**
+	 * Delete all POA.
+	 */
 	@RequestMapping(value = "POAdetails/deleteAllPOA", method = RequestMethod.DELETE)
 	public void deleteAllPOA() {
 		log.info("GET: /api/buyerdetails/poadetails/DeleteAllPOA");
@@ -153,6 +233,12 @@ public class PropertyBuyerDetailsController {
 
 
 
+	/**
+	 * Gets the list files.
+	 *
+	 * @param model the model
+	 * @return the list files
+	 */
 	@RequestMapping(value = "/getAllFiles", method = RequestMethod.GET)
 	public String getListFiles(PropertyBuyerDetails model) {
 		String rtnObject = "";
