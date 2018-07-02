@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.aspectj.weaver.ast.Var;
 import org.json.JSONObject;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -40,6 +41,7 @@ import com.bestercapitalmedia.chiragh.mail.MailService;
 import com.bestercapitalmedia.chiragh.oauth.dao.UserDao;
 import com.bestercapitalmedia.chiragh.oauth.model.User;
 import com.bestercapitalmedia.chiragh.property.ChiraghPropertyFinancialsDTO;
+import com.bestercapitalmedia.chiragh.property.ChiraghPropertyRentDetailsDTO;
 import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
 import com.bestercapitalmedia.chiragh.utill.ChiragUtill;
 import com.bestercapitalmedia.chiragh.utill.ChiraghMessage;
@@ -116,6 +118,7 @@ public class UserController {
 						"/api/user/registerUser", mapper.writeValueAsString(data),
 						mapper.writeValueAsString(userRegisterationDTO));
 			} catch (Exception e) {
+				e.printStackTrace();
 				new ResponseEntity(chiraghUtil.getMessageObject("Log not Generated"), HttpStatus.OK);
 			}
 
@@ -333,6 +336,37 @@ public class UserController {
 			return new ResponseEntity(chiraghUtil.getMessageObject(msg), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return new ResponseEntity(chiraghUtil.getMessageObject("Internal Server Error!" + e.getMessage()),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	
+	
+	@RequestMapping(value = "/updatePersonalInfo/{userName}", method = RequestMethod.PUT)
+	public ResponseEntity updateRentDetails(@PathVariable(value = "userName") String userName, @Valid @RequestBody PersonalInfoDTO personallinfoDTO,
+			HttpServletRequest httpServletRequest) {
+		try {
+
+			//String userName = persoanlinfoDTO.getUserName();
+			if (userName.equals("") || userName == null) {
+				return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session"), HttpStatus.OK);
+			}
+			ObjectMapper mapper = new ObjectMapper();
+			Chiraghuser chiraghuser = chiraghUserService
+					.updatePersonallInfo(userName,personallinfoDTO, httpServletRequest);
+			if (chiraghuser  == null)
+				return new ResponseEntity(chiraghUtil.getMessageObject("Personal Info Not Updated!"),
+						HttpStatus.OK);
+
+			logUtill.inputLog(httpServletRequest,
+					userRepository.findByUserName(personallinfoDTO.getUserName()),
+					"/api/user/updatePersonalInfo", mapper.writeValueAsString(personallinfoDTO),
+					mapper.writeValueAsString("Personal Info Updated Successfully"));
+
+			return new ResponseEntity(chiraghUtil.getMessageObject("Personal Info Updated Successfully"),
+					HttpStatus.OK);
+		} catch (Exception e) {
 			return new ResponseEntity(chiraghUtil.getMessageObject("Internal Server Error!" + e.getMessage()),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}

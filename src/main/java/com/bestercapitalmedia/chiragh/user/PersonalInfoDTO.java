@@ -2,6 +2,7 @@ package com.bestercapitalmedia.chiragh.user;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Date;
 
 public class PersonalInfoDTO implements Serializable {
 
@@ -28,8 +29,8 @@ public class PersonalInfoDTO implements Serializable {
 	private Calendar otpCodeExpiration;
 	private String nationality;
 	private String idCardNumber;
-	private String idCardExpiryDate;
-	private String passportExpiryDate;
+	private Calendar idCardExpiryDate;
+	private Calendar passportExpiryDate;
 	private String passportNumber;
 	private String phoneNumber;
 	private String fax;
@@ -38,25 +39,36 @@ public class PersonalInfoDTO implements Serializable {
 	private String scannedPassportCopyUpload;
 	private String scannedIdCopyUpload;
 	private String classifyYourself;
+	private String oldPassword;
+	private Calendar passwordChangeDate;
 	
 	public PersonalInfoDTO () {
 		
 	}
 	
-	
+	public Calendar getPasswordChangeDate() {
+		return passwordChangeDate;
+	}
+
+	public void setPasswordChangeDate(Calendar passwordChangeDate) {
+		this.passwordChangeDate = passwordChangeDate;
+	}
 
 	public String getUserName() {
 		return userName;
 	}
 
-
-
-
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
+	public String getOldPassword() {
+		return oldPassword;
+	}
 
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
+	}
 
 
 	public int getUserId() {
@@ -147,21 +159,26 @@ public class PersonalInfoDTO implements Serializable {
 		this.idCardNumber = idCardNumber;
 	}
 
-	public String getIdCardExpiryDate() {
+	
+	public Calendar getIdCardExpiryDate() {
 		return idCardExpiryDate;
 	}
 
-	public void setIdCardExpiryDate(String idCardExpiryDate) {
+
+	public void setIdCardExpiryDate(Calendar idCardExpiryDate) {
 		this.idCardExpiryDate = idCardExpiryDate;
 	}
 
-	public String getPassportExpiryDate() {
+
+	public Calendar getPassportExpiryDate() {
 		return passportExpiryDate;
 	}
 
-	public void setPassportExpiryDate(String passportExpiryDate) {
+
+	public void setPassportExpiryDate(Calendar passportExpiryDate) {
 		this.passportExpiryDate = passportExpiryDate;
 	}
+
 
 	public String getPassportNumber() {
 		return passportNumber;

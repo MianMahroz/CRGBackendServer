@@ -1,9 +1,19 @@
 package com.bestercapitalmedia.chiragh.user;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
@@ -17,6 +27,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bestercapitalmedia.chiragh.mail.MailService;
 import com.bestercapitalmedia.chiragh.oauth.dao.UserDao;
 import com.bestercapitalmedia.chiragh.oauth.model.User;
+import com.bestercapitalmedia.chiragh.property.ChiraghPropertyRentDetailsDTO;
+import com.bestercapitalmedia.chiragh.property.Chiraghproperty;
 import com.bestercapitalmedia.chiragh.utill.ChiragUtill;
 import com.bestercapitalmedia.chiragh.utill.ValidatedInput;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -24,6 +36,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.monitorjbl.json.JsonView;
 import com.monitorjbl.json.JsonViewModule;
 import com.monitorjbl.json.Match;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Service
 public class ChiraghUserService {
@@ -82,16 +96,36 @@ public class ChiraghUserService {
 		}
 	}
 
-	public UserLoginDTO login(UserLoginDTO userLoginDTO) {
+	public UserLoginDTO login(UserLoginDTO userLoginDTO) throws ParseException {
 		ModelMapper mapper = new ModelMapper();
 		Chiraghuser u1 = userRepository.findByUserName(userLoginDTO.getUserName());
+		System.out.println(u1.getUserName());
 		System.out.println(userLoginDTO.getRole());
 		
 		Chiraghuser chiraghuser=null;
 		if (u1.getRole().equals("chiraghuser")) {
-			chiraghuser=null; 
-			chiraghuser = userRepository.findByUserNameNPassword(userLoginDTO.getUserName(),
-					chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword()));
+			chiraghuser=null;
+			String enterpassword=chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword());
+			  if(enterpassword.equals(u1.getOldPasssword())) {
+				 
+//				  SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//
+//				  String dateString = format.format( new Date());
+//				  String olddate=u1.getPasswordChangeDate();
+//				  Date  date = format.parse (olddate);    
+//				  System.out.println(enterpassword);
+//   				  userLoginDTO.setMsg("Your Password Changed"+date );
+					
+					return userLoginDTO; 
+				
+				
+			}
+			  
+			else if(chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword()).equals(u1.getUserPassword())) {
+				chiraghuser = userRepository.findByUserNameNPassword(userLoginDTO.getUserName(),
+						chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword()));					
+			}
+			
 		} else {
 			 chiraghuser=null;
 			 chiraghuser = userRepository.findAdminUserByUserNameNPasswordNRole(userLoginDTO.getUserName(),
@@ -158,6 +192,11 @@ public class ChiraghUserService {
 			if (chiraghuser != null) {
 				String oldPassword=chiraghuser.getUserPassword();
 				String newPassword=chiragUtill.getencodedUserPassword(changepasswordDTO.getUserPassword());
+				chiraghuser.setOldPasssword(oldPassword);
+				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+				Date date = new Date();
+				System.out.println(dateFormat.format(date));
+				chiraghuser.setPasswordChangeDate(dateFormat.format(date));
 				if(oldPassword.equals(newPassword))
 				{
 					
@@ -176,7 +215,7 @@ public class ChiraghUserService {
 			}
 		}
 		else {
-			msg="Password not match!!";
+			msg="Password not match!";
 		}
 		return msg;
 	}
@@ -202,5 +241,41 @@ public class ChiraghUserService {
 		}
 		return null;
 	}
+	
+	
+	
+	public Chiraghuser updatePersonallInfo(String userName,PersonalInfoDTO personallinfoDTO,
+			HttpServletRequest httpServletRequest) {
+		try {
+			 
+			Chiraghuser chiraghuser = userRepository.findByUserName(userName);
+		    chiraghuser.setFirstName(personallinfoDTO.getFirstName());
+			chiraghuser.setMiddleName(personallinfoDTO.getMiddleName());
+			chiraghuser.setLastName(personallinfoDTO.getLastName());
+			chiraghuser.setNationality(personallinfoDTO.getNationality());
+			chiraghuser.setIdCardNumber(personallinfoDTO.getIdCardNumber());
+			chiraghuser.setIdCardExpiryDate(personallinfoDTO.getIdCardExpiryDate());
+			chiraghuser.setPassportNumber(personallinfoDTO.getPassportNumber());
+			chiraghuser.setPassportExpiryDate(personallinfoDTO.getPassportExpiryDate());
+			chiraghuser.setPhoneNumber(personallinfoDTO.getPhoneNumber());
+			chiraghuser.setMobileNo(personallinfoDTO.getMobileNo());
+			chiraghuser.setUserEmail(personallinfoDTO.getUserEmail());
+			chiraghuser.setFax(personallinfoDTO.getFax());
+			chiraghuser.setCountry(personallinfoDTO.getCountry());
+			chiraghuser.setUserCity(personallinfoDTO.getUserCity());
+			chiraghuser.setStreetAddress(personallinfoDTO.getStreetAddress());
+			chiraghuser.setMobileOtpCode(personallinfoDTO.getMobileOtpCode());
+			chiraghuser.setOtpCodeExpiration(personallinfoDTO.getOtpCodeExpiration());
+			chiraghuser.setScannedIdCopyUpload(personallinfoDTO.getScannedIdCopyUpload());
+			chiraghuser.setScannedPassportCopyUpload(personallinfoDTO.getScannedPassportCopyUpload());
+			chiraghuser.setClassifyYourself(personallinfoDTO.getClassifyYourself());
+			return userRepository.save(chiraghuser);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+
 
 }// end of userService

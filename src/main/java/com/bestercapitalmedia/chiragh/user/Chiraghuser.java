@@ -4,8 +4,9 @@ package com.bestercapitalmedia.chiragh.user;
 import java.io.Serializable;
 
 import java.lang.StringBuilder;
-
+import java.time.ZonedDateTime;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -110,6 +111,16 @@ public class Chiraghuser implements Serializable {
 	/**
 	 */
 
+	@Column(name = "old_Passsword", length = 225)
+	@Basic(fetch = FetchType.EAGER)
+	String oldPasssword;
+	
+	
+	@Column(name = "password_Change_Date")
+	@Basic(fetch = FetchType.EAGER)
+	String passwordChangeDate;
+	
+	
 	@Column(name = "mobile_OTP_Code", length = 225)
 	@Basic(fetch = FetchType.EAGER)
 	String mobileOtpCode;
@@ -139,12 +150,12 @@ public class Chiraghuser implements Serializable {
 	
 	@Column(name = "id_Card_Expiry_Date")
 	@Basic(fetch = FetchType.EAGER)
-	String idCardExpiryDate;
+	Calendar idCardExpiryDate;
 	
 	
 	@Column(name = "passport_Expiry_Date")
 	@Basic(fetch = FetchType.EAGER)
-	String passportExpiryDate;
+	Calendar passportExpiryDate;
 	
 	
 	@Column(name = "passport_Number")
@@ -180,10 +191,6 @@ public class Chiraghuser implements Serializable {
 	@Column(name = "scanned_Id_Copy_Upload")
 	@Basic(fetch = FetchType.EAGER)
 	String scannedIdCopyUpload;
-	
-	
-	
-	
 	
 	@Column(name = "profile_Pic_Upload", length = 50)
 	@Basic(fetch = FetchType.EAGER)
@@ -289,22 +296,22 @@ public class Chiraghuser implements Serializable {
 		this.idCardNumber = idCardNumber;
 	}
 
-	public String getIdCardExpiryDate() {
+	public Calendar getIdCardExpiryDate() {
 		return idCardExpiryDate;
 	}
 
-	public void setIdCardExpiryDate(String idCardExpiryDate) {
-		this.idCardExpiryDate = idCardExpiryDate;
+	public void setIdCardExpiryDate(Calendar calendar) {
+		this.idCardExpiryDate = calendar;
 	}
 
-	public String getPassportExpiryDate() {
+	
+
+	public Calendar getPassportExpiryDate() {
 		return passportExpiryDate;
 	}
-
-	public void setPassportExpiryDate(String passportExpiryDate) {
+	public void setPassportExpiryDate(Calendar passportExpiryDate) {
 		this.passportExpiryDate = passportExpiryDate;
 	}
-
 	public String getPassportNumber() {
 		return passportNumber;
 	}
@@ -328,7 +335,6 @@ public class Chiraghuser implements Serializable {
 	public void setFax(String fax) {
 		this.fax = fax;
 	}
-
 	public String getCountry() {
 		return country;
 	}
@@ -427,6 +433,18 @@ public class Chiraghuser implements Serializable {
 	public void setProfilePicUpload(String profilePicUpload) {
 		this.profilePicUpload = profilePicUpload;
 	}
+	public String getOldPasssword() {
+		return oldPasssword;
+	}
+	public void setOldPasssword(String oldPasssword) {
+		this.oldPasssword = oldPasssword;
+	}
+	public String getErrorMsg() {
+		return errorMsg;
+	}
+	public void setErrorMsg(String errorMsg) {
+		this.errorMsg = errorMsg;
+	}
 	public String getRole() {
 		return role;
 	}
@@ -458,6 +476,14 @@ public class Chiraghuser implements Serializable {
 	public void setChiraghproperties(java.util.List<Chiraghproperty> chiraghproperties) {
 		this.chiraghproperties = chiraghproperties;
 	}
-
+	public String getPasswordChangeDate() {
+		return passwordChangeDate;
+	}
+	public void setPasswordChangeDate(String passwordChangeDate) {
+		this.passwordChangeDate = passwordChangeDate;
+	}
+	 
+	
+	
 		
 }
