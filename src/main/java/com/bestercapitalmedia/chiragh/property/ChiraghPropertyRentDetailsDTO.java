@@ -57,7 +57,7 @@ public class ChiraghPropertyRentDetailsDTO {
 	Calendar dateReceived;
 	
 	
-	
+	String status;
 	/**
 	 * Gets the lease start date.
 	 *
@@ -73,6 +73,7 @@ public class ChiraghPropertyRentDetailsDTO {
 	 * @param leaseStartDate the new lease start date
 	 */
 	public void setLeaseStartDate(Calendar leaseStartDate) {
+		
 		this.leaseStartDate = leaseStartDate;
 	}
 	
@@ -316,6 +317,14 @@ public class ChiraghPropertyRentDetailsDTO {
 	 */
 	public void setDateReceived(Calendar dateReceived) {
 		this.dateReceived = dateReceived;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	

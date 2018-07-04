@@ -168,9 +168,9 @@ public class ChiraghPropertyDetailsDTO {
 	/** The verification hod approved. */
 	private String verificationHodApproved;
 	
-	String	isPropertyFinancialDetailsVerified;
-	
-	String	isPropertyRentalDetailsVerified;
+//	String	isPropertyFinancialDetailsVerified;
+//	
+//	String	isPropertyRentalDetailsVerified;
 	
 	/** The valuation report document. */
 	private String valuationReportDocument;
@@ -193,8 +193,7 @@ public class ChiraghPropertyDetailsDTO {
 	/** The payment schedule. */
 	private String paymentSchedule;
 	
-	/** The statusval. */
-	private int statusval;
+	
 	
 	/** The carpets. */
 	private String carpets;
@@ -483,24 +482,13 @@ public class ChiraghPropertyDetailsDTO {
 	/** The payment structure. */
 	String paymentStructure;
 	
-	
+	String status;
 	/**
 	 * Gets the statusval.
 	 *
 	 * @return the statusval
 	 */
-	public int getStatusval() {
-		return statusval;
-	}
-	
-	/**
-	 * Sets the statusval.
-	 *
-	 * @param statusval the new statusval
-	 */
-	public void setStatusval(int statusval) {
-		this.statusval = statusval;
-	}
+
 	
 	/**
 	 * Gets the property description.
@@ -3117,20 +3105,13 @@ public class ChiraghPropertyDetailsDTO {
 		this.verificationHodApproved = verificationHodApproved;
 	}
 
-	public String getIsPropertyFinancialDetailsVerified() {
-		return isPropertyFinancialDetailsVerified;
+	
+	public String getStatus() {
+		return status;
 	}
 
-	public void setIsPropertyFinancialDetailsVerified(String isPropertyFinancialDetailsVerified) {
-		this.isPropertyFinancialDetailsVerified = isPropertyFinancialDetailsVerified;
-	}
-
-	public String getIsPropertyRentalDetailsVerified() {
-		return isPropertyRentalDetailsVerified;
-	}
-
-	public void setIsPropertyRentalDetailsVerified(String isPropertyRentalDetailsVerified) {
-		this.isPropertyRentalDetailsVerified = isPropertyRentalDetailsVerified;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 

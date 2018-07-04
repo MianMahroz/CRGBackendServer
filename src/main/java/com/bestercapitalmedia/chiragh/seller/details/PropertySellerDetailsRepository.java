@@ -19,7 +19,8 @@ public interface PropertySellerDetailsRepository extends CrudRepository<Property
 	 * @param property_Id the property id
 	 * @return the list
 	 */
-	@Query(value = "select * from propertySellerDetails where property_Id=?1 AND owner_Type='owner' AND is_Personal_Details_Verified!='true' ", nativeQuery = true)
+//	AND is_Personal_Details_Verified!='true'
+	@Query(value = "select * from propertySellerDetails where property_Id=?1 AND owner_Type='owner'  ", nativeQuery = true)
 	public List<Propertysellerdetails> findByOwnerByPropertyId(int property_Id);
 
 	/**
@@ -28,7 +29,8 @@ public interface PropertySellerDetailsRepository extends CrudRepository<Property
 	 * @param property_Id the property id
 	 * @return the list
 	 */
-	@Query(value = "select * from propertySellerDetails where property_Id=?1 AND owner_Type='poa' AND is_Personal_Details_Verified!='true' ", nativeQuery = true)
+//	AND is_Personal_Details_Verified!='true'
+	@Query(value = "select * from propertySellerDetails where property_Id=?1 AND owner_Type='poa'  ", nativeQuery = true)
 	public List<Propertysellerdetails> findByPoaByPropertyId(int property_Id);
 
 

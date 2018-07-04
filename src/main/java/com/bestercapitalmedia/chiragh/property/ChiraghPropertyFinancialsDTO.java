@@ -62,6 +62,7 @@ public class ChiraghPropertyFinancialsDTO {
 	/** The balance amount. */
 	float balanceAmount;
 	
+	String status;
 	/**
 	 * Gets the listed price.
 	 *
@@ -356,6 +357,14 @@ public class ChiraghPropertyFinancialsDTO {
 	 */
 	public void setPaymentSchedule(String paymentSchedule) {
 		this.paymentSchedule = paymentSchedule;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 
