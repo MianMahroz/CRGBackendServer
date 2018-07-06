@@ -113,23 +113,51 @@ public class ChiraghUserService {
 	 * @param userRegisterationDTO the user registeration DTO
 	 * @return the user registeration DTO
 	 */
-	public UserRegisterationDTO save(UserRegisterationDTO userRegisterationDTO) {
+	public String save(UserRegisterationDTO userRegisterationDTO) {
 		ModelMapper mapper = new ModelMapper();
-		try {
-			if (userRepository.findByUserName(userRegisterationDTO.getUserName()) == null
-					&& userRepository.findByEmail(userRegisterationDTO.getUserEmail()) == null
-					&& userRegisterationDTO.getUserPassword().equals(userRegisterationDTO.getConfirmPassword())
-					&& chiragUtill.validatePassword(userRegisterationDTO.getUserPassword()).equals("good")
-					|| chiragUtill.validatePassword(userRegisterationDTO.getUserPassword()).equals("strong")) {
-				userRegisterationDTO
-						.setUserPassword(chiragUtill.getencodedUserPassword(userRegisterationDTO.getUserPassword()));
-				Chiraghuser newChiraghuser = userRepository.save(mapper.map(userRegisterationDTO, Chiraghuser.class));
-				return mapper.map(newChiraghuser, UserRegisterationDTO.class);
-			} else
-				return null;
-		} catch (Exception e) {
-			return null;
-		}
+		 String msg="";
+		 
+		  Chiraghuser user=userRepository.findByUserName(userRegisterationDTO.getUserName());
+			if (user!=null)
+			{
+				msg="User Name Already Exist!! Try Another User Name";
+			}
+			Chiraghuser email=userRepository.findByEmail(userRegisterationDTO.getUserEmail());
+		     if( email != null)
+		     {
+		    	 msg="User Email Already Registered!! Try Another Email";
+		     }
+		     
+		     if(!userRegisterationDTO.getUserPassword().equals(userRegisterationDTO.getConfirmPassword()))
+		     {
+		    	 msg="Password doesn't match! Entered Again";
+		     }
+		     
+		     if(userRegisterationDTO.getUserPassword().equals(userRegisterationDTO.getUserName()))
+		     {
+		    	 msg="User Name & Password Cannot Be Same!";
+		     }
+		     
+	         if(!chiragUtill.validatePassword(userRegisterationDTO.getUserPassword()).equals("good")
+			 || !chiragUtill.validatePassword(userRegisterationDTO.getUserPassword()).equals("strong"))
+	     {
+			    msg="Used Strong Password";
+		 }
+	         
+		  if (userRepository.findByUserName(userRegisterationDTO.getUserName()) == null
+		 && userRepository.findByEmail(userRegisterationDTO.getUserEmail()) == null
+		 && userRegisterationDTO.getUserPassword().equals(userRegisterationDTO.getConfirmPassword())
+		 && chiragUtill.validatePassword(userRegisterationDTO.getUserPassword()).equals("good")
+		 || chiragUtill.validatePassword(userRegisterationDTO.getUserPassword()).equals("strong")) {
+		  
+		 userRegisterationDTO.setUserPassword(chiragUtill.getencodedUserPassword(userRegisterationDTO.getUserPassword()));
+		Chiraghuser newChiraghuser = userRepository.save(mapper.map(userRegisterationDTO, Chiraghuser.class));
+				//return mapper.map(newChiraghuser, UserRegisterationDTO.class);
+		if(newChiraghuser!=null) {
+			msg="Used Registered Sucessfully";
+			
+		}}
+				return msg;
 	}
 
 

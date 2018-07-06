@@ -147,21 +147,18 @@ public class UserController {
 			HttpServletRequest httpServletRequest) {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
-			UserRegisterationDTO userRegisterationDTO = chiraghUserService.save(data);
-			if (userRegisterationDTO == null) {
-				return new ResponseEntity(chiraghUtil.getMessageObject("Registration Fail"), HttpStatus.OK);
-			}
+			String msg = chiraghUserService.save(data);
+			return new ResponseEntity(chiraghUtil.getMessageObject(msg), HttpStatus.OK);
 
-			try {
-				logUtill.inputLog(httpServletRequest, userRepository.findByUserName(userRegisterationDTO.getUserName()),
-						"/api/user/registerUser", mapper.writeValueAsString(data),
-						mapper.writeValueAsString(userRegisterationDTO));
-			} catch (Exception e) {
-				e.printStackTrace();
-				new ResponseEntity(chiraghUtil.getMessageObject("Log not Generated"), HttpStatus.OK);
-			}
+//			try {
+//				logUtill.inputLog(httpServletRequest, userRepository.findByUserName(userRegisterationDTO.getUserName()),
+//						"/api/user/registerUser", mapper.writeValueAsString(data),
+//						mapper.writeValueAsString(userRegisterationDTO));
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//				new ResponseEntity(chiraghUtil.getMessageObject("Log not Generated"), HttpStatus.OK);
+//			}
 
-			return new ResponseEntity(chiraghUtil.getMessageObject("User Created Successfully"), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity(chiraghUtil.getMessageObject("Internal Server Error!" + e.getMessage()),
 					HttpStatus.INTERNAL_SERVER_ERROR);
