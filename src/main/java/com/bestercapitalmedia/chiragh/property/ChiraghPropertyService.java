@@ -162,8 +162,8 @@ public class ChiraghPropertyService {
 			chiraghproperty.setRentalEjariNo(chiraghPropertyRentDetailsDTO.getRentalEjariNo());
 			chiraghproperty.setRentalAnnualRent(chiraghPropertyRentDetailsDTO.getRentalAnnualRent());
 			chiraghproperty.setTenancyContractUpload(chiraghPropertyRentDetailsDTO.getTenancyContractUpload());
-			chiraghproperty.setLeaseStartDate(chiraghPropertyRentDetailsDTO.getLeaseStartDate());
-			chiraghproperty.setLeaseExpiryDate(chiraghPropertyRentDetailsDTO.getLeaseExpiryDate());
+//			chiraghproperty.setLeaseStartDate(chiraghPropertyRentDetailsDTO.getLeaseStartDate());
+//			chiraghproperty.setLeaseExpiryDate(chiraghPropertyRentDetailsDTO.getLeaseExpiryDate());
 			//these two properties i used in admin panel
 			chiraghproperty.setSellerUserName(chiraghPropertyRentDetailsDTO.getUserName());
 			chiraghproperty.setDateReceived(new Date());

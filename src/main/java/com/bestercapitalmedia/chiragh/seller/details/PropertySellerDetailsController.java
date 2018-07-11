@@ -267,7 +267,7 @@ ObjectMapper mapper=new ObjectMapper();
 		
 		ObjectMapper mapper=new ObjectMapper();
 //		/C://upload-dir/
-		String fileName= document.saveMultipartFile("./ChiraghDocuments/"+path, name, file);
+		String fileName= document.saveMultipartFile("/home/ubuntu/apache-tomcat-9.0.8/webapps/ChiraghDocuments/"+path, name, file);
 	     if(fileName.equals("")||fileName.equals(null))
 	    	 return null;
 

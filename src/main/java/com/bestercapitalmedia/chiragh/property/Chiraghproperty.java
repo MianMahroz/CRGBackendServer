@@ -397,19 +397,7 @@ public class Chiraghproperty implements Serializable {
 
 	String communityView;
 	
-	/** The lease start date. */
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "lease_Start_Date")
-	@Basic(fetch = FetchType.EAGER)
-
-	Calendar leaseStartDate;
 	
-	/** The lease expiry date. */
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "lease_Expiry_Date")
-	@Basic(fetch = FetchType.EAGER)
-
-	Calendar leaseExpiryDate;
 	
 	/** The tenant name. */
 
@@ -1989,37 +1977,7 @@ public class Chiraghproperty implements Serializable {
 	 *
 	 * @return the lease start date
 	 */
-	public Calendar getLeaseStartDate() {
-		return leaseStartDate;
-	}
-
-	/**
-	 * Sets the lease start date.
-	 *
-	 * @param leaseStartDate the new lease start date
-	 */
-	public void setLeaseStartDate(Calendar leaseStartDate) {
-		this.leaseStartDate = leaseStartDate;
-	}
-
-	/**
-	 * Gets the lease expiry date.
-	 *
-	 * @return the lease expiry date
-	 */
-	public Calendar getLeaseExpiryDate() {
-		return leaseExpiryDate;
-	}
-
-	/**
-	 * Sets the lease expiry date.
-	 *
-	 * @param leaseExpiryDate the new lease expiry date
-	 */
-	public void setLeaseExpiryDate(Calendar leaseExpiryDate) {
-		this.leaseExpiryDate = leaseExpiryDate;
-	}
-
+	
 	/**
 	 * Gets the tenant name.
 	 *

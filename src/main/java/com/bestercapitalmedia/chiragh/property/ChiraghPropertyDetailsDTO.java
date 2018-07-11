@@ -16,7 +16,7 @@ public class ChiraghPropertyDetailsDTO {
 	
 	/** The user name. */
 	private String userName;
-	
+	private String isPropertyDetailsVerified;
 	
 	/** The property id. */
 	private int propertyId;
@@ -483,6 +483,8 @@ public class ChiraghPropertyDetailsDTO {
 	String paymentStructure;
 	
 	String status;
+	
+	String sellerUserName;
 	/**
 	 * Gets the statusval.
 	 *
@@ -3112,6 +3114,22 @@ public class ChiraghPropertyDetailsDTO {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getSellerUserName() {
+		return sellerUserName;
+	}
+
+	public void setSellerUserName(String sellerUserName) {
+		this.sellerUserName = sellerUserName;
+	}
+
+	public String getIsPropertyDetailsVerified() {
+		return isPropertyDetailsVerified;
+	}
+
+	public void setIsPropertyDetailsVerified(String isPropertyDetailsVerified) {
+		this.isPropertyDetailsVerified = isPropertyDetailsVerified;
 	}
 	
 

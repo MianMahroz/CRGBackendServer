@@ -21,10 +21,10 @@ public class ChiraghPropertyRentDetailsDTO {
 	int propertyId;
 	
 	/** The lease start date. */
-	Calendar leaseStartDate;
+//	Calendar leaseStartDate;
 	
 	/** The lease expiry date. */
-	Calendar leaseExpiryDate;
+//	Calendar leaseExpiryDate;
 	
 	/** The tenant name. */
 	String tenantName;
@@ -63,37 +63,7 @@ public class ChiraghPropertyRentDetailsDTO {
 	 *
 	 * @return the lease start date
 	 */
-	public Calendar getLeaseStartDate() {
-		return leaseStartDate;
-	}
 	
-	/**
-	 * Sets the lease start date.
-	 *
-	 * @param leaseStartDate the new lease start date
-	 */
-	public void setLeaseStartDate(Calendar leaseStartDate) {
-		
-		this.leaseStartDate = leaseStartDate;
-	}
-	
-	/**
-	 * Gets the lease expiry date.
-	 *
-	 * @return the lease expiry date
-	 */
-	public Calendar getLeaseExpiryDate() {
-		return leaseExpiryDate;
-	}
-	
-	/**
-	 * Sets the lease expiry date.
-	 *
-	 * @param leaseExpiryDate the new lease expiry date
-	 */
-	public void setLeaseExpiryDate(Calendar leaseExpiryDate) {
-		this.leaseExpiryDate = leaseExpiryDate;
-	}
 	
 	/**
 	 * Gets the tenant name.

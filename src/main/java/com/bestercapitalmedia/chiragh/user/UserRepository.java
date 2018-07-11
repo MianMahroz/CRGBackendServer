@@ -34,6 +34,9 @@ public interface UserRepository extends CrudRepository<Chiraghuser, Integer> {
 	@Query(value = "select * from Chiraghuser where user_Name=?1 AND user_Password=?2  AND role=?3", nativeQuery = true)
 	public Chiraghuser findAdminUserByUserNameNPasswordNRole(String userName,String userPassword,String role);
 		
+	
+	@Query(value = "select * from Chiraghuser where user_Name=?1   AND role=?2", nativeQuery = true)
+	public Chiraghuser findAdminUserByUserNameNRole(String userName,String role);
 	/**
 	 * Find by email.
 	 *

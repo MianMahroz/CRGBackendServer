@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class MailService {
-	
+
 	/** The from email. */
 	@Value("${app.email.from}")
 	private String fromEmail;
@@ -45,7 +45,7 @@ public class MailService {
 	/** The mail sender. */
 	@Autowired
 	private MailSender mailSender;
-	
+
 	/** The java mail sender. */
 	@Autowired
 	private JavaMailSender javaMailSender;
@@ -53,9 +53,12 @@ public class MailService {
 	/**
 	 * Send mail 1.
 	 *
-	 * @param to the to
-	 * @param subject the subject
-	 * @param text the text
+	 * @param to
+	 *            the to
+	 * @param subject
+	 *            the subject
+	 * @param text
+	 *            the text
 	 */
 	public void sendMail1(String to, String subject, String text) {
 		try {
@@ -74,52 +77,51 @@ public class MailService {
 	/**
 	 * Send mail.
 	 *
-	 * @param to the to
-	 * @param subject the subject
-	 * @param body the body
+	 * @param to
+	 *            the to
+	 * @param subject
+	 *            the subject
+	 * @param body
+	 *            the body
 	 */
-	public void sendMail(String to, String subject, String body) {
-		 final String username = "mianmahroz@gmail.com";
-	        final String password = "mianmian";
+	public String sendMail(String to, String subject, String body) {
+		final String username = "mianmahroz@gmail.com";
+		final String password = "mianmian";
 
-	        Properties props = new Properties();
-	        props.put("mail.smtp.auth", "true");
-	        props.put("mail.smtp.starttls.enable", "true");
-	        props.put("mail.smtp.host", "smtp.gmail.com");
-	        props.put("mail.smtp.port", "587");
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
 
-	        Session session = Session.getInstance(props,
-	          new javax.mail.Authenticator() {
-	            protected PasswordAuthentication getPasswordAuthentication() {
-	                return new PasswordAuthentication(username, password);
-	            }
-	          });
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
 
-	        try {
+		try {
 
-	            Message message = new MimeMessage(session);
-	            message.setFrom(new InternetAddress("mianmahroz@gmail.com"));
-	            message.setRecipients(Message.RecipientType.TO,
-	                InternetAddress.parse(to));
-	            message.setSubject("Chiragh Verification Email");
-	            message.setText(body);
-
-	            Transport.send(message);
-
-	            System.out.println("Done");
-
-	        } catch (MessagingException e) {
-	            throw new RuntimeException(e);
-	        }
-	    
-
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress("mianmahroz@gmail.com"));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+			message.setSubject(subject);
+			message.setText(body);
+			Transport.send(message);
+			return "Email Sent";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "Email Sending fail";
+		}
 	}
 
 	/**
 	 * Send reset password.
 	 *
-	 * @param to the to
-	 * @param token the token
+	 * @param to
+	 *            the to
+	 * @param token
+	 *            the token
 	 */
 	public void sendResetPassword(String to, String token) {
 		String url = resetPasswordUrl + token;
@@ -131,8 +133,10 @@ public class MailService {
 	/**
 	 * Send new registration.
 	 *
-	 * @param to the to
-	 * @param token the token
+	 * @param to
+	 *            the to
+	 * @param token
+	 *            the token
 	 */
 	public void sendNewRegistration(String to, String token) {
 		String url = appUrl + token;

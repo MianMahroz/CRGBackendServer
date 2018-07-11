@@ -29,20 +29,20 @@ public class Document {
 		SimpleDateFormat dateFormat1 = new SimpleDateFormat("ddMMyy-hhmmss");
 		Date date = new Date();
 		String fileName = "";
-		System.out.println(path);
 
 		if (!file.isEmpty()) {
 			try {
 				String[] split = file.getOriginalFilename().split("\\.");
 				String ext = split[split.length - 1];
 				fileName = name+"-File-" + dateFormat1.format(date) + "." + ext;
-
+				System.out.println(path);
 				if (Files.notExists(Paths.get(path), LinkOption.NOFOLLOW_LINKS))
 					Files.createDirectories(Paths.get(path));
-				Files.copy(file.getInputStream(), Paths.get(path, fileName));
-			} catch (IOException | RuntimeException e) {
+				long p=Files.copy(file.getInputStream(), Paths.get(path, fileName));
+				System.out.println("Path Output"+p);
+			} catch (Exception  e) {
 				e.printStackTrace();
-				return "";
+				return ""+e.getMessage();
 			}
 		} else {
 			return "";
