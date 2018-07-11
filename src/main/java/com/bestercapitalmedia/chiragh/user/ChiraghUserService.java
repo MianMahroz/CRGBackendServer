@@ -174,34 +174,37 @@ public class ChiraghUserService {
 		System.out.println(userLoginDTO.getRole());
 		
 		Chiraghuser chiraghuser=null;
-		if (u1.getRole().equals("chiraghuser")) {
+//		if (u1.getRole().equals("chiraghuser")) {
 			chiraghuser=null;
-			String enterpassword=chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword());
-			  if(enterpassword.equals(u1.getOldPasssword())) {
-				 
-//				  SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//
-//				  String dateString = format.format( new Date());
-//				  String olddate=u1.getPasswordChangeDate();
-//				  Date  date = format.parse (olddate);    
-//				  System.out.println(enterpassword);
-//   				  userLoginDTO.setMsg("Your Password Changed"+date );
-					
-					return userLoginDTO; 
-				
-				
-			}
-			  
-			else if(chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword()).equals(u1.getUserPassword())) {
-				chiraghuser = userRepository.findByUserNameNPassword(userLoginDTO.getUserName(),
-						chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword()));					
-			}
+			chiraghuser = userRepository.findByUserNameNPassword(userLoginDTO.getUserName(),
+			chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword()));					
 			
-		} else {
-			 chiraghuser=null;
-			 chiraghuser = userRepository.findAdminUserByUserNameNPasswordNRole(userLoginDTO.getUserName(),
-					chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword()),u1.getRole());
-		}
+			//			String enterpassword=chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword());
+//			  if(enterpassword.equals(u1.getOldPasssword())) {
+//				 
+////				  SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+////
+////				  String dateString = format.format( new Date());
+////				  String olddate=u1.getPasswordChangeDate();
+////				  Date  date = format.parse (olddate);    
+////				  System.out.println(enterpassword);
+////   				  userLoginDTO.setMsg("Your Password Changed"+date );
+//					
+//					return userLoginDTO; 
+//				
+//				
+//			}
+//			  
+//			else if(chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword()).equals(u1.getUserPassword())) {
+//				chiraghuser = userRepository.findByUserNameNPassword(userLoginDTO.getUserName(),
+//						chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword()));					
+//			}
+//			
+//		} else {
+//			 chiraghuser=null;
+//			 chiraghuser = userRepository.findAdminUserByUserNameNPasswordNRole(userLoginDTO.getUserName(),
+//					chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword()),u1.getRole());
+//		}
 
 		if (u1 == null) {
 			userLoginDTO.setMsg("Invalid User Name!");
