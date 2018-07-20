@@ -52,7 +52,8 @@ public class Chiraghproperty implements Serializable {
 	String propertyTitle;
 	
 	/** The area. */
-	@Column
+	@Column(name="area")
+	@Basic(fetch = FetchType.EAGER)
 	String area;
 	
 	/** The property description. */
@@ -938,6 +939,49 @@ public class Chiraghproperty implements Serializable {
 	@Column(name = "park")
 	@Basic(fetch = FetchType.EAGER)
 	String park;
+	
+	@Column(name = "buliding_Number")
+	@Basic(fetch = FetchType.EAGER)
+
+	String bulidingNumber;
+	
+	@Column(name = "buliding_Name")
+	@Basic(fetch = FetchType.EAGER)
+
+	String bulidingName;
+	
+	
+	@Column(name = "property_Status_Other")
+	@Basic(fetch = FetchType.EAGER)
+
+	String propertyStatusOther;
+	
+	
+	@Column(name = "type_Property_Other")
+	@Basic(fetch = FetchType.EAGER)
+
+	String typePropertyOther;
+	
+	@Column(name = "floor_Plan_Upload")
+	@Basic(fetch = FetchType.EAGER)
+
+	String floorPlanUpload;
+	
+	@Column(name = "gross_Area")
+	@Basic(fetch = FetchType.EAGER)
+
+	String grossArea;
+	
+	@Column(name ="net_Area")
+	@Basic(fetch = FetchType.EAGER)
+
+	String netArea;
+	
+	@Column(name = "bank_Other")
+	@Basic(fetch = FetchType.EAGER)
+
+	String bankOther;
+	
 
 	/** The propertytype. */
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -4075,6 +4119,71 @@ public class Chiraghproperty implements Serializable {
 	public void setIsPropertyRentalDetailsVerified(String isPropertyRentalDetailsVerified) {
 		this.isPropertyRentalDetailsVerified = isPropertyRentalDetailsVerified;
 	}
+
+	public String getBulidingNumber() {
+		return bulidingNumber;
+	}
+
+	public void setBulidingNumber(String bulidingNumber) {
+		this.bulidingNumber = bulidingNumber;
+	}
+
+	public String getBulidingName() {
+		return bulidingName;
+	}
+
+	public void setBulidingName(String bulidingName) {
+		this.bulidingName = bulidingName;
+	}
+
+	public String getPropertyStatusOther() {
+		return propertyStatusOther;
+	}
+
+	public void setPropertyStatusOther(String propertyStatusOther) {
+		this.propertyStatusOther = propertyStatusOther;
+	}
+
+	public String getTypePropertyOther() {
+		return typePropertyOther;
+	}
+
+	public void setTypePropertyOther(String typePropertyOther) {
+		this.typePropertyOther = typePropertyOther;
+	}
+
+	public String getFloorPlanUpload() {
+		return floorPlanUpload;
+	}
+
+	public void setFloorPlanUpload(String floorPlanUpload) {
+		this.floorPlanUpload = floorPlanUpload;
+	}
+
+	public String getGrossArea() {
+		return grossArea;
+	}
+
+	public void setGrossArea(String grossArea) {
+		this.grossArea = grossArea;
+	}
+
+	public String getNetArea() {
+		return netArea;
+	}
+
+	public void setNetArea(String netArea) {
+		this.netArea = netArea;
+	}
+
+	public String getBankOther() {
+		return bankOther;
+	}
+
+	public void setBankOther(String bankOther) {
+		this.bankOther = bankOther;
+	}
+	
 
 	
 

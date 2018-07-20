@@ -17,6 +17,7 @@ public class ChiraghPropertyDetailsDTO {
 	/** The user name. */
 	private String userName;
 	private String isPropertyDetailsVerified;
+	private String areaUnit;
 	
 	/** The property id. */
 	private int propertyId;
@@ -39,6 +40,7 @@ public class ChiraghPropertyDetailsDTO {
 		this.userName = userName;
 	}
 	
+	private String bankOther;
 	/** The area. */
 	private String area;
 	
@@ -490,17 +492,80 @@ public class ChiraghPropertyDetailsDTO {
 	 *
 	 * @return the statusval
 	 */
-
-	
+    String bulidingName; 
+    String bulidingNumber;
+    String typePropertyOther;
+    String propertyStatusOther;
+	String floorPlanUpload;
+	String grossArea;
+	String netArea;
 	/**
 	 * Gets the property description.
 	 *
 	 * @return the property description
 	 */
+    
+    
 	public String getPropertyDescription() {
 		return propertyDescription;
 	}
 	
+	public String getGrossArea() {
+		return grossArea;
+	}
+
+	public void setGrossArea(String grossArea) {
+		this.grossArea = grossArea;
+	}
+
+	public String getNetArea() {
+		return netArea;
+	}
+
+	public void setNetArea(String netArea) {
+		this.netArea = netArea;
+	}
+
+	public String getFloorPlanUpload() {
+		return floorPlanUpload;
+	}
+
+	public void setFloorPlanUpload(String floorPlanUpload) {
+		this.floorPlanUpload = floorPlanUpload;
+	}
+
+	public String getTypePropertyOther() {
+		return typePropertyOther;
+	}
+
+	public void setTypePropertyOther(String typePropertyOther) {
+		this.typePropertyOther = typePropertyOther;
+	}
+
+	public String getPropertyStatusOther() {
+		return propertyStatusOther;
+	}
+
+	public void setPropertyStatusOther(String propertyStatusOther) {
+		this.propertyStatusOther = propertyStatusOther;
+	}
+
+	public String getBulidingName() {
+		return bulidingName;
+	}
+
+	public void setBulidingName(String bulidingName) {
+		this.bulidingName = bulidingName;
+	}
+
+	public String getBulidingNumber() {
+		return bulidingNumber;
+	}
+
+	public void setBulidingNumber(String bulidingNumber) {
+		this.bulidingNumber = bulidingNumber;
+	}
+
 	/**
 	 * Sets the property description.
 	 *
@@ -3130,6 +3195,22 @@ public class ChiraghPropertyDetailsDTO {
 
 	public void setIsPropertyDetailsVerified(String isPropertyDetailsVerified) {
 		this.isPropertyDetailsVerified = isPropertyDetailsVerified;
+	}
+
+	public String getBankOther() {
+		return bankOther;
+	}
+
+	public void setBankOther(String bankOther) {
+		this.bankOther = bankOther;
+	}
+
+	public String getAreaUnit() {
+		return areaUnit;
+	}
+
+	public void setAreaUnit(String areaUnit) {
+		this.areaUnit = areaUnit;
 	}
 	
 

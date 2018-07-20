@@ -127,7 +127,7 @@ public class Propertysellerdetails implements Serializable {
 	
 	/** The email. */
 
-	@Column(name = "email", length = 25, nullable = false)
+	@Column(name = "email", length = 50, nullable = false)
 	@Basic(fetch = FetchType.EAGER)
 
 	String email;

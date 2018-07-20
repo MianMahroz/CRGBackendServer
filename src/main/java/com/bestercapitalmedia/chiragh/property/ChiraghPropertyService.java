@@ -127,6 +127,7 @@ public class ChiraghPropertyService {
 			chiraghproperty.setMorgageStatus(chiraghPropertyFinancialsDTO.getMorgageStatus());
 			chiraghproperty.setMorgageRegNo(chiraghPropertyFinancialsDTO.getMorgageRegNo());
 			chiraghproperty.setBank(chiraghPropertyFinancialsDTO.getBank());
+			chiraghproperty.setBankOther(chiraghPropertyFinancialsDTO.getBankOther());
 			chiraghproperty.setMorgageAmount(chiraghPropertyFinancialsDTO.getMorgageAmount());
 			chiraghproperty.setPreClosureCharges(chiraghPropertyFinancialsDTO.getPreClosureCharges());
 			chiraghproperty.setPaymentSchedule(chiraghPropertyFinancialsDTO.getPaymentSchedule());
