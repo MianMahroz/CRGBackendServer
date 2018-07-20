@@ -16,7 +16,7 @@ public class ChiraghPropertyFinancialsDTO {
 
 	/** The user name. */
 	String userName;
-	
+	String bankOther;
 	/** The property id. */
 	int propertyId;
 	
@@ -366,6 +366,15 @@ public class ChiraghPropertyFinancialsDTO {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public String getBankOther() {
+		return bankOther;
+	}
+
+	public void setBankOther(String bankOther) {
+		this.bankOther = bankOther;
+	}
+	
 	
 
 }

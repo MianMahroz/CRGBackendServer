@@ -168,20 +168,26 @@ public class ChiraghUserService {
 	 */
 	public UserLoginDTO login(UserLoginDTO userLoginDTO) {
 		ModelMapper mapper = new ModelMapper();
-		Chiraghuser u1 = userRepository.findByUserName(userLoginDTO.getUserName());
-		System.out.println(u1.getUserName());
-		System.out.println(userLoginDTO.getRole());
-		
+		Chiraghuser u1=null;
 		Chiraghuser chiraghuser=null;
-		if (u1.getRole().equals("chiraghuser")) {
-			chiraghuser=null;
+		
+		u1= userRepository.findByUserName(userLoginDTO.getUserName());
+		if(u1!=null) {
 			chiraghuser = userRepository.findByUserNameNPassword(userLoginDTO.getUserName(),
-			chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword()));					
+					chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword()));								
+			 
+			if(chiraghuser!=null) {
+		    	 userLoginDTO.setMsg("Login Successfully");
+		     }else {
+		    	 userLoginDTO.setMsg("Invalid Password!");
+		     }
+		}else {
+			 userLoginDTO.setMsg("Invalid UserName!");
 		}
-		else {
-			chiraghuser = userRepository.findAdminUserByUserNameNPasswordNRole(userLoginDTO.getUserName(),
-					chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword()),u1.getRole());			
-		}
+		
+		
+				
+		
 			//			String enterpassword=chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword());
 //			  if(enterpassword.equals(u1.getOldPasssword())) {
 //				 
@@ -209,16 +215,13 @@ public class ChiraghUserService {
 //					chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword()),u1.getRole());
 //		}
 
-		if (chiraghuser == null) {
-			userLoginDTO.setMsg("Invalid Password!");
-		}
-		if (u1 != null && chiraghuser != null) {
-			userLoginDTO.setMsg("Login Successfully");
-			userLoginDTO.setRole(u1.getRole());
-			return userLoginDTO;
-		} else {
-			return userLoginDTO;
-		}
+		
+
+			
+			
+		
+			
+	return userLoginDTO;
 
 	}
 

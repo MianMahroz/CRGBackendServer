@@ -101,11 +101,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
+
 		config.addAllowedOrigin("*");
 //		config.addAllowedOrigin("http://demo.chiragh.com");
 //		config.addAllowedOrigin("http://localhost:4200");
 		
 	    config.addAllowedHeader("*");	    
+
 		config.addAllowedMethod("*");
 		source.registerCorsConfiguration("/**", config);		
 		@SuppressWarnings("unchecked")

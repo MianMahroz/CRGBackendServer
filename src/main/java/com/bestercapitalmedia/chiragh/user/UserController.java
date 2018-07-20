@@ -263,9 +263,11 @@ public class UserController {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			UserLoginDTO loginDTO = chiraghUserService.login(userLoginDTO);
-			// if (loginDTO == null)
-			// return new ResponseEntity(chiraghUtil.getMessageObject("User Not Found!"),
-			// HttpStatus.OK);
+			System.out.println(loginDTO.getUserName());
+//			 if (loginDTO == null) {
+//			 return new ResponseEntity(chiraghUtil.getMessageObject("User And Password Is Not Found!"),
+//			 HttpStatus.OK);
+//			 }
 			//
 
 			// session
@@ -285,6 +287,7 @@ public class UserController {
 			// Fail!"), HttpStatus.OK);
 			// }
 			// // return new ResponseEntity(loginDTO, HttpStatus.OK);
+			
 			return new ResponseEntity(loginDTO, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity(chiraghUtil.getMessageObject("Internal Server Error!" + e.getMessage()),
