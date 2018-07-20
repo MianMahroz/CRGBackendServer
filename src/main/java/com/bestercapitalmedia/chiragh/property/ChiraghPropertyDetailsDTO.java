@@ -1,6 +1,7 @@
 package com.bestercapitalmedia.chiragh.property;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -17,6 +18,13 @@ public class ChiraghPropertyDetailsDTO {
 	/** The user name. */
 	private String userName;
 	private String isPropertyDetailsVerified;
+	private String isPOADetailsVerified;
+	private String isPersonalDetailsVerified;
+	private String isAcknowledgementCall;
+	String lastActionPerformed;
+	Date lastAction;
+	String actionPerformedBy;
+	
 	
 	/** The property id. */
 	private int propertyId;
@@ -3130,6 +3138,54 @@ public class ChiraghPropertyDetailsDTO {
 
 	public void setIsPropertyDetailsVerified(String isPropertyDetailsVerified) {
 		this.isPropertyDetailsVerified = isPropertyDetailsVerified;
+	}
+
+	public String getIsPOADetailsVerified() {
+		return isPOADetailsVerified;
+	}
+
+	public void setIsPOADetailsVerified(String isPOADetailsVerified) {
+		this.isPOADetailsVerified = isPOADetailsVerified;
+	}
+
+	public String getIsPersonalDetailsVerified() {
+		return isPersonalDetailsVerified;
+	}
+
+	public void setIsPersonalDetailsVerified(String isPersonalDetailsVerified) {
+		this.isPersonalDetailsVerified = isPersonalDetailsVerified;
+	}
+
+	public String getIsAcknowledgementCall() {
+		return isAcknowledgementCall;
+	}
+
+	public void setIsAcknowledgementCall(String isAcknowledgementCall) {
+		this.isAcknowledgementCall = isAcknowledgementCall;
+	}
+
+	public String getLastActionPerformed() {
+		return lastActionPerformed;
+	}
+
+	public void setLastActionPerformed(String lastActionPerformed) {
+		this.lastActionPerformed = lastActionPerformed;
+	}
+
+	public Date getLastAction() {
+		return lastAction;
+	}
+
+	public void setLastAction(Date lastAction) {
+		this.lastAction = lastAction;
+	}
+
+	public String getActionPerformedBy() {
+		return actionPerformedBy;
+	}
+
+	public void setActionPerformedBy(String actionPerformedBy) {
+		this.actionPerformedBy = actionPerformedBy;
 	}
 	
 

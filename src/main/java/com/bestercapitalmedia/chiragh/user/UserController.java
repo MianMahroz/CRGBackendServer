@@ -56,7 +56,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 @Controller
 // @SessionScope
-@CrossOrigin
+//@CrossOrigin(origins= {"http://localhost:4200","http://demo.chiragh.com"})
+
 @RequestMapping("/api/user")
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class UserController {

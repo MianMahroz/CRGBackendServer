@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,9 +28,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bestercapitalmedia.chiragh.city.CityRepository;
-import com.bestercapitalmedia.chiragh.property.auctionprocess.Propertyauctionprocess;
-import com.bestercapitalmedia.chiragh.property.type.Propertytype;
 import com.bestercapitalmedia.chiragh.property.type.PropertytypeRepository;
 import com.bestercapitalmedia.chiragh.user.Chiraghuser;
 import com.bestercapitalmedia.chiragh.user.UserController;
@@ -43,6 +41,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * The Class PropertyController.
  */
+//@CrossOrigin(origins= {"http://localhost:4200","http://demo.chiragh.com"})
 @RestController
 @RequestMapping("/api/property/")
 @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -330,6 +329,8 @@ public class PropertyController {
 			if (userName.equals("") || userName == null) {
 				return new ResponseEntity(chiraghUtil.getMessageObject("Invalid Session"), HttpStatus.OK);
 			}
+			
+			System.out.println(chiraghPropertyDetailsDTO.getIsAcknowledgementCall());
 
 			ModelMapper modelMapper = new ModelMapper();
 			ObjectMapper mapper = new ObjectMapper();

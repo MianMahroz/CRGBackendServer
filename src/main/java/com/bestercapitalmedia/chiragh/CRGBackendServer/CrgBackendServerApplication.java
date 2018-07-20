@@ -21,6 +21,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.Ordered;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.Trigger;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -31,11 +32,13 @@ import com.bestercapitalmedia.chiragh.utill.ChiragUtill;
 /**
  * The Class CrgBackendServerApplication.
  */
+//@CrossOrigin(origins= {"http://localhost:4200","http://demo.chiragh.com"})
 @SpringBootApplication(scanBasePackages = { "com.bestercapitalmedia" })
 @EnableJpaRepositories("com.bestercapitalmedia")
 @EntityScan("com.bestercapitalmedia")
 @PropertySource(value = { "classpath:application.properties" })
 public class CrgBackendServerApplication extends SpringBootServletInitializer {
+	
 	
 	/* (non-Javadoc)
 	 * @see org.springframework.boot.web.servlet.support.SpringBootServletInitializer#configure(org.springframework.boot.builder.SpringApplicationBuilder)
@@ -70,7 +73,8 @@ public class CrgBackendServerApplication extends SpringBootServletInitializer {
 	    config.setAllowCredentials(true);
 //	    config.setAllowedOrigins(Collections.singletonList("*"));
 	    config.setAllowedOrigins(Collections.singletonList("*"));
-//	    config.setAllowedOrigins(Collections.singletonList("http://18.217.156.5:4200"));
+
+	    
 	    config.setAllowedMethods(Collections.singletonList("*"));
 	    config.setAllowedHeaders(Collections.singletonList("*"));
 	    source.registerCorsConfiguration("/**", config);

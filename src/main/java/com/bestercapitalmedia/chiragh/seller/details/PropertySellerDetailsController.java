@@ -37,7 +37,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * The Class PropertySellerDetailsController.
  */
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @SuppressWarnings({ "unchecked", "rawtypes" })
 @RequestMapping("/api/Propertysellerdetails")
 public class PropertySellerDetailsController {

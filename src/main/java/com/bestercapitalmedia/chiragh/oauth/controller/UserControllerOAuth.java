@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * The Class UserControllerOAuth.
  */
+//@CrossOrigin(origins= {"http://localhost:4200","http://demo.chiragh.com"})
 @RestController
 @RequestMapping("/users")
 public class UserControllerOAuth {

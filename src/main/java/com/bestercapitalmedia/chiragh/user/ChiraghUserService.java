@@ -138,25 +138,24 @@ public class ChiraghUserService {
 		    	 msg="User Name & Password Cannot Be Same!";
 		     }
 		     
-	         if(!chiragUtill.validatePassword(userRegisterationDTO.getUserPassword()).equals("good")
-			 || !chiragUtill.validatePassword(userRegisterationDTO.getUserPassword()).equals("strong"))
-	     {
-			    msg="Used Strong Password";
-		 }
+//	         if(!chiragUtill.validatePassword(userRegisterationDTO.getUserPassword()).equals("good")
+//			 || !chiragUtill.validatePassword(userRegisterationDTO.getUserPassword()).equals("strong"))
+//	     {
+//			    msg="Used Strong Password";
+//		 }
 	         
-		  if (userRepository.findByUserName(userRegisterationDTO.getUserName()) == null
-		 && userRepository.findByEmail(userRegisterationDTO.getUserEmail()) == null
-		 && userRegisterationDTO.getUserPassword().equals(userRegisterationDTO.getConfirmPassword())
-		 && chiragUtill.validatePassword(userRegisterationDTO.getUserPassword()).equals("good")
-		 || chiragUtill.validatePassword(userRegisterationDTO.getUserPassword()).equals("strong")) {
-		  
+//		  if ( userRegisterationDTO.getUserPassword().equals(userRegisterationDTO.getConfirmPassword())
+//		 && chiragUtill.validatePassword(userRegisterationDTO.getUserPassword()).equals("good")
+//		 || chiragUtill.validatePassword(userRegisterationDTO.getUserPassword()).equals("strong")) {
+//		  
 		 userRegisterationDTO.setUserPassword(chiragUtill.getencodedUserPassword(userRegisterationDTO.getUserPassword()));
 		Chiraghuser newChiraghuser = userRepository.save(mapper.map(userRegisterationDTO, Chiraghuser.class));
 				//return mapper.map(newChiraghuser, UserRegisterationDTO.class);
 		if(newChiraghuser!=null) {
 			msg="Used Registered Sucessfully";
 			
-		}}
+		}
+//		}
 				return msg;
 	}
 
@@ -174,11 +173,15 @@ public class ChiraghUserService {
 		System.out.println(userLoginDTO.getRole());
 		
 		Chiraghuser chiraghuser=null;
-//		if (u1.getRole().equals("chiraghuser")) {
+		if (u1.getRole().equals("chiraghuser")) {
 			chiraghuser=null;
 			chiraghuser = userRepository.findByUserNameNPassword(userLoginDTO.getUserName(),
 			chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword()));					
-			
+		}
+		else {
+			chiraghuser = userRepository.findAdminUserByUserNameNPasswordNRole(userLoginDTO.getUserName(),
+					chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword()),u1.getRole());			
+		}
 			//			String enterpassword=chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword());
 //			  if(enterpassword.equals(u1.getOldPasssword())) {
 //				 
@@ -206,9 +209,7 @@ public class ChiraghUserService {
 //					chiragUtill.getencodedUserPassword(userLoginDTO.getUserPassword()),u1.getRole());
 //		}
 
-		if (u1 == null) {
-			userLoginDTO.setMsg("Invalid User Name!");
-		} else if (chiraghuser == null) {
+		if (chiraghuser == null) {
 			userLoginDTO.setMsg("Invalid Password!");
 		}
 		if (u1 != null && chiraghuser != null) {

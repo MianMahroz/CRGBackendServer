@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -14,8 +15,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
+import org.springframework.security.web.header.writers.StaticHeadersWriter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+//import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.filter.CorsFilter;
 
 import javax.annotation.Resource;
@@ -33,6 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Resource(name = "userService")
 	private UserDetailsService userDetailsService;
 
+	@Autowired
+	private MyCorsFilter myCorsFilter;
 	/* (non-Javadoc)
 	 * @see org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter#authenticationManagerBean()
 	 */
@@ -59,7 +65,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().anonymous().disable().authorizeRequests().antMatchers("/api-docs/**").permitAll();
+//		http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/oauth/token").permitAll();
+		http.addFilterBefore(myCorsFilter, ChannelProcessingFilter.class);
 	}
+	 
 
 	/**
 	 * Token store.
@@ -86,19 +95,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 *
 	 * @return the filter registration bean
 	 */
-	@SuppressWarnings("rawtypes")
+//	@SuppressWarnings("rawtypes")
 	@Bean
 	public FilterRegistrationBean corsFilter() {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
 		config.addAllowedOrigin("*");
-//		config.addAllowedOrigin("http://18.217.156.5:4200");
-		config.addAllowedHeader("*");
+//		config.addAllowedOrigin("http://demo.chiragh.com");
+//		config.addAllowedOrigin("http://localhost:4200");
+		
+	    config.addAllowedHeader("*");	    
 		config.addAllowedMethod("*");
-		source.registerCorsConfiguration("/**", config);
+		source.registerCorsConfiguration("/**", config);		
 		@SuppressWarnings("unchecked")
 		FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+//		FilterRegistrationBean bean = new FilterRegistrationBean(myCorsFilter);
 		bean.setOrder(0);
 		return bean;
 	}

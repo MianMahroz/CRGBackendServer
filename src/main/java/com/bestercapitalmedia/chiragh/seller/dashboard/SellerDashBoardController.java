@@ -42,7 +42,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * The Class SellerDashBoardController.
  */
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @RequestMapping("/api/userdashboard")
 public class SellerDashBoardController {
 	

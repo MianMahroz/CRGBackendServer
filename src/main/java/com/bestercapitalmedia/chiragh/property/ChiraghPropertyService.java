@@ -165,7 +165,7 @@ public class ChiraghPropertyService {
 //			chiraghproperty.setLeaseStartDate(chiraghPropertyRentDetailsDTO.getLeaseStartDate());
 //			chiraghproperty.setLeaseExpiryDate(chiraghPropertyRentDetailsDTO.getLeaseExpiryDate());
 			//these two properties i used in admin panel
-			chiraghproperty.setSellerUserName(chiraghPropertyRentDetailsDTO.getUserName());
+			chiraghproperty.setSellerUserName(chiraghPropertyRentDetailsDTO.getSellerUserName());
 			chiraghproperty.setDateReceived(new Date());
 			chiraghproperty.setLastActionPerformed("Not Started");
 			chiraghproperty.setStatus("inprocess");
